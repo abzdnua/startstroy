@@ -1,0 +1,128 @@
+<?
+    $page -> setTitle("Start stroy");
+
+?>
+        <h1 >Партнеры</h1>
+    <div class="page_partner ">
+        <ul>
+            <li class="no_mar_left">
+                <div class="img">
+                    <div class="vert_al">
+                   <a href="/"><img src="../img/partner.jpg"/></a>
+                    </div>
+                </div>
+                    <a href="">ООО «ЮДК»</a>
+                    <div class="text">Производитель изделий из автоклавного газобетона</div>
+
+            </li>
+            <li>
+                <div class="img">
+                    <div class="vert_al">
+                        <a href="/"><img src="../img/partner.jpg"/></a>
+                    </div>
+                </div>
+                <a href="">ООО «ЮДК»</a>
+                <div class="text">Производитель изделий из автоклавного газобетона</div>
+
+            </li>
+            <li>
+                <div class="img">
+                    <div class="vert_al">
+                        <a href="/"><img src="../img/partner2.jpg"/></a>
+                    </div>
+                </div>
+                <a href="">КЕРАТЕРМ</a>
+                <div class="text">Производитель изделий из автоклавного газобетона</div>
+
+            </li>
+            <li>
+                <div class="img">
+                    <div class="vert_al">
+                        <a href="/"><img src="../img/partner.jpg"/></a>
+                    </div>
+                </div>
+                <a href="">ООО «ЮДК»</a>
+                <div class="text">Производитель изделий из автоклавного газобетона</div>
+
+            </li>
+
+            <li class="no_mar_left">
+                <div class="img">
+                    <div class="vert_al">
+                        <a href="/"><img src="../img/partner.jpg"/></a>
+                    </div>
+                </div>
+                <a href="">ООО «ЮДК»</a>
+                <div class="text">Производитель изделий из автоклавного газобетона</div>
+
+            </li>
+            <li>
+                <div class="img">
+                    <div class="vert_al">
+                        <a href="/"><img src="../img/partner.jpg"/></a>
+                    </div>
+                </div>
+                <a href="">КЕРАТЕРМ</a>
+                <div class="text">Производитель изделий из автоклавного газобетона</div>
+
+            </li>
+            <li>
+                <div class="img">
+                    <div class="vert_al">
+                        <a href="/"><img src="../img/partner2.jpg"/></a>
+                    </div>
+                </div>
+                <a href="">ООО «ЮДК»</a>
+                <div class="text">Производитель изделий из автоклавного газобетона</div>
+
+            </li>
+            <li>
+                <div class="img">
+                    <div class="vert_al">
+                        <a href="/"><img src="../img/partner.jpg"/></a>
+                    </div>
+                </div>
+                <a href="">КЕРАТЕРМ</a>
+                <div class="text">Производитель изделий из автоклавного газобетона</div>
+
+            </li>
+        </ul>
+
+
+
+
+
+    </div>
+
+<div class="clr"></div>
+
+<script>
+    $( document ).ready(function() {
+
+        $('.page_partner ul li').hover(
+            function() {
+
+                $(this).find('img').removeAttr('style')
+                var height = $(this).find('img').height();
+                var width  = $(this).find('img').width();
+                height_old = height;
+                width_old = width;
+                height = (height*110)/100;
+                width = (width*110)/100;
+
+                $(this).find('img').stop().animate({width:width,height:height},300)
+                $(this).find('a').css({textDecoration:'underline'})
+
+
+            },
+            function() {
+                $(this).find('a').css({textDecoration:'none'})
+                $(this).find('img').stop().animate({width:width_old,height:height_old},300)
+
+            }
+        );
+
+
+    })
+
+</script>

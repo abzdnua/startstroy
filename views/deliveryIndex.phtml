@@ -1,0 +1,157 @@
+<?
+    $page -> setTitle("Start stroy");
+$page -> addScript('http://maps.google.com/maps/api/js?sensor=false');
+$page -> addScript('js/way.js');
+?>
+        <h1 >Оплата и доставка</h1>
+        <div class="more_margin page_about page_delivery" style = "margin-top: 30px;">
+            <div class="title_page f_l"><span>Способы  </span> оплаты</div>
+            <p><span class="red">1. </span> Оплата наличными в офисе ООО "ТПП "Старт-Строй"</p>
+            <p><span class="red">2. </span>Оплата на карту Приватбанка (+1% к сумме, услуги банка)</p>
+            <p><span class="red">3. </span>Банковский перевод:<br>
+            <strong>
+                <span style="margin-left: 15px;display: block;">ОВ "ТПП "Старт-Строй"<br>
+                ЄДРПОУ 37603385<br>
+                Расчетный счет 26003210205612 в АО «ПроКредит Банк»<br>
+                МФО 320984<br></span> </strong>   </p>
+            <p><span class="red">4. </span>Наложенный платеж:<br>
+                Оплата наличными при получении товара в Вашем городе в представительстве перевозчика.
+            </p>
+
+
+
+
+        </div>
+
+<a name="deliv"></a>
+
+            <div class="more_margin page_about page_delivery" style = "margin-top: 30px;">
+                <div class="title_page f_l"><span>Способы </span> доставки</div>
+                <p><span class="red">1. </span> Самовывоз со склада ООО "ТПП "Старт-Строй" <span id="addres1">(Донецк, ул. Шахтеров Донбасса, 1з)</span> </p>
+          </div><!--close page_about -->
+</div><!--close w980 -->
+
+
+                <div class="first_addr">
+                    <div id='main' class='way' style="margin-top: 23px;">
+                        <div class='google-map-route'>
+                            <div class='element a'>
+                                <input type='text'  value='Артема 100, Донецк, Украина, 83000'/>
+                            </div>
+                            <div class='element b'>
+                                <input type='text'  readonly='readonly' value='Донецк, ул. Шахтеров Донбасса, 1з' />
+                            </div>
+                            <div class="clr"></div>
+                            <div class='travelling-mode driving selected'></div>
+
+                            <div class='travelling-mode walking'></div>
+                            <div class="button">ПРОЛОЖИТЬ</div>
+                        </div>
+                        <div class='clear'></div>
+                        <div id='map' class="map_del"></div>
+                    </div>
+                </div>
+
+
+                <div class="w_980">
+                           <div class="more_margin page_about page_delivery" >
+
+                                <p><span class="red">2. </span> Самовывоз из офиса ООО "ТПП "Старт-Строй" <span id="addres2">(Донецк, ул. Тренева, 1)</span> </p>
+                           </div><!--close page_about -->
+                </div><!--close w980 -->
+
+
+                        <div class="second_addr">
+                            <div id='main2' class='way' style="margin-top: 23px;">
+                                <div class='google-map-route'>
+                                    <div class='element a'>
+                                        <input type='text'  value='Артема 100, Донецк, Украина, 83000'/>
+                                    </div>
+                                    <div class='element b'>
+                                        <input type='text'  readonly='readonly' value='Донецк, ул. Тренева, 1' />
+                                    </div>
+                                    <div class="clr"></div>
+                                    <div class='travelling-mode driving selected'></div>
+
+                                    <div class='travelling-mode walking'></div>
+                                    <div class="button">ПРОЛОЖИТЬ</div>
+                                </div>
+                                <div class='clear'></div>
+                                <div id='map2' class="map_del"></div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+                <div class="w_980">
+                 <div class="more_margin page_about page_delivery" >
+
+
+                        <p><span class="red">3. </span>  Доставка нашим транспортом  <i>(стоимость уточняется отдельно)</i></p>
+                        <p><span class="red">4. </span>  Любым перевозчиком на ваш выбор (<a href="http://novaposhta.ua/" target="_blank">Новая почта</a>, <a href="http://www.sat.ua/" target="_blank">САТ</a>, <a href="http://www.delivery-auto.com/ru/" target="_blank">Деливери</a>, <a href="http://nexpress.com.ua/" target="_blank">Ночной экспресс</a>, <a href="http://www.intime.ua/" target="_blank">Ин-Тайм</a>, <a href="http://www.logistic1.ru/" target="_blank">Восточный экспресс</a>) , доставка в город получателя оплачивается при получении заказа в офисе перевозчика.
+                        </p>
+                        <div class="title_page f_l" style="margin-top: 26px;"><span>Дополнительная информация </span> о доставке</div>
+                        <p style="margin-bottom: 20px;">Мы помогаем нашим клиентам организовать доставку материалов до места назначения.<br>
+                            Доставка осуществляется транспортом грузоподъёмностью от 300кг. до 20 тонн.</p>
+                 </div><!--close page_about -->
+
+
+
+
+
+
+
+                    <script>
+    $(document).ready(function(){
+        var map3;
+        var map2;
+        $('#addres1').click(function(){
+            if ($('.first_addr').hasClass('active'))
+            {
+
+
+               $('.first_addr').removeClass('active')
+                $('.first_addr').stop().animate({height:0},500)
+
+            }
+            else
+            {
+                $('.second_addr').removeClass('active')
+                $('.second_addr').stop().animate({height:0},500)
+
+
+               $('.first_addr').addClass('active')
+                $('.first_addr').stop().animate({height:'360px'},500)
+                map_my()
+
+
+            }
+
+        })
+
+        $('#addres2').click(function(){
+            if ($('.second_addr').hasClass('active'))
+            {
+                $('.second_addr').removeClass('active')
+                $('.second_addr').stop().animate({height:0},500)
+
+            }
+            else
+            {
+                $('.first_addr').removeClass('active')
+                $('.first_addr').stop().animate({height:0},500)
+
+
+                $('.second_addr').addClass('active')
+                $('.second_addr').stop().animate({height:'360px'},500)
+                map_my2()
+            }
+
+        })
+    })
+</script>

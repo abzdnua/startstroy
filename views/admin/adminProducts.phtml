@@ -1,0 +1,129 @@
+<?
+require_once $root."/lib/class.invis.db.php";
+require_once $root."/lib/class.db.manager.php";
+$dm = new db_manager();
+if(isset($_POST['type'])){
+    $products = $dm->getProductList($_POST['type'],'all');
+}else{
+    $products = $dm->getProductList('','all');;
+}
+
+?>
+<tr style="height: 175px;">
+    <td <?=$products?'':'style="height: 100%"'?>>
+        <div class="title">Товары</div>
+        <fieldset>
+            <form method="POST" action="admin/products">
+                <table align="center">
+                    <tr>
+                        <td>
+                            <select name="type">
+                                <option value="0">Все</option>
+                                <option value="жен">Женские</option>
+                                <option value="муж">Мужские</option>
+                                <option value="дет">Детские</option>
+                                <option value="уни">Унисекс</option>
+                                <option value="present">Подарки</option>
+                            </select>
+                            <input type="submit" class=""  name="show" value="Показать"/>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </fieldset>
+        <fieldset>
+            <a class="underline" href="/admin/editor/add">+ ДОБАВИТЬ ТОВАР</a>
+        </fieldset>
+    </td>
+</tr>
+
+<?
+if($products)
+{
+    echo '<tr>
+    <td >
+        <fieldset>
+            <table>
+                <tr>
+                    <td style="width:40px; font-weight: bold;">№</td>
+                    <td style="width:70px; font-weight: bold;">Фотография</td>
+                    <td style="width:360px; font-weight: bold;">Название</td>
+                    <td style="width:100px; font-weight: bold;">Тип</td>
+                    <td style="width:100px; font-weight: bold;">Цена</td>
+                    <td style="width:100px; font-weight: bold;">Скидка</td>
+                    <td style="width:100px; font-weight: bold;">С учетом скидки</td>
+                    <td style="width:50px; font-weight: bold;">Отобр.</td>
+                    <td style="width:30px; font-weight: bold;">Ред.</td>
+                    <td style="width:30px; font-weight: bold;">Уд.</td>
+                </tr>';
+
+
+
+    foreach($products as $key => $val){
+        echo '<tr>';
+        echo '<td>';
+        echo  $key+1;
+        echo '</td>';
+
+        echo '<td>';
+            echo  '<img style="height:71px" src="sc_img/product/'.$val['photo'].'.jpg">';
+        echo '</td>';
+
+        echo '<td>';
+        echo '<strong>'.$val['name'].'</strong><br/>';
+        echo $dm->getProductsAllDiscounts($val['id']);
+        echo '</td>';
+
+        echo '<td>';
+        if($val['is_present'] == 1)
+        {
+            echo  'Подарок';
+        }
+        else
+        {
+            echo $val['type'];
+        }
+        echo '</td>';
+
+        echo '<td>';
+        echo '<strong>'.$val['price'].' грн.</strong><br/>';
+        echo '</td>';
+        $disc = $dm->getProductFullDiscount($val['id']);
+        echo '<td>';
+        echo '<strong>'.$disc.'%</strong><br/>';
+        echo '</td>';
+
+        echo '<td>';
+        $pr = $val['price']*(1-$disc/100);
+        echo '<strong>'.floor($pr).' грн.</strong><br/>';
+        echo '</td>';
+
+        echo '<td>';
+        if($val['show'] == 1)
+        {
+            echo  '<span style="color: green">Отображается</span>';
+        }
+        else
+        {
+            echo  '<span style="color: red">Скрыт</span>';
+        }
+
+        echo '</td>';
+
+        echo '<td>';
+        echo '<a href="admin/editor/edit/'.$val['id'].'"><img src="sc_img/admin/b_edit.png" title="Редактировать"></a>';
+        echo '</td>';
+        echo '<td>';
+        echo '<input type="hidden" value="'.$val['id'].'" name="id"/>';
+        echo '<img src="sc_img/admin/b_drop.png" style="cursor: pointer;" title="Удалить" class="del_product">';
+        echo '</td>';
+
+        echo '</tr>';
+    }
+    echo '</table>
+        </fieldset>
+    </td>
+</tr>';
+}
+?>
+

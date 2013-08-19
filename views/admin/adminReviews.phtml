@@ -1,0 +1,86 @@
+<?
+$root = $_SERVER['DOCUMENT_ROOT'];
+require_once $root."/lib/class.invis.db.php";
+require_once $root."/lib/class.dll.php";
+$db = db :: getInstance();
+?>
+
+<tr>
+    <td>
+        <div class="title">Отзывы</div>
+        <fieldset>
+            <a class="underline" style="cursor: pointer" id="add_rw">+ ДОБАВИТЬ ОТЗЫВ</a>
+        </fieldset>
+        <fieldset>
+            <table align="center" style="width:100%;">
+                <tr id="form" style="display: none">
+                    <td colspan="5">
+                        <span>Добавить новый отзыв</span>
+                        <form method="post" name="add_review">
+                            <div style="float: right">
+                                ОТЗЫВ<br/>
+                                <textarea name="review"  rows="8" cols="80"></textarea>
+                                <input type="hidden" name="action" value="add" />
+                            </div>
+                            <div style="width:200px; text-align: right">
+                                <div style="margin:7px">
+                                    Отображать <input type="checkbox" name="show" style="position: "/><br />
+                                </div>
+                                <div style="margin:7px">
+                                    Имя: <input type="text" name="name" value="" /><br />
+                                </div>
+                                <div style="margin:7px">
+                                    Город: <input type="text" name="city" value="" /><br />
+                                </div>
+                                <div style="margin:7px">
+                                    e-mail: <input type="text" name="mail" value="" />
+                                </div>
+                            </div>
+                            <div style="clear: both"></div>
+                            <div style="text-align: center">
+                                <input type="submit" class="sbm" value="Добавить"  style="margin:10px;width:150px"/>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+                <tr id="form_edit">
+                </tr>
+
+                <?
+                $sql = "SELECT * FROM reviews";
+                $db->query($sql);
+                if($db->getCount()>0)
+                {
+                    echo '<tr>
+                            <td style="width:30px; font-weight: bold;">№</td>
+                            <td style="width:150px; font-weight: bold;">Имя</td>
+                            <td style="width:650px; height: 25px; vertical-align:middle; font-weight: bold;">Отзыв</td>
+                            <td style=" height: 25px; vertical-align:middle; font-weight: bold;">Отображается</td>
+                            <td style=" height: 25px; vertical-align:middle; font-weight: bold;">Редактировать</td>
+                            <td style=" height: 25px; vertical-align:middle; font-weight: bold;">Удалить</td>
+                          </tr>';
+                    $arr = $db->getArray();
+                    foreach($arr as $key=>$val){
+                        echo '<tr>';
+                        echo '<td>'.($key+1).'<input type="hidden" name="id" value="'.$val['id'].'" /></td>';
+                        echo '<td>'.$val['name'].'</td>';
+                        $text = $DLL->substrText($val['comment'],300);
+                        echo '<td>'.$text['text'].'</td>';
+                        if($val['show'] == 1){
+                            echo '<td><span style="color: green">Отображается</span></td>';
+                        }
+                        else{
+                            echo '<td><span style="color: red">Скрыт</span></td>';
+                        }
+                        echo '<td><img src="sc_img/admin/b_edit.png" style="cursor: pointer" class="edit_review"></td>';
+                        echo '<td><img src="sc_img/admin/b_drop.png" style="cursor: pointer" class="del_review"></td>';
+                        echo '</tr>';
+                    }
+                }
+                ?>
+
+
+            </table>
+        </fieldset>
+    </td>
+</tr>

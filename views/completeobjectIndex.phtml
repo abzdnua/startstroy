@@ -1,0 +1,254 @@
+<?
+    $page -> setTitle("Start stroy");
+$page -> addScript('/js/cloud-zoom.1.0.2.js');
+
+
+?>
+<script>
+    $(document).ready(function(){
+var temp_i = 0
+
+//галирея
+        var y=0;
+        var temp_one =0
+
+        var arr = []
+var i =1
+        var max = 0
+
+
+
+        $('.photo_view img').each(function(){
+            var img = new Image();
+            img.onload = function() {
+
+                $('.photo_view img').animate({opacity:1},1300)
+
+
+            }
+            img.src = this.src;
+        })
+        $('.scroll_photos img').each(function() {
+            var img = new Image();
+            img.onload = function() {
+                temp_one = temp_one+1
+
+
+
+
+                if (temp_one >= $(".scroll_photos img").size())
+                {
+                    $('.scroll_photos img').each(function(mm){
+
+                        $('#p_'+(((parseInt(mm))+1))).animate({left: y+'px'},700);
+
+                      //  $('#p_'+(((parseInt(mm))+1))).css('left', y+'px');
+
+                        y+= $('#p_'+(((parseInt(mm))+1))).width()+30;
+                        arr[i] = y
+                        i = i+1
+                        max = y
+
+                    });
+                }
+            }
+            img.src = this.src;
+        });
+
+
+
+
+
+//нажатие на кнопку вправо
+       function right(){
+
+            if ($(".scroll_photos img").size()>3)
+            if ( $(" :animated").length) return false;
+            else
+            {
+           var active = $('.active').width() +30
+
+
+                $('.scroll_photos img').stop(true, true).animate({"left": '-='+active+'px'}, 300,function(){
+                    $('.scroll_photos img').map(function(){
+                        if (parseInt($(this).css('left')) < -90)
+                        {
+
+                            $(this).css('left',"+=1065px");
+                        }
+
+                    })
+                });
+            }
+        };
+
+
+
+
+//нажатие на кнопку влево
+
+
+        function left(){
+            if ($(".scroll_photos img").size()>3)
+                if ( $(" :animated").length) return false;
+                else
+                {
+
+                    $('.scroll_photos img').map(function(){
+                        if (parseInt($(this).css('left'))>720)
+                        {
+                            $(this).css('left',"-=1065px");
+                        }
+                    })
+                    var active = $('.active').width() +30
+                    $('.scroll_photos img').animate({"left": '+='+active+'px'}, 300);
+                }
+        };
+
+
+        $(".left").click(function(){
+
+
+            if ( $(" :animated").length) return false;
+            var  f=parseInt($('.active').attr('id').split('_')[1]);
+            f = f-1
+            if (f <= 0)
+            {
+                f = $(".scroll_photos img").size()
+            }
+            temp_i = 1
+            $('#p_'+f).trigger("click");
+            left()
+
+
+
+        });
+
+        $('.vert_al img').click(function(){
+            $(".right").trigger("click");
+
+        })
+
+
+        $(".right").click(function(){
+            if ( $(" :animated").length) return false;
+            var  f=parseInt($('.active').attr('id').split('_')[1]);
+            if (f >= $(".scroll_photos img").size())
+            {
+                f = 0
+            }
+            f = f+1
+            temp_i =1
+            $('#p_'+f).trigger("click");
+            right()
+        });
+
+
+
+
+//кликанье на маленькую картинку
+        $(".scroll_photos a img").bind('click', function(){
+
+
+        if ($(this).hasClass('active'))
+        {
+           return false;
+
+
+        }
+            $(".scroll_photos a img").removeClass("active")
+
+
+            $(this).addClass('active')
+
+
+            if (  temp_i ==0)
+            {
+
+               if(parseInt($(this).css("left")) >200)
+                {
+                    right()
+              }
+           left()
+            }
+
+
+            temp_i = 0
+
+
+
+
+        })
+
+      {$('.scroll_up').css('display','none');$('.scroll_down').css('display','none');}
+
+        //реагирование на клавиши
+$(document).keydown(function(e){
+
+console.log(e.keyCode)
+	if (e.keyCode==37) $('.left').trigger("click");
+if (e.keyCode==39)$('.right').trigger("click");
+
+})
+
+
+
+    })
+    var old_width ,old_height,width_img,height_img,left_img
+
+  /*  $(document).on('mouseenter touchstart','.cloud-zoom-gallery img',function()
+    {
+
+         old_width = $(this).width()
+         old_height = $(this).height()
+         width_img = (old_width*110)/100
+         height_img = (old_height*110)/100
+         left_img = $(this).css("left")
+        console.log(left_img)
+
+        $(this).stop().animate({width:width_img,height:height_img},400)
+
+
+    }).on('mouseleave','.cloud-zoom-gallery img',function(){
+            $(this).stop().animate({width:old_width,height:old_height},400)
+
+        })*/
+</script>
+<h1 >Готовые обьекты</h1>
+<div class="clr"></div>
+<div class="complete_obj">
+<div class="overflow">
+        <div class="photos">
+            <div class="left showcase-arrow-previous"></div>
+            <div class="right showcase-arrow-previous"></div>
+                <div class="photo_view">
+                <span  class="cloud-zoom" id="zoom1" rel="position: 'inside' " onclick="return false" style="position: relative; display: block;">
+               <div class="vert_al"> <img src="/img/tem/Image0054.png" style="display: block;"/></div>
+
+                </span>
+
+
+            </div>
+
+
+            <div class="photos_min">
+                <a><div class="scroll_up"></div></a>
+                <div class="scroll_photos">
+                    <a class=" pos_1 cloud-zoom-gallery" rel=" smallImage: '/img/tem/Image0054.png' "><img id="p_1" class="zoom-tiny-image active" src="/img/tem/min/01.jpg"/></a>
+                    <a class="pos_2 cloud-zoom-gallery" rel=" smallImage: '/img/tem/02.jpg',title_img:'dfgdg' "><img id="p_2" class="zoom-tiny-image" src="/img/tem/min/02.jpg"  /></a>
+                    <a  class="pos_3 cloud-zoom-gallery" rel=" smallImage: '/img/tem/03.jpg', title_img:'dfgdg' "><img id="p_3" class="zoom-tiny-image" src="/img/tem/min/03.jpg" /></a>
+                    <a  class="pos_4 cloud-zoom-gallery" rel=" smallImage: '/img/tem/04.jpg', title_img:'dfgdg' "><img id="p_4" class="zoom-tiny-image" src="/img/tem/min/04.jpg" /></a>
+                    <a  class="pos_5 cloud-zoom-gallery" rel=" smallImage: '/img/tem/05.jpg', title_img:'dfgdg' "><img id="p_5" class="zoom-tiny-image" src="/img/tem/min/05.jpg" /></a>
+                    <a  class="pos_6 cloud-zoom-gallery" rel=" smallImage: '/img/tem/06.jpg', title_img:'dfgdg' "><img id="p_6" class="zoom-tiny-image" src="/img/tem/min/06.jpg" /></a>
+                    <a  class="pos_7 cloud-zoom-gallery" rel=" smallImage: '/img/tem/07.jpg', title_img:'dfgdg' "><img id="p_7" class="zoom-tiny-image" src="/img/tem/min/07.jpg" /></a>
+                    <a  class="pos_8 cloud-zoom-gallery" rel=" smallImage: '/img/tem/08.jpg', title_img:'dfgdg' "><img id="p_8" class="zoom-tiny-image" src="/img/tem/min/08.jpg" /></a>
+                    <a  class="pos_9 cloud-zoom-gallery" rel=" smallImage: '/img/tem/09.jpg',title_img:'dfgdg'  "><img id="p_9" class="zoom-tiny-image" src="/img/tem/min/09.jpg" /></a>
+                </div>
+                <a><div class="scroll_down"></div></a>
+            </div>
+
+        </div>
+</div>
+    <div class="title">Достаточное и не слишком длинное название объекта</div>
+    <div class="date_text">10 июля 2013 г.</div>
+</div>

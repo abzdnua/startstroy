@@ -1,0 +1,87 @@
+
+/*
+	Page style
+*/
+
+
+#container {
+	width:1024px;
+
+	position:relative;
+}
+
+#slides {
+	position:relative;
+}
+
+
+
+/*
+	Next/prev buttons
+*/
+
+#slides .slidesNext,#slides .slidesPrevious {
+	position:absolute;
+	top:134px;
+	left:-40px;
+	width:24px;
+	height:0;
+	padding-top:32px;
+	display:block;
+	z-index:101;
+	overflow:hidden;
+	background:url(../img/navigation-previous.png) no-repeat 0 0;
+}
+
+#slides .slidesNext {
+	left:798px;
+	background:url(../img/navigation-next.png) no-repeat 0 0;
+}
+
+/*
+	Pagination
+*/
+
+.slidesPagination {
+    position: relative;
+    top: -27px;
+    left: 50%;
+    z-index: 9;
+
+}
+
+.slidesPagination li {
+	float:left;
+	margin:0 1px;
+	list-style:none;
+}
+
+.slidesPagination li a {
+	display:block;
+    width: 20px;
+    height: 0;
+    padding-top: 17px;
+
+	background-image:url(../img/bt_main.png);
+	background-position:0 0;
+	overflow:hidden;
+}
+
+.slidesPagination li.slidesCurrent a {
+	background-position:0 -19px;
+}
+
+.current_slide {
+	font:bold 10px/1.33 sans-serif;
+	float:left;
+	margin-top:12px;
+}
+
+.controls {
+	display:block;
+	margin-top:12px;
+	float:left;
+	color:#333;
+	font:bold 10px/1.33 sans-serif;
+	margin-right:10px;
+}

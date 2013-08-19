@@ -1,0 +1,60 @@
+<?
+$root = $_SERVER['DOCUMENT_ROOT'];
+require_once $root."/lib/class.invis.db.php";
+$db = db :: getInstance();
+$page->addScript('views/admin/js/banners.js');
+?>
+<tr>
+    <td>
+        <div class="title">Баннеры</div>
+        <fieldset>
+            <p class="silver">Для загрузки баннеров на сайт, выберите файл картинки. Картинка должна быть в формате *.png размером 392px*71px. Баннер сохраняется после нажатия кнопки "Сохранить"</p>
+        </fieldset>
+        <fieldset>
+            <table align="center" style="width:100%;">
+                <tr>
+                    <td>
+                        <b>Ночной баннер</b><br/>
+                        <div class="for_banner"><img src="sc_img/banners/night.png" /></div>
+                        <br/>
+                        <form method="post">
+                            <input type="file" name="picture" class="banner" />
+                            <input type="hidden" name="type" value="night" />
+                            <br/>
+                            <input type="button" class="submit" value="Сохранить"/>
+                        </form>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <b>Баннер выходного дня</b><br/>
+                        <div class="for_banner"><img src="sc_img/banners/weekend.png" /></div>
+                        <br/>
+                        <form method="post">
+                            <input type="file" name="picture" class="banner" />
+                            <input type="hidden" name="type" value="weekend" />
+                            <br/>
+                            <input type="button" class="submit" value="Сохранить"/>
+                        </form>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <b>Основной баннер</b><br/>
+                        <div class="for_banner"><img src="sc_img/banners/default.png" /></div>
+                        <br/>
+                        <form method="post">
+                            <input type="file" name="picture" class="banner" />
+                            <input type="hidden" name="type" value="default" />
+                            <br/>
+                            <input type="button" class="submit" value="Сохранить"/>
+                        </form>
+                    </td>
+
+                </tr>
+            </table>
+        </fieldset>
+    </td>
+</tr>
