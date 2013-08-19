@@ -8,11 +8,7 @@
     font-weight: normal;
     font-style: normal;
 }
- .gm-style .gm-style-iw 
-{
-background: url(../img/cont.jpg) left center no-repeat;
-height:80px !important
-}
+
 html,body{width: 100%;min-height: 100%;font:20px/26px 'Open Sans';color:#333333;
    /*background: #e2e2e2;*/
 
