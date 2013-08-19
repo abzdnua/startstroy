@@ -144,7 +144,7 @@ var Map2 = function(){
 		});
 
 		eqInfo = new google.maps.InfoWindow({
-			content:'<div class="dfdf" style="width: 210px;padding-left: 140px;padding-top: 18px;">Донецк, ул. Шахтеров Донбасса, 1з</div> '
+			content:'<div class="dfdf" style="width: 258px; text-align: center;">Донецк, ул. Шахтеров Донбасса, 1з</div> '
 
 		});
 
@@ -299,7 +299,7 @@ var Map3 = function(){
         });
 
         eqInfo = new google.maps.InfoWindow({
-            content:'<div class="dfdf" style="width: 210px;padding-left: 140px;padding-top: 18px;">Донецк, ул. Тренева, 1</div> '
+            content:'<div class="dfdf" style="background: url(../img/cont.jpg) left center no-repeat;height:80px !important;width: 210px;padding-left: 140px;padding-top: 18px;">Донецк, ул. Тренева, 1</div> '
 
         });
 
