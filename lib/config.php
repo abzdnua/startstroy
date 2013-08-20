@@ -6,10 +6,10 @@
         define("const_userName","root");
         define("const_password","");
     }
-//    else {                                    // подключение с сервера
-//         define("const_dbName","gea");
-//        define("const_hostName","localhost");
-//        define("const_userName","gea");
-//        define("const_password","bodmVNYs");
-//    }
+    else {                                    // подключение с сервера
+         define("const_dbName","startstroy");
+        define("const_hostName","localhost");
+        define("const_userName","startstroy");
+        define("const_password","UGuIn2GX");
+    }
 ?>
