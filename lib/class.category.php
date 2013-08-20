@@ -9,6 +9,7 @@ class category
 
     private $id;                //id
     private $name;              //название
+    private $link;              //ЧПУ
     private $parent_id;         //родительская категория // 0 - основная категория
     private $dateCreate;        //дата создания
     private $userCreate;        //пользователь создавший
@@ -27,6 +28,7 @@ class category
         if(func_num_args()==0){
             $this->id           = 'NULL';
             $this->name         = '';
+            $this->link         = '';
             $this->parent_id    = 0;
             $this->dateCreate   = 0;
             $this->userCreate   = 0;
@@ -44,12 +46,13 @@ class category
             $args=func_get_args();
             $this->id           = $args[0];
             $this->name         = $args[1];
-            $this->parent_id    = $args[2];
-            $this->dateCreate   = $args[3];
-            $this->userCreate   = $args[4];
-            $this->dateUpdate   = $args[5];
-            $this->userUpdate   = $args[6];
-            $this->deleted      = $args[7];
+            $this->link         = $args[2];
+            $this->parent_id    = $args[3];
+            $this->dateCreate   = $args[4];
+            $this->userCreate   = $args[5];
+            $this->dateUpdate   = $args[6];
+            $this->userUpdate   = $args[7];
+            $this->deleted      = $args[8];
 
         }
     }
@@ -65,6 +68,7 @@ class category
             else{
                 $this->id           = $res['id'];
                 $this->name         = $res['name'];
+                $this->link         = $res['link'];
                 $this->parent_id    = $res['parent_id'];
                 $this->dateCreate   = $res['dateCreate'];
                 $this->userCreate   = $res['userCreate'];
@@ -85,6 +89,10 @@ class category
 
     public function get_name(){
         return $this->name;
+    }
+
+    public function get_link(){
+        return $this->link;
     }
 
     public function get_parent_id(){
@@ -119,8 +127,13 @@ class category
     public function set_id($value){
         $this->id = $value;
     }
+
     public function set_name($value){
         $this->name = $value;
+    }
+
+    public function set_link($value){
+        $this->link = $value;
     }
 
     public function set_parent_id($value){
