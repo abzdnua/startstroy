@@ -4,6 +4,7 @@ require_once $root."/lib/class.db.manager.php";
 require_once $root."/lib/class.category.php";
 $dm = new db_manager();
 $cats = $dm->getAllCategories();
+phpinfo();
 ?>
 <tr style="height: 175px;">
     <td <?=$cats?'':'style="height: 100%"'?>>
