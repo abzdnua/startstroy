@@ -2,12 +2,6 @@
 require_once $root."/lib/class.invis.db.php";
 require_once $root."/lib/class.db.manager.php";
 $dm = new db_manager();
-if(isset($_POST['type'])){
-    $products = $dm->getProductList($_POST['type'],'all');
-}else{
-    $products = $dm->getProductList('','all');;
-}
-
 ?>
 <tr style="height: 175px;">
     <td <?=$products?'':'style="height: 100%"'?>>
@@ -17,14 +11,7 @@ if(isset($_POST['type'])){
                 <table align="center">
                     <tr>
                         <td>
-                            <select name="type">
-                                <option value="0">Все</option>
-                                <option value="жен">Женские</option>
-                                <option value="муж">Мужские</option>
-                                <option value="дет">Детские</option>
-                                <option value="уни">Унисекс</option>
-                                <option value="present">Подарки</option>
-                            </select>
+                            <?echo $dm->getCategorySelect('category')?>
                             <input type="submit" class=""  name="show" value="Показать"/>
                         </td>
                     </tr>

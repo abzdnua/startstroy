@@ -1,0 +1,39 @@
+<?
+require_once $root."/lib/class.invis.db.php";
+require_once $root."/lib/class.db.manager.php";
+require_once $root."/lib/class.category.php";
+$dm = new db_manager();
+$cats = $dm->getAllCategories();
+?>
+<tr style="height: 175px;">
+    <td <?=$cats?'':'style="height: 100%"'?>>
+        <div class="title">Категории</div>
+    </td>
+</tr>
+
+<?
+if($cats)
+{
+    echo '<tr>
+    <td >
+        <fieldset>
+            <table>
+                <tr>
+                    <td style="width:360px; font-weight: bold;">Название</td>
+                    <td style="width:30px; font-weight: bold;">Ред.</td>
+                    <td style="width:30px; font-weight: bold;">Уд.</td>
+                </tr>';
+
+
+
+    for($i =0; $i<count($cats);$i++ ){
+        $c = $cats[$i];
+       echo '<tr><td>'.$c->get_id().'</td>';
+    }
+    echo '</table>
+        </fieldset>
+    </td>
+</tr>';
+}
+?>
+

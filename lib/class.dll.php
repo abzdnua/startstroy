@@ -277,6 +277,7 @@ public function morph($n, $f1, $f2, $f5) {
             $values = $this -> _db -> getArray();
             $src=($src == null) ? "" : $src;
             $selectB = '<select id="'.$name.'" name="'.$name.'" '.$style.' '.$attr.'>';
+            $options = '';
             if ($firstName) $optionF = '<option value="'.$firstValue.'">'.$firstName.'</option>';
             foreach ($values as $i => $value)
             {
