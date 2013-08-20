@@ -33,5 +33,21 @@ $(document).ready(function(){
         $('[name=id]').val($(this).data('id'))
         $('[name=category_name]').val($(this).data('name'))
         $('[name=parent_id]').val($(this).data('parent'))
+    }).on('click','.del',function(){
+        if(confirm('Удалить категорию?'))
+        {
+            var th = $(this)
+            var id=th.data('id')
+            $.ajax({
+                type:"POST",
+                url: 'views/admin/ajax/categories/delete.php',
+                data:{id:id},
+                success:(function(responseText){
+                    if(responseText.indexOf('error') == -1){
+                        th.parent().parent().remove();
+                    }
+                })
+            })
+        }
     })
 })

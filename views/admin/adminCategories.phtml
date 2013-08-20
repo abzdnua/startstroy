@@ -59,7 +59,7 @@ $cats = $dm->getAllCategories();
                         <td><?echo $cat->get_link();?></td>
                         <td><?echo $dm->getCategoryName($cat->get_parent_id());?></td>
                         <td><button type="button" class="edit" data-id="<?echo $cat->get_id();?>" data-name="<?echo $cat->get_name()?>" data-parent="<?echo $cat->get_parent_id?>">Редактировать</button></td>
-                        <td><button type="button" data-id="<?echo $cat->get_id();?>">Удалить</button></td>
+                        <td><button type="button" class="del" data-id="<?echo $cat->get_id();?>">Удалить</button></td>
                     </tr>
                 <?}?>
 
