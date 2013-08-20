@@ -81,6 +81,8 @@ class db_manager
     }
 
     public function getCategoryName($id){
+        if($id == 0)
+            return 'НЕТ';
         $sql = "SELECT name FROM categories WHERE id = ".$id;
         $this->_db->query($sql);
         return $this->_db->getValue();
@@ -130,7 +132,7 @@ class db_manager
 
     public function getAllCategories(){
         $db = $this->_db;
-        $sql = "SELECT id FROM categories WHERE deleted = 0 ORDER BY parent_id DESC";
+        $sql = "SELECT id FROM categories WHERE deleted = 0 ORDER BY parent_id ASC";
         $db->query($sql);
         $out = array();
         $cats = $db->getArray();

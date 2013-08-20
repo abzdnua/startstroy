@@ -4,37 +4,75 @@ require_once $root."/lib/class.db.manager.php";
 require_once $root."/lib/class.category.php";
 $dm = new db_manager();
 $cats = $dm->getAllCategories();
-phpinfo();
+//phpinfo();
 ?>
 <tr style="height: 175px;">
-    <td <?=$cats?'':'style="height: 100%"'?>>
+    <td style="height:75px">
         <div class="title">Категории</div>
+        <fieldset>
+            <a id="add_cupon" style="cursor: pointer">+ ДОБАВИТЬ КАТЕОГРИЮ</a>
+        </fieldset>
     </td>
 </tr>
 
-<?
-if($cats)
-{
-    echo '<tr>
-    <td >
+<tr>
+    <td>
         <fieldset>
-            <table>
+            <table align="center" style="width:100%;">
+                <tr id="form" style="display:none;" >
+                    <td colspan="6" style="padding: 10px;">
+                        <div style="margin-bottom:10px;font:10pt Verdana;">Добавить новую категорию</div>
+                        <form method="post">
+                            <div id="for_id"></div>
+                            <div style="float:right; margin-right: 255px; margin-top:7px">
+                                <input  type="submit" value="Добавить" id="add"/>
+                            </div>
+                            <div style="width: 465px;text-align:right">
+                                Название  <input type="text" name="category_name" style="width: 250px" />
+                            </div>
+                            <div style="width: 465px;text-align:right;">
+                                <?$dm->getCategorySelect('parent_id')?>
+                            </div>
+
+                        </form>
+                    </td>
+                </tr>
+
+                <?
+                if(count($cats)>0)
+                {?>
                 <tr>
-                    <td style="width:360px; font-weight: bold;">Название</td>
-                    <td style="width:30px; font-weight: bold;">Ред.</td>
-                    <td style="width:30px; font-weight: bold;">Уд.</td>
-                </tr>';
+                    <td style="width:15px;">№</td>
+                    <td style="width:250px; height: 25px; vertical-align:middle; font-weight: bold;">Название</td>
+                    <td style="width:250px; height: 25px; vertical-align:middle; font-weight: bold;">Родительская категория</td>
+                    <td style="width:90px; height: 25px; vertical-align:middle; font-weight: bold;">Редактировать</td>
+                    <td style="width:70px; height: 25px; vertical-align:middle; font-weight: bold;">Удалить</td>
+                </tr>
+                <?foreach($cats as $cat){?>
+                    <tr>
+                        <td><?$cat->get_id();?></td>
+                        <td><?$cat->get_name();?></td>
+                        <td><?$dm->getCategoryName($cat->get_parent_id());?></td>
+                        <td><button type="button" id="edit_<?$cat->get_id();?>">Редактировать</button></td>
+                        <td><button type="button" id="del_<?$cat->get_id();?>">Удалить</button></td>
+                    </tr>
+                <?}?>
 
 
 
-    for($i =0; $i<count($cats);$i++ ){
-        $c = $cats[$i];
-       echo '<tr><td>'.$c->get_id().'</td>';
-    }
-    echo '</table>
+                <?}
+                else
+                {
+                    echo '<tr><td colspan="6">На данный момент категорий нет</td></tr>';
+                }
+
+
+                ?>
+
+
+            </table>
         </fieldset>
     </td>
-</tr>';
-}
-?>
+</tr>
+
 

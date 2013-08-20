@@ -64,6 +64,7 @@ class category
             }
             else{
                 $this->id           = $res['id'];
+                $this->name         = $res['name'];
                 $this->parent_id    = $res['parent_id'];
                 $this->dateCreate   = $res['dateCreate'];
                 $this->userCreate   = $res['userCreate'];
