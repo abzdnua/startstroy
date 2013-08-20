@@ -2,21 +2,17 @@
 $root = $_SERVER['DOCUMENT_ROOT'];
 require_once $root.'/lib/class.invis.db.php';
 
-class product
+class article
 {
 
     private $_db;
 
     private $id;                //id
-    private $name;              //название товара
-    private $price;             //цена
-    private $priceForSale;      //акутальная цена
-    private $material;          //ссылка на таблицу материалов
-    private $firm;              //ссылка на таблицу фирм
-    private $category;          //главная категория
-    private $subCategory;       //подкатегория    // ссылки на таблицу категорий
-    private $img;               //крупное фото товара
-    private $thumb;             //маленькое фото товара
+    private $name;              //название статьи
+    private $shortDes;          //краткое описание статьи
+    private $text;              //текст статьи
+    private $img;               //крупное фото в статье
+    private $thumb;             //маленькое фото на странице всех статей
     private $show;              // 1 - отображать на сайте; 0 - скрывать
     private $dateCreate;        //дата создания
     private $userCreate;        //пользователь создавший
@@ -35,13 +31,9 @@ class product
         if(func_num_args()==0){
             $this->id           = 'NULL';
             $this->name         = '';
-            $this->price        = 0;
-            $this->priceForSale = 0;
-            $this->material     = 0;
-            $this->firm         = 0;
-            $this->category     = 0;
-            $this->subCategory  = 0;
-            $this->img      = '';
+            $this->shortDes     = '';
+            $this->text         = '';
+            $this->img          = '';
             $this->thumb        = '';
             $this->show         = 0;
             $this->dateCreate   = 0;
@@ -60,27 +52,23 @@ class product
             $args=func_get_args();
             $this->id           = $args[0];
             $this->name         = $args[1];
-            $this->price        = $args[2];
-            $this->priceForSale = $args[3];
-            $this->material     = $args[4];
-            $this->firm         = $args[5];
-            $this->category     = $args[6];
-            $this->subCategory  = $args[7];
-            $this->img      = $args[8];
-            $this->thumb        = 'm_'.$args[8];
-            $this->show         = $args[9];
-            $this->dateCreate   = $args[10];
-            $this->userCreate   = $args[11];
-            $this->dateUpdate   = $args[12];
-            $this->userUpdate   = $args[13];
-            $this->deleted      = $args[14];
+            $this->shortDes     = $args[2];
+            $this->text         = $args[3];
+            $this->img          = $args[4];
+            $this->thumb        = $args[5];
+            $this->show         = $args[6];
+            $this->dateCreate   = $args[7];
+            $this->userCreate   = $args[8];
+            $this->dateUpdate   = $args[9];
+            $this->userUpdate   = $args[10];
+            $this->deleted      = $args[11];
 
         }
     }
 
     private function set_product($id){
         if($id>0){
-            $sql="SELECT * FROM products WHERE id=".$id;
+            $sql="SELECT * FROM articles WHERE id=".$id;
             $this->_db->query($sql);
             $res = $this->_db->getRow();
             if(empty($res)){
@@ -89,14 +77,10 @@ class product
             else{
                 $this->id           = $res['id'];
                 $this->name         = $res['name'];
-                $this->price        = $res['price'];
-                $this->priceForSale = $res['priceForSale'];
-                $this->material     = $res['material'];
-                $this->firm         = $res['firm'];
-                $this->category     = $res['category'];
-                $this->subCategory  = $res['subCategory'];
-                $this->img      = $res['img'];
-                $this->thumb        = 'm_'.$res['img'];
+                $this->shortDes     = $res['shortDes'];
+                $this->text         = $res['text'];
+                $this->img          = $res['imgName'];
+                $this->thumb        = $res['thumb'];
                 $this->show         = $res['show'];
                 $this->dateCreate   = $res['dateCreate'];
                 $this->userCreate   = $res['userCreate'];
@@ -119,29 +103,12 @@ class product
         return $this->name;
     }
 
-    public function get_price(){
-        return $this->price;
+    public function get_shortDes(){
+        return $this->shortDes;
     }
 
-    public function get_priceForSale(){
-        return $this->priceForSale;
-    }
-
-    public function get_material_id(){
-        return $this->material;
-    }
-
-    public function get_firm_id(){
-        return $this->firm;
-    }
-
-
-    public function get_category_id(){
-        return $this->category;
-    }
-
-    public function get_subCategory_id(){
-        return $this->subCategory;
+    public function get_text(){
+        return $this->text;
     }
 
     public function get_img(){
@@ -189,28 +156,12 @@ class product
         $this->name = $value;
     }
 
-    public function set_price($value){
-        $this->price = $value;
+    public function set_shortDes($value){
+        $this->shortDes = $value;
     }
 
-    public function set_priceForSale($value){
-        $this->priceForSale = $value;
-    }
-
-    public function set_material_id($value){
-        $this->material = $value;
-    }
-
-    public function set_firm_id($value){
-        $this->firm = $value;
-    }
-
-    public function set_category_id($value){
-        $this->category = $value;
-    }
-
-    public function set_subCategory_id($value){
-        $this->subCategory = $value;
+    public function set_text($value){
+        $this->text = $value;
     }
 
     public function set_img($value){
