@@ -13,6 +13,7 @@ if($_POST['category_name']){
 
     if($_POST['id']!=''){
         $id = $_POST['id'];
+        $link .='_'.$id;
         $sql = "UPDATE categories SET
                 name = '{$name}',
                 link = '{$link}',
@@ -27,10 +28,17 @@ if($_POST['category_name']){
         </script>';
     }else{
         $sql = "INSERT INTO categories
-                (name,link,parent_id,userCreate,dateCreate)
+                (name,parent_id,userCreate,dateCreate)
                 VALUES
-                ('{$name}','{$link}',{$parent_id},{$user},'{$date}')";
+                ('{$name}',{$parent_id},{$user},'{$date}')";
 //        echo "error: ".$sql;
+        $db->query($sql);
+        $last = $db->last();
+        $link .='_'.$last;
+        $sql = "UPDATE categories SET
+                link = '{$link}'
+                WHERE id = {$last}";
+//                echo "error: ".$sql;
         $db->query($sql);
         echo '<script>
         window.location.reload()
