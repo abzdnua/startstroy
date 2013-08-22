@@ -79,7 +79,7 @@ class article
                 $this->name         = $res['name'];
                 $this->shortDes     = $res['shortDes'];
                 $this->text         = $res['text'];
-                $this->img          = $res['imgName'];
+                $this->img          = $res['img'];
                 $this->thumb        = $res['thumb'];
                 $this->show         = $res['show'];
                 $this->dateCreate   = $res['dateCreate'];

@@ -9,7 +9,7 @@ if($_POST){
     echo $id;
     $user = $_SESSION['userID'];
     $date = date('Y-m-d H:i:s');
-    $sql = "UPDATE products SET
+    $sql = "UPDATE materials SET
                     deleted=1,
                     userUpdate = {$user},
                     dateUpdate = '{$date}'

@@ -20,7 +20,7 @@ if (count($articles) > 0)
                 foreach($articles as $item) {?>
             <li <? echo ($i%3==1)?'class="no_mar_left"':''?>>
 
-                <a href="article/more">
+                <a href="article/more/<? echo $item->get_id()?>">
                     <div class="block_img">
                         <img src="../img/articles/<? echo $item->get_thumb()?>"/>
                     </div>

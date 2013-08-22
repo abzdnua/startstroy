@@ -24,7 +24,15 @@ echo '
 
                                 <tr>
                                     <td align="right">Текст статьи</td>
-                                    <td style="width: 350px"><textarea rows=7 style="width: 100%"name="article_text">'.$art['text'].'</textarea></td>
+                                    <td style="width: 350px">
+
+                                        <button style="width: 32%;" type="button" class="b" title="Жирный"><b>B</b></button>
+                                        <button style="width: 32%;" type="button"" class="i" title="Курсив"><i style="font-family: times new roman;">I</i></button>    <button style="width: 32%;" type="button" class="l" title="Cсылка">URL</button>
+  <textarea rows=7 style="width: 100%"name="article_text">'.$art['text'].'</textarea>
+
+
+
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td align="right">Превью</td>

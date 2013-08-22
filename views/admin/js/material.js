@@ -1,32 +1,14 @@
 $(document).ready(function(){
-
-
-
-
     $(document).on('click','#add_new',function(){
         $('#form').show()
     }).on('click','[name=save]',function(){
             console.log('123')
-            if($('[name=product_name]').val()=='')  {
-                $('[name=product_name]').css('border','1px solid red')
+            if($('[name=material_name]').val()==''){
+                $('[name=material_name]').css('border','1px solid red')
                 return false
-            }
-
-            else
-            {
-                $('[name=product_name]').css('border','none')
-            }
-            if($('[name=product_img_val]').val()=='')  {
-                $('[name=product_img]').css('color','red')
-                return false
-            }
-            else
-            {
-                $('[name=product_img]').css('color','black')
-            }
-            {
+            }else{
                 var data = {
-                    url: 'views/admin/ajax/products/save.php',
+                    url: 'views/admin/ajax/material/save.php',
                     beforeSubmit: function(jqForm){
                         $(this).attr('disabled','disabled')
                         console.log(jqForm)
@@ -35,7 +17,7 @@ $(document).ready(function(){
                         console.log(responseText)
                         if(responseText.indexOf('error') == -1)
                         {
-                            location.reload();
+                            $('#form').before(responseText);
                         }
                         else{
                             alert(responseText)
@@ -45,26 +27,21 @@ $(document).ready(function(){
                 }
 
                 $(this).parents('form').ajaxSubmit(data)
-                return false;
             }
         }).on('click','.edit',function(){
-            $.post('/views/admin/ajax/products/getProduct.php',{id:$(this).data('id')},function(data){
-//                alert(data)
-                $('#form').replaceWith(data)
-                $('#form').show()
-            })
-
-
+            $('#form').show()
+            $('[name=id]').val($(this).data('id'))
+            $('[name=material_name]').val($(this).data('name'))
 
         }).on('click','.del',function(){
-            if(confirm('Удалить товар??'))
+            if(confirm('Удалить материал?'))
             {
                 var th = $(this)
                 var id=th.data('id')
                 console.log(id)
                 $.ajax({
                     type:"POST",
-                    url: 'views/admin/ajax/products/delete.php',
+                    url: 'views/admin/ajax/material/delete.php',
                     data:{id:id},
                     success:(function(responseText){
                         console.log(responseText)
@@ -74,9 +51,5 @@ $(document).ready(function(){
                     })
                 })
             }
-        }).on('change','[name=product_img]',function(){
-            $('[name=product_img_val]').val($('[name=product_img]').val())
-
         })
-
 })

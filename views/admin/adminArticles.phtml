@@ -33,6 +33,7 @@ $article = $db->getArray();
                                 <tr>
                                     <td align="right">Название</td>
                                     <td style="width: 350px"><input type="text" style="width: 100%"name="article_name"></td>
+                                    <td style="vertical-align:middle" rowspan="4"><button type="button" name="save">Сохранить</button> </td>
                                 </tr>
                                 <tr>
                                     <td align="right">Короткое описание</td>
@@ -41,7 +42,22 @@ $article = $db->getArray();
 
                                 <tr>
                                     <td align="right">Текст статьи</td>
-                                    <td style="width: 350px"><textarea rows=7 style="width: 100%"name="article_text"></textarea></td>
+                                    <td style="width: 350px">
+                                        <button style="width: 32%;" type="button" class="b" title="Жирный"><b>B</b></button>
+                                        <button style="width: 32%;" type='button'' class='i' title='Курсив'><i style='font-family: times new roman;'>I</i></button>    <button style="width: 32%;" type="button" class="l" title="Cсылка">URL</button>
+                                        <textarea rows=7 style="width: 100%"name="article_text"></textarea>
+
+
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td align="right">Изображение</td>
+                                    <td style="width: 350px"><input type="file" style="width: 100%"name="article_img">
+                                        <input type="hidden" name="article_img_val">
+                                        <img id="id_img_edit_img" style="display:none"/>
+                                    </td>
+
                                 </tr>
                                 <tr>
                                     <td align="right">Превью</td>
@@ -49,7 +65,7 @@ $article = $db->getArray();
                                                        <input type="hidden" name="article_thumb_val">
                                         <img id="id_img_edit" style="display:none"/>
                                     </td>
-                                    <td style="vertical-align:middle" rowspan="2"><button type="button" name="save">Сохранить</button> </td>
+
                                 </tr>
 
                             </table>

@@ -1,116 +1,129 @@
 <?
+
 require_once $root."/lib/class.invis.db.php";
 require_once $root."/lib/class.db.manager.php";
+$page->addScript('views/admin/js/products.js');
+$db = db::getInstance();
 $dm = new db_manager();
+$db->query("SELECT * FROM products WHERE DELETED = 0");
+$product = $db->getArray();
+
+//print_r($cats);
+//phpinfo();
 ?>
-<tr style="height: 175px;">
-    <td <?=$products?'':'style="height: 100%"'?>>
+<tr>
+    <td style="height:75px">
         <div class="title">Товары</div>
         <fieldset>
-            <form method="POST" action="admin/products">
-                <table align="center">
-                    <tr>
-                        <td>
-                            <?echo $dm->getCategorySelect('category')?>
-                            <input type="submit" class=""  name="show" value="Показать"/>
-                        </td>
-                    </tr>
-                </table>
-            </form>
-        </fieldset>
-        <fieldset>
-            <a class="underline" href="/admin/editor/add">+ ДОБАВИТЬ ТОВАР</a>
+            <a id="add_new" style="cursor: pointer">+ ДОБАВИТЬ ТОВАР</a>
         </fieldset>
     </td>
 </tr>
 
-<?
-if($products)
-{
-    echo '<tr>
-    <td >
+<tr>
+    <td>
         <fieldset>
-            <table>
-                <tr>
-                    <td style="width:40px; font-weight: bold;">№</td>
-                    <td style="width:70px; font-weight: bold;">Фотография</td>
-                    <td style="width:360px; font-weight: bold;">Название</td>
-                    <td style="width:100px; font-weight: bold;">Тип</td>
-                    <td style="width:100px; font-weight: bold;">Цена</td>
-                    <td style="width:100px; font-weight: bold;">Скидка</td>
-                    <td style="width:100px; font-weight: bold;">С учетом скидки</td>
-                    <td style="width:50px; font-weight: bold;">Отобр.</td>
-                    <td style="width:30px; font-weight: bold;">Ред.</td>
-                    <td style="width:30px; font-weight: bold;">Уд.</td>
-                </tr>';
+            <table align="center" style="width:100%">
+                <tr id="form" style="display:none;" >
+                    <td colspan="6" style="padding: 10px;">
+                        <div style="margin-bottom:10px;font:10pt Verdana;">Добавить новый товар</div>
+                        <form method="post">
+                            <input type="hidden" name="id" value="">
+                            <table align="center" border="none">
+                                <tr>
+                                    <td align="right">Название</td>
+                                    <td style="width: 350px"><input type="text" style="width: 100%"name="product_name"></td>
+                                    <td style="vertical-align:middle" rowspan="4"><button type="button" name="save">Сохранить</button> </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Описание</td>
+                                    <td style="width: 350px"><textarea rows=3  type="text" style="width: 100%"name="product_des"></textarea></td>
+                                </tr>
+
+                                <tr>
+                                    <td align="right">Цена</td>
+                                    <td style="width: 350px"><input type="text" style="width: 100%"name="product_price"></td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Новая цена</td>
+                                    <td style="width: 350px"><input type="text" style="width: 100%"name="product_priceforsale"></td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Изображение</td>
+                                    <td style="width: 350px"><input type="file" style="width: 100%"name="product_img">
+                                        <input type="hidden" name="product_img_val">
+                                        <img id="id_img_edit_img" style="display:none"/>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td align="right">Категория</td>
+                                    <td>
+                                        <?echo $dm->getCategorySelect('category_id',-1)?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Выбирете производителя</td>
+                                    <td>
+                                        <?echo $dm->getFirmSelect()?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Тип материала</td>
+                                    <td>
+                                        <?echo $dm->getMaterialSelect()?>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </td>
+                </tr>
+
+                <?
+                if(count($product)>0)
+                {?>
+                    <tr>
+                        <td style="width:15px;">№</td>
+                        <td style="width:200px; height: 25px; vertical-align:middle; font-weight: bold;">Название</td>
+                        <td style="width:200px; height: 25px; vertical-align:middle; font-weight: bold;">Описание</td>
+                        <td style="width:90px; height: 25px; vertical-align:middle; font-weight: bold;">Цена</td>
+                        <td style="width:90px; height: 25px; vertical-align:middle; font-weight: bold;">Новая цена</td>
+                        <td style="width:90px; height: 25px; vertical-align:middle; font-weight: bold;">Категория</td>
+                        <td style="width:90px; height: 25px; vertical-align:middle; font-weight: bold;">Производитель</td>
+                        <td style="width:90px; height: 25px; vertical-align:middle; font-weight: bold;">Тип материала</td>
+                        <td style="width:200px; height: 25px; vertical-align:middle; font-weight: bold;">Изображение</td>
+                        <td style="width:90px; height: 25px; vertical-align:middle; font-weight: bold;">Редактировать</td>
+                        <td style="width:70px; height: 25px; vertical-align:middle; font-weight: bold;">Удалить</td>
+                    </tr>
+                    <?foreach($product as $cat){?>
+                    <tr>
+                        <td><?echo $cat['id'];?></td>
+                        <td><?echo $cat['name'];?></td>
+                        <td><?echo $cat['des'];?></td>
+                        <td><?echo $cat['price'];?></td>
+                        <td><?echo $cat['priceForSale'];?></td>
+                        <td><?echo $dm-> getCategoryName( $cat['category_id']);?></td>
+                        <td><?echo $dm-> getFirmName( $cat['firm_id']);?></td>
+                        <td><?echo $dm-> getMaterialName( $cat['material_id']);?></td>
+                        <td><img src="/img/products/m_<?echo $cat['img'];?>"/></td>
+                        <td><button type="button" class="edit" data-id="<?echo $cat['id'];?>">Редактировать</button></td>
+                        <td><button type="button" class="del" data-id="<?echo $cat['id'];?>">Удалить</button></td>
+                    </tr>
+                <?}?>
 
 
 
-    foreach($products as $key => $val){
-        echo '<tr>';
-        echo '<td>';
-        echo  $key+1;
-        echo '</td>';
+                <?}
+                else
+                {
+                    echo '<tr><td colspan="5" align="center">На данный момент товаров нет</td></tr>';
+                }
 
-        echo '<td>';
-            echo  '<img style="height:71px" src="sc_img/product/'.$val['photo'].'.jpg">';
-        echo '</td>';
 
-        echo '<td>';
-        echo '<strong>'.$val['name'].'</strong><br/>';
-        echo $dm->getProductsAllDiscounts($val['id']);
-        echo '</td>';
+                ?>
 
-        echo '<td>';
-        if($val['is_present'] == 1)
-        {
-            echo  'Подарок';
-        }
-        else
-        {
-            echo $val['type'];
-        }
-        echo '</td>';
 
-        echo '<td>';
-        echo '<strong>'.$val['price'].' грн.</strong><br/>';
-        echo '</td>';
-        $disc = $dm->getProductFullDiscount($val['id']);
-        echo '<td>';
-        echo '<strong>'.$disc.'%</strong><br/>';
-        echo '</td>';
-
-        echo '<td>';
-        $pr = $val['price']*(1-$disc/100);
-        echo '<strong>'.floor($pr).' грн.</strong><br/>';
-        echo '</td>';
-
-        echo '<td>';
-        if($val['show'] == 1)
-        {
-            echo  '<span style="color: green">Отображается</span>';
-        }
-        else
-        {
-            echo  '<span style="color: red">Скрыт</span>';
-        }
-
-        echo '</td>';
-
-        echo '<td>';
-        echo '<a href="admin/editor/edit/'.$val['id'].'"><img src="sc_img/admin/b_edit.png" title="Редактировать"></a>';
-        echo '</td>';
-        echo '<td>';
-        echo '<input type="hidden" value="'.$val['id'].'" name="id"/>';
-        echo '<img src="sc_img/admin/b_drop.png" style="cursor: pointer;" title="Удалить" class="del_product">';
-        echo '</td>';
-
-        echo '</tr>';
-    }
-    echo '</table>
+            </table>
         </fieldset>
     </td>
-</tr>';
-}
-?>
-
+</tr>

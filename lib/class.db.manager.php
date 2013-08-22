@@ -111,11 +111,30 @@ class db_manager
                 $list .= '<option value="'.$firm['id'].'">'.$firm['name'].'</option>';
             }
         }
-        $list = '</select>';
+        $list .= '</select>';
         return $list;
     }
 
+    public function getMaterialSelect(){
+        $sql = "SELECT * FROM materials WHERE deleted = 0";
+        $this->_db->query($sql);
+        $materials = $this->_db->getArray();
+        $list = '<select name="material">';
+        $list .='<option value="0">Выберите тип материала</option>';
+        if(count($materials)>0){
+            foreach($materials as $material){
+                $list .= '<option value="'.$material['id'].'">'.$material['name'].'</option>';
+            }
+        }
+        $list .= '</select>';
+        return $list;
+    }
+
+
     public function getCategorySelect($name, $parent = 0){
+        if($parent==-1){
+            $sql = "SELECT * FROM categories WHERE deleted = 0";
+        }else
         $sql = "SELECT * FROM categories WHERE parent_id = ".$parent." AND deleted = 0";
         $this->_db->query($sql);
         $list = '<select name="'.$name.'">';
