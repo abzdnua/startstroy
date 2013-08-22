@@ -1,0 +1,94 @@
+<?
+require_once $root."/lib/class.invis.db.php";
+require_once $root."/lib/class.db.manager.php";
+$page->addScript('views/admin/js/partners.js');
+//require_once $root."/lib/class.category.php";
+$db = db::getInstance();
+$dm = new db_manager();
+$db->query("SELECT * FROM PARTNERS WHERE DELETED = 0");
+$partner = $db->getArray();
+
+//print_r($cats);
+//phpinfo();
+?>
+<tr>
+    <td style="height:75px">
+        <div class="title">ПАРТНЕРЫ</div>
+        <fieldset>
+            <a id="add_new" style="cursor: pointer">+ ДОБАВИТЬ ПАРТНЕРА</a>
+        </fieldset>
+    </td>
+</tr>
+
+<tr>
+    <td>
+        <fieldset>
+            <table align="center" style="width:100%">
+                <tr id="form" style="display:none;" >
+                    <td colspan="6" style="padding: 10px;">
+                        <div style="margin-bottom:10px;font:10pt Verdana;">Добавить нового партнера</div>
+                        <form method="post">
+                            <input type="hidden" name="id" value="">
+                            <table align="center" border="none">
+                                <tr>
+                                    <td align="right">Название</td>
+                                    <td style="width: 350px"><input type="text" style="width: 100%"name="partner_name"></td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Описание</td>
+                                    <td style="width: 350px"><input type="text" style="width: 100%"name="partner_des"></td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Картинка</td>
+                                    <td style="width: 350px"><input type="text" style="width: 100%"name="partner_img"></td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Ссылка</td>
+                                    <td style="width: 350px"><input type="text" style="width: 100%"name="partner_link"></td>
+                                    <td style="vertical-align:middle" rowspan="2"><button type="button" name="save">Сохранить</button> </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </td>
+                </tr>
+
+                <?
+                if(count($partner)>0)
+                {?>
+                    <tr>
+                        <td style="width:15px;">№</td>
+                        <td style="width:200px; height: 25px; vertical-align:middle; font-weight: bold;">Название</td>
+                        <td style="width:200px; height: 25px; vertical-align:middle; font-weight: bold;">Описание</td>
+                        <td style="width:200px; height: 25px; vertical-align:middle; font-weight: bold;">Картинка</td>
+                        <td style="width:200px; height: 25px; vertical-align:middle; font-weight: bold;">Ссылка</td>
+                        <td style="width:90px; height: 25px; vertical-align:middle; font-weight: bold;">Редактировать</td>
+                        <td style="width:70px; height: 25px; vertical-align:middle; font-weight: bold;">Удалить</td>
+                    </tr>
+                    <?foreach($partner as $cat){?>
+                    <tr>
+                        <td><?echo $cat['id'];?></td>
+                        <td><?echo $cat['name'];?></td>
+                        <td><?echo $cat['des'];?></td>
+                        <td><?echo $cat['img'];?></td>
+                        <td><?echo $cat['link'];?></td>
+                        <td><button type="button" class="edit" data-id="<?echo $cat['id'];?>" data-name="<?echo $cat['name']?>" data-des="<?echo $cat['des']?>" data-link="<?echo $cat['link']?>" data-img="<?echo $cat['img']?>"">Редактировать</button></td>
+                        <td><button type="button" class="del" data-id="<?echo $cat['id'];?>">Удалить</button></td>
+                    </tr>
+                <?}?>
+
+
+
+                <?}
+                else
+                {
+                    echo '<tr><td colspan="5" align="center">На данный момент партнеров нет</td></tr>';
+                }
+
+
+                ?>
+
+
+            </table>
+        </fieldset>
+    </td>
+</tr>
