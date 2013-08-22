@@ -748,7 +748,7 @@ h1
     margin-left: 42px;
     height: 320px;
     margin-bottom: 20px;
-
+    overflow: hidden;
 }
 .page_partner
 {

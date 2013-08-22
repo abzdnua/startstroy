@@ -4,23 +4,24 @@ $root = $_SERVER[DOCUMENT_ROOT];
 require_once $root.'/lib/class.invis.db.php';
 require_once $root.'/lib/class.dll.php';
 require_once $root.'/lib/class.upload.php';
-$pathToSaveImg = $root.'/img/partners/';
+$pathToSaveImg = $root.'/img/articles/';
 $db = db::getInstance();
 if(!empty($_POST)){
-    $name = $_POST['partner_name'];
-    $des = $_POST['partner_des'];
+    $name = $_POST['article_name'];
+    $des = $_POST['article_shortdes'];
    // $img = $_POST['partner_img'];
-    $link = $_POST['partner_link'];
+    $text = $_POST['article_text'];
+
     $user = $_SESSION['userID'];
     $date = date('Y-m-d H:i:s');
 
     if($_POST['id']!=''){
         $id = $_POST['id'];
-        $sql = "UPDATE partners SET
+        $sql = "UPDATE articles SET
                 name = '{$name}',
-                des = '{$des}',
+                shortDes = '{$des}',
+                text = '{$text}',
 
-                link = '{$link}',
                 userUpdate = {$user},
                 dateUpdate = '{$date}'
                 WHERE id = {$id}";
@@ -28,10 +29,10 @@ if(!empty($_POST)){
         $db->query($sql);
 
     }else{
-        $sql = "INSERT INTO partners
-                (name,des,link,userCreate,dateCreate)
+        $sql = "INSERT INTO articles
+                (name,shortDes,text,userCreate,dateCreate)
                 VALUES
-                ('{$name}','{$des}','{$link}',{$user},'{$date}')";
+                ('{$name}','{$des}','{$text}',{$user},'{$date}')";
 //        echo "error: ".$sql;
         $db->query($sql);
         $id = $db->last();
@@ -39,23 +40,23 @@ if(!empty($_POST)){
 
     }
 
-    if(!empty($_FILES['partner_img']['name'])!=''){
-        $img = new Upload($_FILES['partner_img']);
+    if(!empty($_FILES['article_thumb']['name'])!=''){
+        $thumb = new Upload($_FILES['article_thumb']);
 
-        if($img->image_src_x != 180 AND $img->image_src_y != 51)
+        if($thumb->image_src_x != 311 AND $thumb->image_src_y != 175)
         {
-            echo "error: Размер баннера должен быть 180*51";
+            echo "error: Размер баннера должен быть 311*175";
             exit();
         }
         $uniq = uniqid();
 
-        $img -> file_new_name_body = $uniq;
-        $img -> jpeg_quality = 100;
-        $img -> process($pathToSaveImg);
-        $img =  $uniq.'.'.$img->image_src_type;
+        $thumb -> file_new_name_body = $uniq;
+        $thumb -> jpeg_quality = 100;
+        $thumb -> process($pathToSaveImg);
+        $thumb =  $uniq.'.'.$thumb->image_src_type;
 
-        $sql = "UPDATE partners SET
-                img = '{$img}'
+        $sql = "UPDATE articles SET
+                thumb = '{$thumb}'
                 WHERE id = {$id}";
 //        echo "error: ".$sql;
         $db->query($sql);

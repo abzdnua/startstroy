@@ -144,5 +144,37 @@ class db_manager
         }
         return $out;
     }
+
+
+    public function getAllPartners(){
+        $db = $this->_db;
+        $sql = "SELECT id FROM partners WHERE deleted = 0 ";
+        $db->query($sql);
+        $out = array();
+        $cats = $db->getArray();
+        if(count($cats)>0){
+            foreach($cats as $cat){
+                $tmp =  new partner($cat['id']);
+                array_push($out,$tmp);
+            }
+        }
+        return $out;
+    }
+
+
+    public function getAllArticles(){
+        $db = $this->_db;
+        $sql = "SELECT id FROM articles WHERE deleted = 0 ";
+        $db->query($sql);
+        $out = array();
+        $cats = $db->getArray();
+        if(count($cats)>0){
+            foreach($cats as $cat){
+                $tmp =  new article($cat['id']);
+                array_push($out,$tmp);
+            }
+        }
+        return $out;
+    }
 }
 ?>

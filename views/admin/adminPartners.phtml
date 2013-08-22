@@ -36,11 +36,14 @@ $partner = $db->getArray();
                                 </tr>
                                 <tr>
                                     <td align="right">Описание</td>
-                                    <td style="width: 350px"><input type="text" style="width: 100%"name="partner_des"></td>
+                                    <td style="width: 350px"><textarea rows=3 style="width: 100%"name="partner_des"></textarea></td>
                                 </tr>
                                 <tr>
                                     <td align="right">Картинка</td>
-                                    <td style="width: 350px"><input type="text" style="width: 100%"name="partner_img"></td>
+                                    <td style="width: 350px"><input type="file" style="width: 100%"name="partner_img">
+                                                       <input type="hidden" name="partner_img_val">
+                                        <img id="id_img_edit" style="display:none"/>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td align="right">Ссылка</td>
@@ -69,7 +72,7 @@ $partner = $db->getArray();
                         <td><?echo $cat['id'];?></td>
                         <td><?echo $cat['name'];?></td>
                         <td><?echo $cat['des'];?></td>
-                        <td><?echo $cat['img'];?></td>
+                        <td><img src="/img/partners/<?echo $cat['img'];?>"/></td>
                         <td><?echo $cat['link'];?></td>
                         <td><button type="button" class="edit" data-id="<?echo $cat['id'];?>" data-name="<?echo $cat['name']?>" data-des="<?echo $cat['des']?>" data-link="<?echo $cat['link']?>" data-img="<?echo $cat['img']?>"">Редактировать</button></td>
                         <td><button type="button" class="del" data-id="<?echo $cat['id'];?>">Удалить</button></td>

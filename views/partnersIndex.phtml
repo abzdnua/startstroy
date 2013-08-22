@@ -1,93 +1,42 @@
 <?
     $page -> setTitle("Start stroy");
+require_once $root."/lib/class.invis.db.php";
+require_once $root."/lib/class.db.manager.php";
+require_once $root."/lib/class.dll.php";
+$db = db::getInstance();
+$dm = new db_manager();
+
+
+
+
+$partners = $dm->getAllPartners();
+if (count($partners) > 0)
+{
+
 
 ?>
         <h1 >Партнеры</h1>
     <div class="page_partner ">
         <ul>
-            <li class="no_mar_left">
+            <?$i=1;
+            foreach($partners as $item) {?>
+            <li <? echo ($i%4==1)?'class="no_mar_left"':''?>>
                 <div class="img">
                     <div class="vert_al">
-                   <a href="/"><img src="../img/partner.jpg"/></a>
+                   <a <? echo ($item->get_link())?'href="'.$item->get_link().'"':''?>  ><img src="../img/partners/<? echo $item->get_img()?>"/></a>
                     </div>
                 </div>
-                    <a href="">ООО «ЮДК»</a>
-                    <div class="text">Производитель изделий из автоклавного газобетона</div>
+                <a  <? echo ($item->get_link())?'target="_blank" href="'.$item->get_link().'"':''?>  ><? echo $item->get_name()?></a>
+                    <div class="text"><? echo $item->get_des()?></div>
 
             </li>
-            <li>
-                <div class="img">
-                    <div class="vert_al">
-                        <a href="/"><img src="../img/partner.jpg"/></a>
-                    </div>
-                </div>
-                <a href="">ООО «ЮДК»</a>
-                <div class="text">Производитель изделий из автоклавного газобетона</div>
+        <?$i++;}?>
 
-            </li>
-            <li>
-                <div class="img">
-                    <div class="vert_al">
-                        <a href="/"><img src="../img/partner2.jpg"/></a>
-                    </div>
-                </div>
-                <a href="">КЕРАТЕРМ</a>
-                <div class="text">Производитель изделий из автоклавного газобетона</div>
 
-            </li>
-            <li>
-                <div class="img">
-                    <div class="vert_al">
-                        <a href="/"><img src="../img/partner.jpg"/></a>
-                    </div>
-                </div>
-                <a href="">ООО «ЮДК»</a>
-                <div class="text">Производитель изделий из автоклавного газобетона</div>
 
-            </li>
 
-            <li class="no_mar_left">
-                <div class="img">
-                    <div class="vert_al">
-                        <a href="/"><img src="../img/partner.jpg"/></a>
-                    </div>
-                </div>
-                <a href="">ООО «ЮДК»</a>
-                <div class="text">Производитель изделий из автоклавного газобетона</div>
-
-            </li>
-            <li>
-                <div class="img">
-                    <div class="vert_al">
-                        <a href="/"><img src="../img/partner.jpg"/></a>
-                    </div>
-                </div>
-                <a href="">КЕРАТЕРМ</a>
-                <div class="text">Производитель изделий из автоклавного газобетона</div>
-
-            </li>
-            <li>
-                <div class="img">
-                    <div class="vert_al">
-                        <a href="/"><img src="../img/partner2.jpg"/></a>
-                    </div>
-                </div>
-                <a href="">ООО «ЮДК»</a>
-                <div class="text">Производитель изделий из автоклавного газобетона</div>
-
-            </li>
-            <li>
-                <div class="img">
-                    <div class="vert_al">
-                        <a href="/"><img src="../img/partner.jpg"/></a>
-                    </div>
-                </div>
-                <a href="">КЕРАТЕРМ</a>
-                <div class="text">Производитель изделий из автоклавного газобетона</div>
-
-            </li>
         </ul>
-
+<?}?>
 
 
 

@@ -1,171 +1,51 @@
 <?
     $page -> setTitle("Start stroy");
+require_once $root."/lib/class.invis.db.php";
+require_once $root."/lib/class.db.manager.php";
+require_once $root."/lib/class.dll.php";
+$db = db::getInstance();
+$dm = new db_manager();
+$articles = $dm->getAllArticles();
+if (count($articles) > 0)
+{
 
 ?>
         <h1 >Статьи</h1>
     <div class="page_article">
         <ul>
-            <li class="no_mar_left"><a href="article/more">
+
+
+
+                <?$i=1;
+                foreach($articles as $item) {?>
+            <li <? echo ($i%3==1)?'class="no_mar_left"':''?>>
+
+                <a href="article/more">
                     <div class="block_img">
-                            <img src="../img/article1.jpg"/>
+                        <img src="../img/articles/<? echo $item->get_thumb()?>"/>
                     </div>
                 <div class="more_padding">
-                        <p class="name">Достаточное и не слишком длинное название статьи</p>
-                        <p class="date">10 июля 2013 г.</p>
-                            <div class="clr"></div>
-                        <p class="text">
-                            Небольшое описание в котором изложенны основные тезисы статьи, размер которого не превышает 4-5 строк.Небольшое описание в котором изложенны основные тезисы статьи, размер которого не превышает 4-5 строк.
-                           <br><br>
-                            Небольшое описание в котором изложенны основные тезисы статьи, размер которого не превышает 4-5 строк.
-
-                        </p>
+                    <p class="name"><? echo $item->get_name()?></p>
+                    <p class="date">10 июля 2013 г.</p>
+                    <div class="clr"></div>
+                    <p class="text"><? echo $item->get_shortDes()?></p>
                 </div>
-                </a>
+                    </a>
+
+
             </li>
+            <?$i++;}?>
 
 
-            <li><a href="article/more">
-                    <div class="block_img">
-                        <img src="../img/article1.jpg"/>
-                    </div>
-
-                    <div class="more_padding">
-                        <p class="name">Достаточное название </p>
-                        <p class="date">10 июля 2013 г.</p>
-                        <div class="clr"></div>
-                        <p class="text">
-                            Небольшое описание в котором изложенны основные тезисы статьи, размер которого не превышает 4-5 строк.Небольшое описание в котором изложенны основные тезисы статьи, размер которого не превышает 4-5 строк.
-                            <br><br>
-                            Небольшое описание в котором изложенны основные тезисы статьи, размер которого не превышает 4-5 строк.
-
-                        </p>
-                    </div>
-                </a>
-            </li>
-            <li><a href="article/more">
-                    <div class="block_img">
-                        <img src="../img/article1.jpg"/>
-                    </div>
-
-                    <div class="more_padding">
-                        <p class="name">Достаточное и не слишком длинное название статьи</p>
-                        <p class="date">10 июля 2013 г.</p>
-                        <div class="clr"></div>
-                        <p class="text">
-                            Небольшое описание в котором изложенны основные тезисы статьи, размер которого не превышает 4-5 строк.
-
-                        </p>
-                    </div>
-                </a>
-            </li>
-            <li class="no_mar_left"><a href="article/more">
-                    <div class="block_img">
-                        <img src="../img/article1.jpg"/>
-                    </div>
-
-                    <div class="more_padding">
-                        <p class="name">Достаточное и не слишком длинное название статьи</p>
-                        <p class="date">10 июля 2013 г.</p>
-                        <div class="clr"></div>
-                        <p class="text">
-                            Небольшое описание в котором изложенны основные тезисы статьи, размер которого не превышает 4-5 строк.Небольшое описание в котором изложенны основные тезисы статьи, размер которого не превышает 4-5 строк.
-                            <br><br>
-                            Небольшое описание в котором изложенны основные тезисы статьи, размер которого не превышает 4-5 строк.
-
-                        </p>
-                    </div>
-                </a>
-            </li>
-            <li><a href="article/more">
-                    <div class="block_img">
-                        <img src="../img/article1.jpg"/>
-                    </div>
-
-                    <div class="more_padding">
-                        <p class="name">Достаточное и не слишком длинное название статьи</p>
-                        <p class="date">10 июля 2013 г.</p>
-                        <div class="clr"></div>
-                        <p class="text">
-                            Небольшое описание в котором изложенны основные тезисы статьи, размер которого не превышает 4-5 строк.
-
-                        </p>
-                    </div>
-                </a>
-            </li>
-            <li><a href="article/more">
-                    <div class="block_img">
-                    <img src="../img/article1.jpg"/>
-                    </div>
-                    <div class="more_padding">
-                        <p class="name">Достаточное и не слишком длинное название статьи</p>
-                        <p class="date">10 июля 2013 г.</p>
-                        <div class="clr"></div>
-                        <p class="text">
-                            Небольшое описание   Небольшое описание   Небольшое описание
-
-                        </p>
-                    </div>
-                </a>
-            </li>
-
-            <li class="no_mar_left"><a href="article/more">
-                    <div class="block_img">
-                        <img src="../img/article1.jpg"/>
-                    </div>
-                    <div class="more_padding">
-                        <p class="name">Достаточное и не слишком длинное название статьи</p>
-                        <p class="date">10 июля 2013 г.</p>
-                        <div class="clr"></div>
-                        <p class="text">
-                            Небольшое описание в котором изложенны основные тезисы статьи, размер которого не превышает 4-5 строк.Небольшое описание в котором изложенны основные тезисы статьи, размер которого не превышает 4-5 строк.
-                            <br><br>
-                            Небольшое описание в котором изложенны основные тезисы статьи, размер которого не превышает 4-5 строк.
-
-                        </p>
-                    </div>
-                </a>
-            </li>
 
 
-            <li><a href="article/more">
-                    <div class="block_img">
-                        <img src="../img/article1.jpg"/>
-                    </div>
 
-                    <div class="more_padding">
-                        <p class="name">Достаточное название </p>
-                        <p class="date">10 июля 2013 г.</p>
-                        <div class="clr"></div>
-                        <p class="text">
-                            Небольшое описание в котором изложенны основные тезисы статьи, размер которого не превышает 4-5 строк.Небольшое описание в котором изложенны основные тезисы статьи, размер которого не превышает 4-5 строк.
-                            <br><br>
-                            Небольшое описание в котором изложенны основные тезисы статьи, размер которого не превышает 4-5 строк.
 
-                        </p>
-                    </div>
-                </a>
-            </li>
-            <li><a href="article/more">
-                    <div class="block_img">
-                        <img src="../img/article1.jpg"/>
-                    </div>
-
-                    <div class="more_padding">
-                        <p class="name">Достаточное и не слишком длинное название статьи</p>
-                        <p class="date">10 июля 2013 г.</p>
-                        <div class="clr"></div>
-                        <p class="text">
-                            Небольшое описание в котором изложенны основные тезисы статьи, размер которого не превышает 4-5 строк.
-
-                        </p>
-                    </div>
-                </a>
-            </li>
 
         </ul>
 
 
-
+        <?}?>
 
     </div>
 
