@@ -40,6 +40,36 @@ if(!empty($_POST)){
 
     }
 
+    if(!empty($_FILES['article_img']['name'])!=''){
+        $thumb = new Upload($_FILES['article_img']);
+
+        if($thumb->image_src_x != 640 AND $thumb->image_src_y != 360)
+        {
+            echo "error: Размер баннера должен быть 640*360";
+            exit();
+        }
+        $uniq_img = uniqid();
+
+        $img -> file_new_name_body = $uniq_img;
+        $img -> jpeg_quality = 100;
+        $img -> process($pathToSaveImg);
+        $img_str =  $uniq_img.'.'.$thumb->image_src_type;
+
+        $img -> file_new_name_body = 'm_'.$uniq_img;
+        $img -> jpeg_quality = 100;
+        $img -> image_x = 311;
+        $img -> image_y = 175;
+        $img -> process($pathToSaveImg);
+        $thumb_str = 'm_'.$uniq_img.'.'.$thumb->image_src_type;
+
+        $sql = "UPDATE articles SET
+                img = '{$img_str}',
+                thumb = '{$thumb_str}'
+                WHERE id = {$id}";
+//        echo "error: ".$sql;
+        $db->query($sql);
+    }
+
     if(!empty($_FILES['article_thumb']['name'])!=''){
         $thumb = new Upload($_FILES['article_thumb']);
 
@@ -54,6 +84,8 @@ if(!empty($_POST)){
         $thumb -> jpeg_quality = 100;
         $thumb -> process($pathToSaveImg);
         $thumb =  $uniq.'.'.$thumb->image_src_type;
+
+        @unlink($pathToSaveImg.'/'.$thumb_str);
 
         $sql = "UPDATE articles SET
                 thumb = '{$thumb}'

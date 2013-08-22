@@ -44,11 +44,12 @@ $(document).ready(function(){
                 return false;
             }
         }).on('click','.edit',function(){
-            $.post('/views/admin/ajax/articles/getArticle.php',{id:$(this).data['id']},function(data){
-                alert(data)
+            $.post('/views/admin/ajax/articles/getArticle.php',{id:$(this).data('id')},function(data){
+//                alert(data)
                 $('#form').replaceWith(data)
+                $('#form').show()
             })
-            $('#form').show()
+
 
 
         }).on('click','.del',function(){
