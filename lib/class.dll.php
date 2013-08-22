@@ -1,6 +1,6 @@
 <?php
 require_once 'class.invis.db.php';
-require_once 'class.date.php';
+//require_once 'class.date.php';
 class DLL {
     
     private $_db;
@@ -30,7 +30,7 @@ class DLL {
     
     function __construct() {
         $this -> _db =  db :: getInstance();
-        $this -> _dtClass = new date();
+//        $this -> _dtClass = new date();
     }
     
     public function getWordDays($products)
@@ -261,7 +261,7 @@ public function morph($n, $f1, $f2, $f5) {
     }
     
     //1 значение по $id из таблицы admin 
-    public function getUser($id, $whatField = 'user')
+    public function getUser($id, $whatField = 'name')
     { 
         return $this -> query($id, $whatField, 'admin');
     }
@@ -277,6 +277,7 @@ public function morph($n, $f1, $f2, $f5) {
             $values = $this -> _db -> getArray();
             $src=($src == null) ? "" : $src;
             $selectB = '<select id="'.$name.'" name="'.$name.'" '.$style.' '.$attr.'>';
+            $options = '';
             if ($firstName) $optionF = '<option value="'.$firstValue.'">'.$firstName.'</option>';
             foreach ($values as $i => $value)
             {

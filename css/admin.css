@@ -42,6 +42,9 @@ SELECT
 {
     margin-top:5px;
 }
+TD SELECT{
+    width:100%;
+}
 
 /* -------- TABLE.main -------- */
 TABLE.main
@@ -1392,7 +1395,7 @@ span.help{font-size: 9px;font-style: italic;color: #97978D;}
 .lightTr tr:hover{background: #F7FFF5}
 
 .tab{margin: 0 auto 20px auto}
- button{width: 100%;min-height: 30px}
+ button{width: 100%;min-height: 25px}
  
  /* Apply these styles only when #preview-pane has
    been placed within the Jcrop widget */
