@@ -1,0 +1,96 @@
+<?
+require_once $root."/lib/class.invis.db.php";
+require_once $root."/lib/class.db.manager.php";
+$page->addScript('views/admin/js/ready_objects.js');
+//require_once $root."/lib/class.category.php";
+$db = db::getInstance();
+$dm = new db_manager();
+$db->query("SELECT * FROM objects WHERE DELETED = 0");
+$objects = $db->getArray();
+
+//print_r($cats);
+//phpinfo();
+?>
+<tr>
+    <td style="height:75px">
+        <div class="title">Готовые объекты</div>
+        <fieldset>
+            <a id="add_new" style="cursor: pointer">+ ДОБАВИТЬ ОБЪЕКТ</a>
+        </fieldset>
+    </td>
+</tr>
+
+<tr>
+    <td>
+        <fieldset>
+            <table align="center" style="width:100%">
+                <tr id="form" style="display:none;" >
+                    <td colspan="6" style="padding: 10px;">
+                        <div style="margin-bottom:10px;font:10pt Verdana;">Добавить новый объект</div>
+                        <form method="post">
+                            <input type="hidden" name="id" value="">
+                            <table align="center" border="none">
+                                <tr>
+                                    <td align="right">Название</td>
+                                    <td style="width: 350px"><input type="text" style="width: 100%"name="objects_name"></td>
+                                    <td style="vertical-align:middle" rowspan="4"><button type="button" name="save">Сохранить</button> </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Дата</td>
+                                    <td style="width: 350px"><input type="text" style="width: 100%"name="objects_date"></td>
+
+                                </tr>
+
+                                <tr>
+                                    <td align="right">Изображение</td>
+                                    <td style="width: 350px"><input type="file" style="width: 100%"name="objects_img">
+                                        <input type="hidden" name="objects_img_val">
+                                        <img id="id_img_edit_img" style="display:none"/>
+                                    </td>
+
+                                </tr>
+
+
+                            </table>
+                        </form>
+                    </td>
+                </tr>
+
+                <?
+                if(count($objects)>0)
+                {?>
+                    <tr>
+                        <td style="width:15px;">№</td>
+                        <td style="width:200px; height: 25px; vertical-align:middle; font-weight: bold;">Название</td>
+
+                        <td style="width:90px; height: 25px; vertical-align:middle; font-weight: bold;">Редактировать</td>
+                        <td style="width:70px; height: 25px; vertical-align:middle; font-weight: bold;">Удалить</td>
+                    </tr>
+                    <?foreach($objects as $cat){?>
+                    <tr>
+                        <td><?echo $cat['id'];?></td>
+                        <td><?echo $cat['name'];?></td>
+
+
+                        <td><img src="/img/objects/<?echo $cat['img'];?>"/></td>
+                       <td><button type="button" class="edit" data-id="<?echo $cat['id'];?>">Редактировать</button></td>
+                        <td><button type="button" class="del" data-id="<?echo $cat['id'];?>">Удалить</button></td>
+                    </tr>
+                <?}?>
+
+
+
+                <?}
+                else
+                {
+                    echo '<tr><td colspan="5" align="center">На данный момент готовых объектов нет</td></tr>';
+                }
+
+
+                ?>
+
+
+            </table>
+        </fieldset>
+    </td>
+</tr>

@@ -25,14 +25,14 @@ $product = $db->getArray();
         <fieldset>
             <table align="center" style="width:100%">
                 <tr id="form" style="display:none;" >
-                    <td colspan="6" style="padding: 10px;">
+                    <td colspan="11" style="padding: 10px;">
                         <div style="margin-bottom:10px;font:10pt Verdana;">Добавить новый товар</div>
                         <form method="post">
                             <input type="hidden" name="id" value="">
                             <table align="center" border="none">
                                 <tr>
                                     <td align="right">Название</td>
-                                    <td style="width: 350px"><input type="text" style="width: 100%"name="product_name"></td>
+                                    <td style="width: 670px"><input type="text" style="width: 100%"name="product_name"></td>
                                     <td style="vertical-align:middle" rowspan="4"><button type="button" name="save">Сохранить</button> </td>
                                 </tr>
                                 <tr>
@@ -59,21 +59,32 @@ $product = $db->getArray();
                                 <tr>
                                     <td align="right">Категория</td>
                                     <td>
-                                        <?echo $dm->getCategorySelect('category_id',-1)?>
+                                        <?echo $dm->getCategorySelect('category_id')?>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td align="right">Выбирете производителя</td>
                                     <td>
-                                        <?echo $dm->getFirmSelect()?>
+                                        <?echo $dm->getFirmSelect('firm')?>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td align="right">Тип материала</td>
                                     <td>
-                                        <?echo $dm->getMaterialSelect()?>
+                                        <?echo $dm->getMaterialSelect('material')?>
                                     </td>
                                 </tr>
+
+                                <tr>
+                                    <td align="right">Характеристики</td>
+                                    <td>
+                                        <input type="hidden" name="char_count" value="0">
+                                        <input type="button" id="add_char" value="Добавить характеристику">
+                                    </td>
+                                </tr>
+
+
+
                             </table>
                         </form>
                     </td>
@@ -85,7 +96,7 @@ $product = $db->getArray();
                     <tr>
                         <td style="width:15px;">№</td>
                         <td style="width:200px; height: 25px; vertical-align:middle; font-weight: bold;">Название</td>
-                        <td style="width:200px; height: 25px; vertical-align:middle; font-weight: bold;">Описание</td>
+
                         <td style="width:90px; height: 25px; vertical-align:middle; font-weight: bold;">Цена</td>
                         <td style="width:90px; height: 25px; vertical-align:middle; font-weight: bold;">Новая цена</td>
                         <td style="width:90px; height: 25px; vertical-align:middle; font-weight: bold;">Категория</td>
@@ -99,7 +110,7 @@ $product = $db->getArray();
                     <tr>
                         <td><?echo $cat['id'];?></td>
                         <td><?echo $cat['name'];?></td>
-                        <td><?echo $cat['des'];?></td>
+
                         <td><?echo $cat['price'];?></td>
                         <td><?echo $cat['priceForSale'];?></td>
                         <td><?echo $dm-> getCategoryName( $cat['category_id']);?></td>

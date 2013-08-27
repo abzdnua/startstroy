@@ -11,16 +11,22 @@ if($_POST){
     $id = $_POST['id'];
     $db->query("SELECT * FROM products WHERE id = ".$id);
 $art = $db->getRow();
+
+
+
+
+        $db->query("SELECT * FROM characteristics WHERE product_id = ".$id);
+        $char = $db->getArray();
 echo '
  <tr id="form" style="display:none;" >
-                    <td colspan="6" style="padding: 10px;">
+                    <td colspan="11" style="padding: 10px;">
                         <div style="margin-bottom:10px;font:10pt Verdana;">Добавить новый товар</div>
                         <form method="post">
-                            <input type="hidden" name="id" value="">
+                            <input type="hidden" name="id" value="'.$id.'">
                             <table align="center" border="none">
                                 <tr>
                                     <td align="right">Название</td>
-                                    <td style="width: 350px"><input type="text" style="width: 100%"name="product_name" value="'.$art['name'].'"></td>
+                                    <td style="width: 670px"><input type="text" style="width: 100%"name="product_name" value="'.$art['name'].'"></td>
                                     <td style="vertical-align:middle" rowspan="4"><button type="button" name="save">Сохранить</button> </td>
                                 </tr>
                                 <tr>
@@ -47,21 +53,51 @@ echo '
                                 <tr>
                                     <td align="right">Категория</td>
                                     <td>
-                                        '.$dm -> getCategorySelect("category_id",-1).'
+                                        '.$dm -> getCategorySelect("category_id",$art['category_id']).'
+                                    </td>
+                                </tr>
+                                   <tr>
+                                    <td align="right">Подкатегория</td>
+                                    <td>
+                                        '.$dm -> getCategorySelect("subCategory_id",$art['subCategory_id'],$art['category_id']).'
                                     </td>
                                 </tr>
                                 <tr>
                                     <td align="right">Выбирете производителя</td>
                                     <td>
-                                     '.$dm -> getFirmSelect().'
+                                     '.$dm -> getFirmSelect("firm",$art['firm_id']).'
                                     </td>
                                 </tr>
                                 <tr>
                                     <td align="right">Тип материала</td>
                                     <td>
-                                      '.$dm -> getMaterialSelect().'
+                                      '.$dm -> getMaterialSelect("material",$art['material_id']).'
+                                    </td>
+
+
+
+
+                                </tr>
+
+                                 <tr>
+                                    <td align="right">Характеристики</td>
+                                    <td>
+                                        <input type="hidden" name="char_count" value="'.count($char).'">';
+                                           if (count($char) >0 )
+                                           {
+                                            for($i=1;$i<=count($char);$i++)
+                                                 {
+                                                echo '<div class="char">Наименование: <input style="width: 150px;margin-right: 29px;" name="c_name_'.$i.'" type="text"  value="'.$char[$i-1]['name'].'" class="name"/> Значение: <input style="width: 252px;" name="c_value_'.$i.'" type="text"  value="'.$char[$i-1]['value'].'"  class="value"/><div class="del_char" title="Удалить характеристику"><img src="img/admin/remove.png" /></div></div>';
+
+                                                 }
+                                           }
+
+    echo '
+                                        <input type="button" id="add_char" value="Добавить характеристику">
                                     </td>
                                 </tr>
+
+
                             </table>
                         </form>
                     </td>

@@ -1,7 +1,25 @@
 <?
     $page -> setTitle("Start stroy");
 
+require_once $root."/lib/class.invis.db.php";
+require_once $root."/lib/class.db.manager.php";
+require_once $root."/lib/class.dll.php";
+$db = db::getInstance();
+$dm = new db_manager();
+
+$id = $controller->getParam(3);
+
+
+$db->query("SELECT * FROM products WHERE id = ".$id );
+$product = $db->getRow();
+$db->query("SELECT * FROM characteristics WHERE product_id = ".$id);
+$char = $db->getArray();
 ?>
+
+
+
+
+
 
 <div class="catalog_page tovar_page ">
 <h1 >Каталог продукции</h1>
@@ -9,70 +27,57 @@
 <div class="trail_href">
       <a href="/">Каталог продукции</a>
       <span></span>
-    <a href="/">Стеновые материалы</a>
+    <a href="/<?echo $dm->getCategory_link($product['category_id']);?>"><?echo $dm->getCategoryName($product['category_id']);?></a>
         <span></span>
-        <a href="/">Газобетон ЮДК </a>
-            <span></span>
-    <p>У-Блок ЮДК газобетонный 500х200х250 мм.</p>
+        <a href="/<?echo $dm->getCategory_link($product['category_id']);?>"> <? echo $dm->getSubCategory_name($product['subCategory_id'])?> </a>
+    <span></span>
+    <p><?echo $product['name'];?></p>
 </div>
     <div class="h_50">
-        <div class="title_page f_l"><span>У-Блок ЮДК газобетонный 500х200х250 мм</span></div>
+        <div class="title_page f_l"><span><?echo $product['name'];?></span></div>
 
     </div>
 
    <div class="img_tovar">
-      <div><img src="../img/_img1.jpg"/></div>
+      <div><img src="../img/products/<?echo $product['img'];?>"/></div>
    </div>
     <div class="tovar_text">
-        <p class="title">Тип материала: Газобетонный блок</p>
-        <p class="title2">Производитель: UDK</p>
-        <p>Газобетон – это искусственный камень, обладающий пористой структурой. Также он характеризуется небольшим весом, высокой прочностью, экологической чистотой и безопасностью для здоровья. Основное применение – для возведения, утепления или заполнения стен, все это благодаря отличным качествам, как эксплуатационным, так и технологическим. Занимает одну из лидирующих позиций среди строительных материалов подобного назначения.</p>
+        <p class="title">Тип материала: <? echo $dm->getMaterialName($product['material_id'])?></p>
+        <p class="title2">Производитель: <? echo $dm->getFirmName($product['firm_id'])?></p>
+        <p><? echo $product['des']?></p>
 
         <div class="price">
             <p class="text">Стоимость за единицу</p>
             <p class="text_right">Цены на 10.08.2013</p>
 <br>
-            <p class="proce_old">1000,00 грн.</p>
-            <p class="proce_new red">999,50 грн.</p>
+            <p class="proce_old"  <?echo ($product['price']==0)?"style='display:none'":""?>   ><? echo $product['price']?> грн.</p>
+            <p class="proce_new  <?echo ($product['price']==0)?"":"red"?>"><? echo $product['priceForSale']?> грн.</p>
             <a href="/buy" class="buy">ЗАКАЗАТЬ</a>
         </div>
     </div>
 
 
 <div class="clr"></div>
+
+    <?if (count($char) > 0)
+    {?>
 <div class="title_char"><span>Характеристика</span> товара</div>
-<table class="charact">
-    <tr>
-        <td class="left">
-            Размеры изделия
-        </td>
-        <td class="right">
-            600 х 200 х 100
-        </td>
-    </tr>
-    <tr>
-        <td class="left">
-            Форма
-        </td>
-        <td class="right">
-            Блоки гладкие или с пазом и гребнем, захватами для рук
-        </td>
-    </tr>
-    <tr>
-        <td class="left">
-            Средняя плотность сухого<br> материала
-        </td>
-        <td class="right">
-            400 кг/м3
-        </td>
-    </tr>
-    <tr>
-        <td class="left">
-            Дополнительная информация
-        </td>
-        <td class="right">
-            Обратите внимание что объем упаковки может отличатья в зависимости от упаковываемого на паллету типоразмера блока, это важно при выборе автомобиля для доставки блоков на объект!
-        </td>
-    </tr>
-</table>
+                <table class="charact">
+                          <?  if (count($char) >0 )
+                            {
+                                    for($i=1;$i<=count($char);$i++)
+                                    {
+                                             echo ' <tr> <td class="left"> ';
+                                                 echo $char[$i-1]['name'] ;
+                                             echo ' </td>  <td class="right">';
+                                                 echo  $char[$i-1]['value'];
+                                             echo '  </td>  </tr>';
+
+                                    }
+                            }?>
+
+                </table>
+
+
+<?}?>
 </div>

@@ -1377,15 +1377,16 @@ font-size: 14px;
 }
 .form_reviews .bt_send
 {
-    background: url(../img/bt_send.png)  left top no-repeat;
-
-
-    width: 110px;
+    background: url(../img/bt_send.png) left top no-repeat;
+    width: 109px;
     height: 38px;
     font-size: 16px;
     color: #ffffff;
     line-height: 36px;
     padding-left: 50px;
+    display: block;
+    border: none !important;
+    box-shadow: none !important;
 
 
 }
@@ -1911,4 +1912,138 @@ width: inherit;
 #addres1:hover,#addres2:hover
 {
     text-decoration: none;
+}
+
+.circle_main
+{
+
+    position: absolute;
+    width: 200px;
+    height: 200px;
+}
+
+
+#circle1,#circle2,#circle3,#circle4 {
+    width: 200px;
+    height: 200px;
+    background: #f5c574;
+    -moz-border-radius: 100px;
+    -webkit-border-radius: 100px;
+    border-radius: 100px;
+    position: absolute;
+}
+.img_1,.img_2,.img_3,.img_4
+{
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 67px;
+    left: 74px;
+    display: none;
+    z-index: 99;
+}
+.img_1
+{
+    background: #f5c574;
+
+}
+.img_2
+{
+    background: #f09e94;
+
+}
+.img_3
+{
+    background: #97d0f1;
+
+}
+.img_4
+{
+    background: #79bcaf;
+
+}
+#circle1
+{    background: #f5c574;
+
+    clip: rect(105px, 95px,200px, 0px);
+}
+.all_circle
+{
+    width: 200px;
+    height: 200px;
+    position: relative;
+    background: url(../img/test/bg.png) ;
+}
+#circle_center
+{
+    width: 170px;
+    height: 170px;
+    background: url(../img/test/bg.png) ;
+    -moz-border-radius: 100px;
+    -webkit-border-radius: 100px;
+    border-radius: 100px;
+    position: absolute;
+    z-index: 1;
+    top: 15px;
+    left: 15px;
+}
+#circle2 {
+background: #f09e94;
+
+    clip: rect(0px, 200px,95px, 105px);
+
+}
+#circle3 {
+    background: #97d0f1;
+    clip: rect(auto, 95px,95px, auto);
+
+}
+#circle4 {
+    background: #79bcaf;
+    clip: rect(105px, auto, auto, 105px);
+}
+#circle4:hover,#circle3:hover,#circle2:hover,#circle1:hover
+{
+
+    cursor: pointer;
+}
+.circle .block_1:hover
+{
+    background: green;
+    cursor: pointer;
+}
+
+.circle .block_1
+{
+    width: 100px;
+    height: 100px;
+    background: red;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+}
+
+.circle .block_3 div,.circle .block_4,.circle .block_1,.circle .block_2
+{
+  /*  width: 300px;
+    height:20px;
+    float: left;*/
+}
+
+
+.circle .block_1
+{
+   /* background:#f5c574 ;*/
+}
+.circle .block_2
+{
+    background:#f09e94 ;
+}
+.circle .block_3
+{
+    background:#97d0f1 ;
+}
+.circle .block_4
+{
+    background:#79bcaf ;
 }

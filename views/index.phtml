@@ -2,167 +2,19 @@
     $page -> setTitle("Start stroy");
 $page -> addScript('js/slides.js');
 $page -> addCss('css/style_slider_main.css');
-
+require_once $root."/lib/class.invis.db.php";
+require_once $root."/lib/class.db.manager.php";
+require_once $root."/lib/class.dll.php";
+$db = db::getInstance();
+$dm = new db_manager();
+$products = $dm->getAllProducts();
+if (count($products) > 0)
+{
 
 ?>
 
-<script>
 
 
-    /*
-     Get the curent slide
-     */
-
-    function currentSlide( current ) {
-        $(".current_slide").text(current + " of " + $("#slides").slides("status","total") );
-    }
-
-    $(function(){
-        /*
-         Initialize SlidesJS
-         */
-
-        $("#slides").slides({
-            navigateEnd: function( current ) {
-                currentSlide( current );
-            },
-            loaded: function(){
-                currentSlide( 1 );
-            }
-        });
-
-
-    });
-</script>
-
-<script>
-
-    $(document).ready(function()
-    {
-
-         speed = 1000
-        speed_remove = 5000
-        first()
-        setTimeout( df,5000);
-
-
-
-        $('.product_ul li').hover(
-            function() {
-                $(this).find('img').removeAttr('style')
-
-                var height = $(this).find('img').height();
-                var width  = $(this).find('img').width();
-                height_old = height;
-                width_old = width;
-                height = (height*110)/100;
-                width = (width*110)/100;
-
-                $(this).find('img').stop().animate({width:width,height:height},300)
-
-
-
-
-            },
-            function() {
-
-                $(this).find('img').stop().animate({width:width_old,height:height_old},300)
-
-            }
-        );
-
-
-
-    })
-   var  currentID_2 = setTimeout()
-   var  currentID_3 = setTimeout()
-
-
-function first()
-{
-
-
-    //clearTimeout(currentID_1)
-    $('.text1').css({left:-1000,top: 90})
-    $('.text2').css({left:-1000,top: 155})
-    $('.text3').css({left:-1000,top: 220})
-    $('.text1').animate({left:50},speed-200)
-    $('.text2').animate({left:50},speed)
-    $('.text3').animate({left:50},speed+200)
-
-     currentID_1=setTimeout(function(){
-
-    $('.text1').animate({top:-1000},speed-200)
-    $('.text2').animate({left:-1000},speed)
-    $('.text3').animate({top:1000},speed+200)
-},speed_remove)
-
-
-}
-    function first_remove()
-    {
-        $('.text1').animate({top:-1000},speed-200)
-        $('.text2').animate({left:-1000},speed)
-        $('.text3').animate({top:1000},speed+200)
-
-    }
-    function second()
-    {
-
-      //  clearTimeout(currentID_2)
-
-     $('.text4').css({left:-1000,top: 90,display:'block'})
-        $('.text5').css({left:-1000,top: 155,display:'block'})
-        $('.text4').animate({left:50},speed-200)
-        $('.text5').animate({left:50},speed)
-         currentID_2  =  setTimeout(function(){
-
-            $('.text4').animate({left:-1000},speed-400)
-            $('.text5').animate({top:1000},speed)
-        },speed_remove)
-    }
-   function second_remove()
-    {
-        $('.text4').animate({left:-1000},speed-400)
-        $('.text5').animate({top:1000},speed)
-
-    }
-
-    function third()
-    {
-      //  clearTimeout(currentID_3)
-
-        $('.text6').css({left:-1000,top: 90,display:'block'})
-        $('.text7').css({left:-1000,top: 155,display:'block'})
-        $('.text8').css({left:-1000,top: 220,display:'block'})
-        $('.text6').animate({left:50},speed-200)
-        $('.text7').animate({left:50},speed)
-        $('.text8').animate({left:50},speed+200)
-         currentID_3 = setTimeout(function(){
-
-            $('.text6').animate({top:-1000},speed-200)
-            $('.text7').animate({left:-1000},speed)
-            $('.text8').animate({top:1000},speed+200)
-        },speed_remove)
-    }
-   function third_remove()
-    {
-        $('.text6').animate({top:-1000},speed-200)
-        $('.text7').animate({left:-1000},speed)
-        $('.text8').animate({top:1000},speed+200)
-
-    }
-
-
-function df(){
-
-    $("#slides").slides("play");
-}
-
-
-
-
-</script>
 
 <div class="clr"></div>
 </div>
@@ -210,7 +62,26 @@ function df(){
     </div>
 
     <ul class="product_ul">
-        <li class="no_mar_left">
+    <?$i=1;
+    foreach($products as $item) {?>
+    <li <? echo ($i%4==1)?'class="no_mar_left"':''?>>
+        <a href="catalog/Product/<? echo $dm->getCategory_link( $item->get_category_id())?>/<? echo  $dm->getSubCategory_link( $item->get_subCategory_id())?>/<? echo $item->get_id()?>">
+            <div class="max_height">   <div class="img"><div><img src="../img/products/m_<? echo $item->get_img()?>"/></div></div></div>
+            <div class="text"><? echo $item->get_des()?></div>
+
+            <div class="price_block">
+                <div class="vert_align">
+                    <div class="old_price" <?echo ($item->get_price()==0)?"style='display:none'":""?>  ><? echo $item->get_price()?> грн.</div>
+                    <div class="new_price <?echo ($item->get_price()==0)?"":"red"?>"><? echo $item->get_priceForSale()?> грн.</div>
+                </div>
+            </div>
+            <a href="/buy" class="buy">ЗАКАЗАТЬ</a>
+        </a>
+    </li>
+
+        <?$i++;}?>
+
+        <!--li class="no_mar_left">
             <a href="catalog/Product">
                 <div class="max_height">   <div class="img"><div><img src="../img/t1.jpg"/></div></div></div>
             <div class="text">Кератерм блоки ® 25 с <br>  доставкой по Донецку  доставкой по Доfgнецку  доставdfgffffffdddddfffdfgкой по Донецку  досfgтавкой по Донецку</div>
@@ -414,7 +285,165 @@ function df(){
                 </div>
             </div>
             <div class="buy">ЗАКАЗАТЬ</div>
-        </li>
+        </li-->
     </ul>
 
+    <?}?>
 
+    <script>
+
+
+        /*
+         Get the curent slide
+         */
+
+        function currentSlide( current ) {
+            $(".current_slide").text(current + " of " + $("#slides").slides("status","total") );
+        }
+
+        $(function(){
+            /*
+             Initialize SlidesJS
+             */
+
+            $("#slides").slides({
+                navigateEnd: function( current ) {
+                    currentSlide( current );
+                },
+                loaded: function(){
+                    currentSlide( 1 );
+                }
+            });
+
+
+        });
+    </script>
+
+    <script>
+
+        $(document).ready(function()
+        {
+
+            speed = 1000
+            speed_remove = 5000
+            first()
+            setTimeout( df,5000);
+
+
+
+            $('.product_ul li').hover(
+                function() {
+                    $(this).find('img').removeAttr('style')
+
+                    var height = $(this).find('img').height();
+                    var width  = $(this).find('img').width();
+                    height_old = height;
+                    width_old = width;
+                    height = (height*110)/100;
+                    width = (width*110)/100;
+
+                    $(this).find('img').stop().animate({width:width,height:height},300)
+
+
+
+
+                },
+                function() {
+
+                    $(this).find('img').stop().animate({width:width_old,height:height_old},300)
+
+                }
+            );
+
+
+
+        })
+        var  currentID_2 = setTimeout()
+        var  currentID_3 = setTimeout()
+
+
+        function first()
+        {
+
+
+            //clearTimeout(currentID_1)
+            $('.text1').css({left:-1000,top: 90})
+            $('.text2').css({left:-1000,top: 155})
+            $('.text3').css({left:-1000,top: 220})
+            $('.text1').animate({left:50},speed-200)
+            $('.text2').animate({left:50},speed)
+            $('.text3').animate({left:50},speed+200)
+
+            currentID_1=setTimeout(function(){
+
+                $('.text1').animate({top:-1000},speed-200)
+                $('.text2').animate({left:-1000},speed)
+                $('.text3').animate({top:1000},speed+200)
+            },speed_remove)
+
+
+        }
+        function first_remove()
+        {
+            $('.text1').animate({top:-1000},speed-200)
+            $('.text2').animate({left:-1000},speed)
+            $('.text3').animate({top:1000},speed+200)
+
+        }
+        function second()
+        {
+
+            //  clearTimeout(currentID_2)
+
+            $('.text4').css({left:-1000,top: 90,display:'block'})
+            $('.text5').css({left:-1000,top: 155,display:'block'})
+            $('.text4').animate({left:50},speed-200)
+            $('.text5').animate({left:50},speed)
+            currentID_2  =  setTimeout(function(){
+
+                $('.text4').animate({left:-1000},speed-400)
+                $('.text5').animate({top:1000},speed)
+            },speed_remove)
+        }
+        function second_remove()
+        {
+            $('.text4').animate({left:-1000},speed-400)
+            $('.text5').animate({top:1000},speed)
+
+        }
+
+        function third()
+        {
+            //  clearTimeout(currentID_3)
+
+            $('.text6').css({left:-1000,top: 90,display:'block'})
+            $('.text7').css({left:-1000,top: 155,display:'block'})
+            $('.text8').css({left:-1000,top: 220,display:'block'})
+            $('.text6').animate({left:50},speed-200)
+            $('.text7').animate({left:50},speed)
+            $('.text8').animate({left:50},speed+200)
+            currentID_3 = setTimeout(function(){
+
+                $('.text6').animate({top:-1000},speed-200)
+                $('.text7').animate({left:-1000},speed)
+                $('.text8').animate({top:1000},speed+200)
+            },speed_remove)
+        }
+        function third_remove()
+        {
+            $('.text6').animate({top:-1000},speed-200)
+            $('.text7').animate({left:-1000},speed)
+            $('.text8').animate({top:1000},speed+200)
+
+        }
+
+
+        function df(){
+
+            $("#slides").slides("play");
+        }
+
+
+
+
+    </script>

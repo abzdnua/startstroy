@@ -41,6 +41,7 @@ class product
             $this->firm         = 0;
             $this->category     = 0;
             $this->subCategory  = 0;
+            $this->des  = '';
             $this->img      = '';
             $this->thumb        = '';
             $this->show         = 0;
@@ -93,9 +94,10 @@ class product
                 $this->priceForSale = $res['priceForSale'];
                 $this->material     = $res['material'];
                 $this->firm         = $res['firm'];
-                $this->category     = $res['category'];
-                $this->subCategory  = $res['subCategory'];
+                $this->category     = $res['category_id'];
+                $this->subCategory  = $res['subCategory_id'];
                 $this->img      = $res['img'];
+                $this->des      = $res['des'];
                 $this->thumb        = 'm_'.$res['img'];
                 $this->show         = $res['show'];
                 $this->dateCreate   = $res['dateCreate'];
@@ -155,7 +157,9 @@ class product
     public function get_show(){
         return $this->show;
     }
-
+    public function get_des(){
+        return $this->des;
+    }
     public function get_dateCreate(){
         return $this->dateCreate;
     }

@@ -93,37 +93,54 @@ class db_manager
         $this->_db->query($sql);
         return $this->_db->getValue();
     }
+    public function getCategory_link($id){
+        $sql = "SELECT link FROM categories WHERE id = ".$id;
+        $this->_db->query($sql);
+        return $this->_db->getValue();
+    }
 
+    public function getSubCategory_link($id){
+        $sql = "SELECT link FROM categories WHERE id = ".$id;
+        $this->_db->query($sql);
+        return $this->_db->getValue();
+    }
+    public function getSubCategory_name($id){
+        $sql = "SELECT name FROM categories WHERE id = ".$id;
+        $this->_db->query($sql);
+        return $this->_db->getValue();
+    }
     public function getProductCount(){
         $sql = "SELECT * FROM products WHERE show = 1 AND deleted = 0";
         $this->_db->query($sql);
         return $this->_db->getValue();
     }
 
-    public function getFirmSelect(){
+    public function getFirmSelect($name,$select_id=0){
         $sql = "SELECT * FROM firms WHERE deleted = 0";
         $this->_db->query($sql);
         $firms = $this->_db->getArray();
-        $list = '<select name="firm">';
+        $list = '<select name="'.$name.'">';
         $list .='<option value="0">Выберите производителя</option>';
         if(count($firms)>0){
             foreach($firms as $firm){
-                $list .= '<option value="'.$firm['id'].'">'.$firm['name'].'</option>';
+                $sel = ($select_id==$firm['id'])?"selected=selected":"";
+                $list .= '<option '.$sel.' value="'.$firm['id'].'">'.$firm['name'].'</option>';
             }
         }
         $list .= '</select>';
         return $list;
     }
 
-    public function getMaterialSelect(){
+    public function getMaterialSelect($name,$select_id=0){
         $sql = "SELECT * FROM materials WHERE deleted = 0";
         $this->_db->query($sql);
         $materials = $this->_db->getArray();
-        $list = '<select name="material">';
+        $list = '<select name="'.$name.'">';
         $list .='<option value="0">Выберите тип материала</option>';
         if(count($materials)>0){
             foreach($materials as $material){
-                $list .= '<option value="'.$material['id'].'">'.$material['name'].'</option>';
+                $sel = ($select_id==$material['id'])?"selected=selected":"";
+                $list .= '<option '.$sel.' value="'.$material['id'].'">'.$material['name'].'</option>';
             }
         }
         $list .= '</select>';
@@ -131,7 +148,7 @@ class db_manager
     }
 
 
-    public function getCategorySelect($name, $parent = 0){
+    public function getCategorySelect($name,$select_id=0,$parent = 0){
         if($parent==-1){
             $sql = "SELECT * FROM categories WHERE deleted = 0";
         }else
@@ -142,7 +159,8 @@ class db_manager
         $cats = $this->_db->getArray();
         if(count($cats)>0){
             foreach($cats as $cat){
-                $list .= '<option value="'.$cat['id'].'">'.$cat['name'].'</option>';
+                $sel = ($select_id==$cat['id'])?"selected=selected":"";
+                $list .= '<option '.$sel.' value="'.$cat['id'].'">'.$cat['name'].'</option>';
             }
         }
         $list .= '</select>';
@@ -163,7 +181,20 @@ class db_manager
         }
         return $out;
     }
-
+    public function getAllCharacteristic(){
+        $db = $this->_db;
+        $sql = "SELECT id FROM characteristics WHERE deleted = 0 ";
+        $db->query($sql);
+        $out = array();
+        $cats = $db->getArray();
+        if(count($cats)>0){
+            foreach($cats as $cat){
+                $tmp =  new characteristic($cat['id']);
+                array_push($out,$tmp);
+            }
+        }
+        return $out;
+    }
 
     public function getAllPartners(){
         $db = $this->_db;
@@ -195,5 +226,24 @@ class db_manager
         }
         return $out;
     }
+
+
+    public function getAllProducts(){
+        $db = $this->_db;
+        $sql = "SELECT id FROM products WHERE deleted = 0 ";
+        $db->query($sql);
+        $out = array();
+        $cats = $db->getArray();
+        if(count($cats)>0){
+            foreach($cats as $cat){
+                $tmp =  new product($cat['id']);
+                array_push($out,$tmp);
+            }
+        }
+        return $out;
+    }
+
+
+
 }
 ?>

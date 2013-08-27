@@ -2,6 +2,7 @@
 $root = $_SERVER['DOCUMENT_ROOT'];
 require_once $root."/lib/class.invis.db.php";
 require_once $root."/lib/class.dll.php";
+$page->addScript('views/admin/js/reviews.js');
 $db = db :: getInstance();
 ?>
 
@@ -29,12 +30,7 @@ $db = db :: getInstance();
                                 <div style="margin:7px">
                                     Имя: <input type="text" name="name" value="" /><br />
                                 </div>
-                                <div style="margin:7px">
-                                    Город: <input type="text" name="city" value="" /><br />
-                                </div>
-                                <div style="margin:7px">
-                                    e-mail: <input type="text" name="mail" value="" />
-                                </div>
+
                             </div>
                             <div style="clear: both"></div>
                             <div style="text-align: center">
@@ -64,7 +60,7 @@ $db = db :: getInstance();
                         echo '<tr>';
                         echo '<td>'.($key+1).'<input type="hidden" name="id" value="'.$val['id'].'" /></td>';
                         echo '<td>'.$val['name'].'</td>';
-                        $text = $DLL->substrText($val['comment'],300);
+                        $text = $DLL->substrText($val['text'],300);
                         echo '<td>'.$text['text'].'</td>';
                         if($val['show'] == 1){
                             echo '<td><span style="color: green">Отображается</span></td>';
