@@ -15,16 +15,29 @@ $page -> addScript('js/jqueryrotate.2.1.js');
         </div>
     <div id="circle_center"></div>
         <div class="images">
-            <div class="img_1"></div>
-            <div class="img_2"></div>
-            <div class="img_3"></div>
-            <div class="img_4"></div>
+            <div class="img_1"><img src="../img/test/yel.png" width="122"/></div>
+            <div class="img_2"><img src="../img/test/red.png" width="122"/></div>
+            <div class="img_3"><img src="../img/test/blue.png" width="122"/></div>
+            <div class="img_4"><img src="../img/test/green.png" width="122"/></div>
         </div>
 
 </div>
 
 <script>
     $(document).ready(function(){
+
+        if (window.devicePixelRatio > 1) {
+            var lowresImages = $('img');
+
+            images.each(function(i) {
+                var lowres = $(this).attr('src');
+                var highres = lowres.replace(".", "@2x.");
+                $(this).attr('src', highres);
+            });
+        }
+
+
+
         $('.images div').css({display:'none'})
         var angle = 45;
 

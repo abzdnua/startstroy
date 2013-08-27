@@ -1934,32 +1934,35 @@ width: inherit;
 }
 .img_1,.img_2,.img_3,.img_4
 {
-    width: 40px;
-    height: 40px;
+
     position: absolute;
-    top: 67px;
-    left: 74px;
+    top: 40px;
+    left: 40px;
     display: none;
     z-index: 99;
 }
+
+
+
+
 .img_1
 {
-    background: #f5c574;
+ /* background: #f5c574;*/
 
 }
 .img_2
 {
-    background: #f09e94;
+  /* background: #f09e94;*/
 
 }
 .img_3
 {
-    background: #97d0f1;
+ /*   background: #97d0f1;*/
 
 }
 .img_4
 {
-    background: #79bcaf;
+  /*  background: #79bcaf;*/
 
 }
 #circle1
