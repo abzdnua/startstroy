@@ -1,59 +1,116 @@
 <?
-$root = $_SERVER['DOCUMENT_ROOT'];
 require_once $root."/lib/class.invis.db.php";
-$db = db :: getInstance();
-$page->addScript('views/admin/js/banners.js');
+require_once $root."/lib/class.db.manager.php";
+$page->addScript('views/admin/js/banner_main.js');
+//require_once $root."/lib/class.category.php";
+$db = db::getInstance();
+$dm = new db_manager();
+$db->query("SELECT * FROM banners WHERE DELETED = 0");
+$banners = $db->getArray();
+
+//print_r($cats);
+//phpinfo();
 ?>
 <tr>
-    <td>
+    <td style="height:75px">
         <div class="title">Баннеры</div>
         <fieldset>
-            <p class="silver">Для загрузки баннеров на сайт, выберите файл картинки. Картинка должна быть в формате *.png размером 392px*71px. Баннер сохраняется после нажатия кнопки "Сохранить"</p>
+            <a id="add_new" style="cursor: pointer">+ ДОБАВИТЬ БАННЕР</a>
         </fieldset>
+    </td>
+</tr>
+
+<tr>
+    <td>
         <fieldset>
-            <table align="center" style="width:100%;">
-                <tr>
-                    <td>
-                        <b>Ночной баннер</b><br/>
-                        <div class="for_banner"><img src="sc_img/banners/night.png" /></div>
-                        <br/>
+            <table align="center" style="width:100%">
+                <tr id="form" style="display:none;" >
+                    <td colspan="6" style="padding: 10px;">
+                        <div style="margin-bottom:10px;font:10pt Verdana;">Добавить новый баннер</div>
                         <form method="post">
-                            <input type="file" name="picture" class="banner" />
-                            <input type="hidden" name="type" value="night" />
-                            <br/>
-                            <input type="button" class="submit" value="Сохранить"/>
+                            <input type="hidden" name="id" value="">
+                            <table align="center" border="none">
+                                <div style="margin:7px">
+                                    Отображать <input type="checkbox" name="show" style="position: "/><br />
+                                </div>
+                                <tr>
+                                    <td align="right">Строка 1</td>
+                                    <td style="width: 350px"><input type="text" style="width: 100%"name="str1"></td>
+
+                                </tr>
+                                <tr>
+                                    <td align="right">Строка 2</td>
+                                    <td style="width: 350px"><input type="text" style="width: 100%"name="str2"></td>
+
+                                </tr>
+                                <tr>
+                                    <td align="right">Строка 3</td>
+                                    <td style="width: 350px"><input type="text" style="width: 100%"name="str3"></td>
+                                    <td style="vertical-align:middle" rowspan="4"><button type="button" name="save">Сохранить</button> </td>
+                                </tr>
+
+
+
+
+                                <tr>
+                                    <td align="right">Изображение</td>
+                                    <td style="width: 350px"><input type="file" style="width: 100%"name="banner_img">
+
+                                    </td>
+
+                                </tr>
+
+
+                            </table>
                         </form>
                     </td>
-
                 </tr>
-                <tr>
-                    <td>
-                        <b>Баннер выходного дня</b><br/>
-                        <div class="for_banner"><img src="sc_img/banners/weekend.png" /></div>
-                        <br/>
-                        <form method="post">
-                            <input type="file" name="picture" class="banner" />
-                            <input type="hidden" name="type" value="weekend" />
-                            <br/>
-                            <input type="button" class="submit" value="Сохранить"/>
-                        </form>
-                    </td>
 
-                </tr>
-                <tr>
-                    <td>
-                        <b>Основной баннер</b><br/>
-                        <div class="for_banner"><img src="sc_img/banners/default.png" /></div>
-                        <br/>
-                        <form method="post">
-                            <input type="file" name="picture" class="banner" />
-                            <input type="hidden" name="type" value="default" />
-                            <br/>
-                            <input type="button" class="submit" value="Сохранить"/>
-                        </form>
-                    </td>
+                <?
+                if(count($banners)>0)
+                {?>
+                    <tr>
+                        <td style="width:15px;">№</td>
+                        <td style="width:200px; height: 25px; vertical-align:middle; font-weight: bold;">Строка 1</td>
+                        <td style="width:200px; height: 25px; vertical-align:middle; font-weight: bold;">Строка 2</td>
+                        <td style="width:200px; height: 25px; vertical-align:middle; font-weight: bold;">Строка 3</td>
 
-                </tr>
+
+                        <td style="width:200px; height: 25px; vertical-align:middle; font-weight: bold;">Картинка</td>
+                        <td style="width:90px; height: 25px; vertical-align:middle; font-weight: bold;">Отображается</td>
+                        <td style="width:90px; height: 25px; vertical-align:middle; font-weight: bold;">Редактировать</td>
+                        <td style="width:70px; height: 25px; vertical-align:middle; font-weight: bold;">Удалить</td>
+                    </tr>
+                    <?foreach($banners as $cat){?>
+                    <tr>
+                        <td><?echo $cat['id'];?></td>
+                        <td><?echo $cat['firstStr'];?></td>
+                        <td><?echo $cat['secondStr'];?></td>
+                        <td><?echo $cat['thirdStr'];?></td>
+                        <td><img width="204" height="72" src="/img/banner/<?echo $cat['img'];?>"/></td>
+                       <? if($cat['show'] == 1){
+                        echo '<td><span style="color: green">Отображается</span></td>';
+                        }
+                        else{
+                        echo '<td><span style="color: red">Скрыт</span></td>';
+                        }?>
+                        <td><button type="button" class="edit" data-id="<?echo $cat['id'];?>">Редактировать</button></td>
+                        <td><button type="button" class="del" data-id="<?echo $cat['id'];?>">Удалить</button></td>
+                    </tr>
+                <?}?>
+
+
+
+                <?}
+                else
+                {
+                    echo '<tr><td colspan="5" align="center">На данный момент баннеров нет</td></tr>';
+                }
+
+
+                ?>
+
+
             </table>
         </fieldset>
     </td>

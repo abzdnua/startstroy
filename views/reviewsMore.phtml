@@ -1,6 +1,16 @@
 <?
     $page -> setTitle("Start stroy");
+$page -> addScript('js/jquery.form.js');
+$id = $controller->getParam(1);
+require_once 'class.review.php';
 
+require_once $root."/lib/class.invis.db.php";
+require_once $root."/lib/class.db.manager.php";
+require_once $root."/lib/class.dll.php";
+require_once 'class.review.php';
+$db = db::getInstance();
+$dm = new db_manager();
+$rew = new review($id);
 ?>
 
 <script>
@@ -24,15 +34,15 @@
             <td class="left">
                 <div class="img">
                     <div class="img_top"></div>
-                    <div class="all"> <img src="../img/rew1.jpg"/></div>
+                    <div class="all"> <img src="../img/client/m_<? echo $dm->getImgClient($rew->get_client_id())?>"/></div>
 
                 </div>
             <div class="text">
-                <p class="name">Сергей Cthuttdbx</p>
-                <p class="date">10 июля 2013 г.</p>
-                               <p class="text_rev">Купил в прошлом году газобетон и битумную черепицу.Купил в прошлом году газобетон и битумную черепицу.Купил в прошлом году газобетон и битумную черепицу. Высшая оценка, все бы так ответственно работали. </p>
+                <p class="name"><? echo $dm->getClientName($rew->get_client_id())?></p>
+                <p class="date"><? echo date('d.m.Y',strtotime($rew->get_dateCreate()))?></p>
+                               <p class="text_rev"><? echo $rew->get_text()?></p>
 
-                <p class="text_rev">Купил в прошлом году газобетон и битумную черепицу. Высшая оценка, все бы так ответственно Купил в прошлом году газобетон и битумную черепицу. работали. </p>
+
 
             </div>
 
@@ -55,39 +65,34 @@
 
 
     <div class="form_reviews">
-
-        <div class="f_l">
-            <textarea></textarea>
-            <p>Ваш отзыв:</p>
-
-            <div  class="clr"></div>
-
-
-            <div class="fileform">
-                <div id="fileformlabel"></div>
-                <div class="selectbutton">Обзор</div>
-                <input type="file" name="upload" id="upload" onchange="getName(this.value);" />
+        <form  name="review_full"  method="POST" >
+            <div class="f_l">
+                <textarea id="review" name="review"></textarea>
+                <p>Ваш отзыв:</p>
+                <div  class="clr"></div>
+                <div class="fileform">
+                    <div id="fileformlabel"></div>
+                    <div class="selectbutton">Обзор</div>
+                    <input type="file" name="upload" id="upload" onchange="getName(this.value);" />
+                </div>
+                <p style="padding-right: 12px;margin-top: 5px;">Ваше фото:</p>
             </div>
-            <p style="padding-right: 12px;margin-top: 5px;">Ваше фото:</p>
-        </div>
 
-        <div class="f_r">
+            <div class="f_r">
 
-            <input type="text">
-            <p>* Ваше имя:</p>
+                <input id="name" name="name" type="text">
+                <p>* Ваше имя:</p>
+                <div class="clr"></div>
+                <input id="phone" name="phone"  type="text">
+                <p>   * Телефон:</p>
 
-
-
-            <div class="clr"></div>
-            <input type="text">
-            <p>   * Телефон:</p>
-
+                <div class="clr"></div>
+                <input   type="button" id="add_rw" class="bt_send f_r" value="ОТПРАВИТЬ"/>
+            </div>
 
 
             <div class="clr"></div>
-            <div class="bt_send f_r">ОТПРАВИТЬ</div>
-        </div>
-        <div class="clr"></div>
+        </form>
     </div>
 
 <div class="clr"></div>

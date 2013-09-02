@@ -19,7 +19,7 @@ if($_POST){
 
     if($_POST['action'] == 'edit'){
         $id = $_POST['id'];
-        $sql = "UPDATE reviews SET name='".$name."',city='".$city."',mail='".$mail."',comment='".$comment."',`show`='".$show."' WHERE id=".$id;
+        $sql = "UPDATE reviews SET text='".$comment."',`show`='".$show."' WHERE id=".$id;
         $db->query($sql);
     }
 }

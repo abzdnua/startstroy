@@ -73,6 +73,12 @@ class db_manager
         $this->_db->query($sql);
         return $this->_db->getValue();
     }
+    //получить название материала
+    public function getClientName($id){
+        $sql = "SELECT name FROM clients WHERE id = ".$id;
+        $this->_db->query($sql);
+        return $this->_db->getValue();
+    }
 
     public function getFirmName($id){
         $sql = "SELECT name FROM firms WHERE id = ".$id;
@@ -93,6 +99,14 @@ class db_manager
         $this->_db->query($sql);
         return $this->_db->getValue();
     }
+
+
+    public function getImgClient($id){
+        $sql = "SELECT img FROM clients WHERE id = ".$id;
+        $this->_db->query($sql);
+        return $this->_db->getValue();
+    }
+
     public function getCategory_link($id){
         $sql = "SELECT link FROM categories WHERE id = ".$id;
         $this->_db->query($sql);
@@ -242,8 +256,48 @@ class db_manager
         }
         return $out;
     }
-
-
+    public function getAllBanners(){
+        $db = $this->_db;
+        $sql = "SELECT id FROM banners WHERE deleted = 0 ";
+        $db->query($sql);
+        $out = array();
+        $cats = $db->getArray();
+        if(count($cats)>0){
+            foreach($cats as $cat){
+                $tmp =  new banner($cat['id']);
+                array_push($out,$tmp);
+            }
+        }
+        return $out;
+    }
+    public function getAllReviews(){
+        $db = $this->_db;
+        $sql = "SELECT id FROM reviews WHERE deleted = 0 ";
+        $db->query($sql);
+        $out = array();
+        $cats = $db->getArray();
+        if(count($cats)>0){
+            foreach($cats as $cat){
+                $tmp =  new review($cat['id']);
+                array_push($out,$tmp);
+            }
+        }
+        return $out;
+    }
+    public function getAllReviewsShow(){
+        $db = $this->_db;
+        $sql = "SELECT id FROM reviews WHERE 'show' = 0";
+        $db->query($sql);
+        $out = array();
+        $cats = $db->getArray();
+        if(count($cats)>0){
+            foreach($cats as $cat){
+                $tmp =  new review($cat['id']);
+                array_push($out,$tmp);
+            }
+        }
+        return $out;
+    }
 
 }
 ?>

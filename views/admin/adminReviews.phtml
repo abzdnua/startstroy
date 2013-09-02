@@ -1,13 +1,18 @@
 <?
 $root = $_SERVER['DOCUMENT_ROOT'];
-require_once $root."/lib/class.invis.db.php";
-require_once $root."/lib/class.dll.php";
+
+
 $page->addScript('views/admin/js/reviews.js');
-$db = db :: getInstance();
+require_once $root."/lib/class.invis.db.php";
+require_once $root."/lib/class.db.manager.php";
+require_once $root."/lib/class.dll.php";
+$db = db::getInstance();
+$dm = new db_manager();
 ?>
 
 <tr>
     <td>
+
         <div class="title">Отзывы</div>
         <fieldset>
             <a class="underline" style="cursor: pointer" id="add_rw">+ ДОБАВИТЬ ОТЗЫВ</a>
@@ -57,9 +62,11 @@ $db = db :: getInstance();
                           </tr>';
                     $arr = $db->getArray();
                     foreach($arr as $key=>$val){
+
+
                         echo '<tr>';
                         echo '<td>'.($key+1).'<input type="hidden" name="id" value="'.$val['id'].'" /></td>';
-                        echo '<td>'.$val['name'].'</td>';
+                        echo '<td>'.$dm->getClientName($val['client_id']).'</td>';
                         $text = $DLL->substrText($val['text'],300);
                         echo '<td>'.$text['text'].'</td>';
                         if($val['show'] == 1){
@@ -68,8 +75,8 @@ $db = db :: getInstance();
                         else{
                             echo '<td><span style="color: red">Скрыт</span></td>';
                         }
-                        echo '<td><img src="sc_img/admin/b_edit.png" style="cursor: pointer" class="edit_review"></td>';
-                        echo '<td><img src="sc_img/admin/b_drop.png" style="cursor: pointer" class="del_review"></td>';
+                        echo '<td><img src="img/admin/b_edit.png" style="cursor: pointer" class="edit_review"></td>';
+                        echo '<td><img src="img/admin/b_drop.png" style="cursor: pointer" class="del_review"></td>';
                         echo '</tr>';
                     }
                 }

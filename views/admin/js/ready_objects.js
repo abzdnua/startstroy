@@ -59,6 +59,7 @@ $(document).ready(function(){
         }).on('click','.edit',function(){
             $.post('/views/admin/ajax/ready_objects/getArticle.php',{id:$(this).data('id')},function(data){
 //                alert(data)
+
                 $('#form').replaceWith(data)
                 $('#form').show()
             })
@@ -66,7 +67,7 @@ $(document).ready(function(){
 
 
         }).on('click','.del',function(){
-            if(confirm('Удалить статью?'))
+            if(confirm('Удалить Готовый объект?'))
             {
                 var th = $(this)
                 var id=th.data('id')

@@ -2,7 +2,7 @@ $(document).ready(function(){
     $(document).on('click','#add_new',function(){
         $('#form').show()
     }).on('click','[name=save]',function(){
-            console.log('123')
+
             if($('[name=partner_name]').val()=='')  {
                 $('[name=partner_name]').css('border','1px solid red')
                 return false

@@ -530,6 +530,8 @@
 	SlidesJS, let the good times roll
 */
 (function($) {
+
+    var temp_k = 0
   $.widget("js.slides", {
 		options: {
 			width: 1024, // [Number] Define the slide width
@@ -882,13 +884,84 @@
 			}
 		},
 		_slide: function (navigateData) {
+
+
+
+          /*  if ( this.element.data("animated") || $target.data("slidesindex") === this.current || this.element.data("goto") === this.current ) {
+                $('.tex_fly').css({display:'none'})
+            }*/
+           // $('.tex_fly').css({display:'inline-block'})
+            var speed = 1000
+           /* if ( this.state === "playing") {
+
+            }*/
+            if (temp_k = 1)
+            {
+                clearTimeout(timer1)
+                clearTimeout(timer2)
+
+            }
+           // $('.tex_fly').css({display:'none'})
+            $('.block1').stop().animate({top:-1000},speed-500)
+            $('.block2').stop().animate({left:-1000},speed-400)
+            $('.block3').stop().animate({top:1000},speed-300)
+
+
+           var timer1 = setTimeout(function(){
+
+            $('.tex_fly').removeAttr('style')
+          }
+               ,700)
+
+
+
+            var timer2 = setTimeout(function(){
+                $('.tex_fly').removeAttr('style')
+            $('.block1').stop().animate({left:50},speed-200)
+            $('.block2').stop().animate({left:50},speed)
+            $('.block3').stop().animate({left:50},speed+200)},900)
+
+
+            temp_k = 1
+/*
+            setTimeout(function(){
+            $('.block1').animate({left:50},speed-200)
+            $('.block2').animate({left:50},speed)
+            $('.block3').animate({left:50},speed+200),1400})*/
+
+           /* $('.block1').animate({top:-1000},speed-200)
+            $('.block2').animate({left:-1000},speed)
+            $('.block3').animate({top:1000},speed+200)*/
+
+
+                 // clearTimeout(currentID_3)
+
+          /*  setTimeout(function(){
+                $('.block1').animate({left:50},speed-200)
+                $('.block2').animate({left:50},speed)
+                $('.block3').animate({left:50},speed+200),300})
+              /*  currentID_3 = setTimeout(function(){
+
+                    $('.block1').animate({top:-1000},speed-200)
+                    $('.block2').animate({left:-1000},speed)
+                    $('.block3').animate({top:1000},speed+200)
+                },speed)*/
+
+            /*function third_remove()
+            {
+                $('.text6').animate({top:-1000},speed-200)
+                $('.text7').animate({left:-1000},speed)
+                $('.text8').animate({top:1000},speed+200)
+
+            }*/
+
 			/*
 				Thanks to Thomas Reynolds <http://awardwinningfjords.com/>
 			*/
 
 
 
-
+/*
 
             var temp = navigateData.to
             clearTimeout(currentID_1)
@@ -903,8 +976,7 @@
             },500)
                 second_remove()
                 third_remove()
-               /*clearTimeout(currentID_3)
-                clearTimeout(currentID_2)*/
+
 
                 break
             case 1:
@@ -915,8 +987,7 @@
 
                 first_remove()
                 third_remove()
-             /*  clearTimeout(currentID_1)
-                clearTimeout(currentID_3)*/
+
                 break
             case 2:
 
@@ -926,11 +997,10 @@
                 },500)
                 first_remove()
                 second_remove()
-              /* clearTimeout(currentID_1)
-                clearTimeout(currentID_2)*/
+
                 break
         }
-
+*/
 
 			var isFlipped = navigateData.next ? 1 : -1;
 			var isOpposite = this.options.direction.match(/right|down/) ? -1 : 1;

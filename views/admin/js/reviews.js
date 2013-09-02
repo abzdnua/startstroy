@@ -2,7 +2,7 @@ $(document).ready(function(){
     $('.del_review').live('click',function(){
         var id = $('input[type=hidden]',$(this).parent().parent()).val();
         var th = $(this)
-        if(confirm('Вы действительно хотите удалить этот отзыв'))
+        if(confirm('Вы действительно хотите удалить этот отзыв?'))
         {
             $.ajax({
                 type:"POST",

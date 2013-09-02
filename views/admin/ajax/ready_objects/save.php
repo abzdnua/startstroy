@@ -8,26 +8,28 @@ $pathToSaveImg = $root.'/img/objects/';
 $db = db::getInstance();
 if(!empty($_POST)){
     $name = $_POST['objects_name'];
-    $date = $_POST['objects_date'];
-     $user = $_SESSION['userID'];
+    $dateObject = $_POST['objects_date'];
+    $user = $_SESSION['userID'];
+    $show = ($_POST['show'] == 'on')?1:0;
     $date = date('Y-m-d H:i:s');
 
     if($_POST['id']!=''){
         $id = $_POST['id'];
         $sql = "UPDATE objects SET
                 name = '{$name}',
-                objectDate = '{$date}',
+                objectDate = '{$dateObject}',
                 userUpdate = {$user},
+                  show = '{$show}',
                 dateUpdate = '{$date}'
                 WHERE id = {$id}";
-//        echo "error: ".$sql;
+    //    echo "error: ".$sql;
         $db->query($sql);
 
     }else{
         $sql = "INSERT INTO objects
-                (name,objectDate,userCreate,dateCreate)
+                (name,objectDate,userCreate,`show`,dateCreate)
                 VALUES
-                ('{$name}','{$date}',{$user},'{$date}')";
+                ('{$name}','{$dateObject}','{$show}',{$user},'{$date}')";
        echo "error: ".$sql;
         $db->query($sql);
         $id = $db->last();
@@ -36,7 +38,7 @@ if(!empty($_POST)){
     }
 
     if(!empty($_FILES['objects_img']['name'])!=''){
-        $img = new Upload($_FILES['article_img']);
+        $img = new Upload($_FILES['objects_img']);
 
         if($img->image_src_x > 752 AND $img->image_src_y > 438)
         {
@@ -60,8 +62,9 @@ if(!empty($_POST)){
 
         $sql = "UPDATE objects SET
                 img = '{$img_str}',
+                 thumb = '{$thumb_str}'
                  WHERE id = {$id}";
-//        echo "error: ".$sql;
+      //  echo "error: ".$sql;
         $db->query($sql);
     }
 

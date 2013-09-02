@@ -5,9 +5,11 @@ $page -> addCss('css/style_slider_main.css');
 require_once $root."/lib/class.invis.db.php";
 require_once $root."/lib/class.db.manager.php";
 require_once $root."/lib/class.dll.php";
+
 $db = db::getInstance();
 $dm = new db_manager();
 $products = $dm->getAllProducts();
+$banners = $dm->getAllBanners();
 if (count($products) > 0)
 {
 
@@ -19,18 +21,12 @@ if (count($products) > 0)
 <div class="clr"></div>
 </div>
 <div class="slider">
-    <div class="tex_fly block1 text1">Идеальное решение</div>
-    <div class="tex_fly block2 text2">для домов</div>
-    <div class="tex_fly block3 text3">и котеджей</div>
-
-    <div class="tex_fly block1 text4">Новые перспективы </div>
-    <div class="tex_fly block2 text5">в домостроении</div>
 
 
 
-    <div class="tex_fly block1 text6">Удобная схема</div>
-    <div class="tex_fly block2 text7">прямых поставок</div>
-    <div class="tex_fly block3 text8">к Вам на обьект</div>
+
+
+
 
 
 
@@ -38,19 +34,43 @@ if (count($products) > 0)
 
     <div id="container">
 
-        <!-- start SlidesJS slideshow -->
+
         <div id="slides">
-            <img src="../img/main4.jpg" width="1024" height="360" alt="Slide 1">
 
-            <img src="../img/main6.jpg" width="1024" height="360" alt="Slide 2">
+            <?$i=1;
+            foreach($banners as $item) {?>
+                <div>
+                    <img src="../img/banner/<?echo $item->get_img()?>" width="1024" height="360">
+                    <div class="tex_fly block1 "><?echo $item->get_firstStr()?></div>
+                    <div class="tex_fly block2 "><?echo $item->get_secondStr()?></div>
+                    <div class="tex_fly block3 "><?echo $item->get_thirdStr()?></div>
+                </div>
 
-            <img src="../img/main2.jpg" width="1024" height="360" alt="Slide 3">
+                <?$i++;}?>
 
-            <!--img src="../img/main3.jpg" width="1240" height="360" alt="Slide 4">
 
-            <img src="../img/main5.jpg" width="1240" height="360" alt="Slide 5"-->
 
-                  </div>
+
+            <!--div>
+                 <img src="../img/main4.jpg" width="1024" height="360" alt="Slide 1">
+                    <div class="tex_fly block1 ">Идеальное решение</div>
+                    <div class="tex_fly block2 ">для домов</div>
+                    <div class="tex_fly block3 ">и котеджей</div>
+            </div>
+            <div>
+                 <img src="../img/main6.jpg" width="1024" height="360" alt="Slide 2">
+                    <div class="tex_fly block1 ">Новые перспективы </div>
+                    <div class="tex_fly block2 ">в домостроении</div>
+            </div>
+            <div>
+                    <img src="../img/main2.jpg" width="1024" height="360" alt="Slide 3">
+                        <div class="tex_fly block1 ">Удобная схема</div>
+                        <div class="tex_fly block2 ">прямых поставок</div>
+                        <div class="tex_fly block3 ">к Вам на обьект</div>
+            </div-->
+
+
+        </div>
 
     </div>
 </div>
@@ -324,6 +344,7 @@ if (count($products) > 0)
         $(document).ready(function()
         {
 
+
             speed = 1000
             speed_remove = 5000
             first()
@@ -358,82 +379,19 @@ if (count($products) > 0)
 
 
         })
-        var  currentID_2 = setTimeout()
-        var  currentID_3 = setTimeout()
+
 
 
         function first()
         {
 
 
-            //clearTimeout(currentID_1)
-            $('.text1').css({left:-1000,top: 90})
-            $('.text2').css({left:-1000,top: 155})
-            $('.text3').css({left:-1000,top: 220})
-            $('.text1').animate({left:50},speed-200)
-            $('.text2').animate({left:50},speed)
-            $('.text3').animate({left:50},speed+200)
 
-            currentID_1=setTimeout(function(){
-
-                $('.text1').animate({top:-1000},speed-200)
-                $('.text2').animate({left:-1000},speed)
-                $('.text3').animate({top:1000},speed+200)
-            },speed_remove)
+            $('.block1').animate({left:50},speed-200)
+            $('.block2').animate({left:50},speed)
+            $('.block3').animate({left:50},speed+200)
 
 
-        }
-        function first_remove()
-        {
-            $('.text1').animate({top:-1000},speed-200)
-            $('.text2').animate({left:-1000},speed)
-            $('.text3').animate({top:1000},speed+200)
-
-        }
-        function second()
-        {
-
-            //  clearTimeout(currentID_2)
-
-            $('.text4').css({left:-1000,top: 90,display:'block'})
-            $('.text5').css({left:-1000,top: 155,display:'block'})
-            $('.text4').animate({left:50},speed-200)
-            $('.text5').animate({left:50},speed)
-            currentID_2  =  setTimeout(function(){
-
-                $('.text4').animate({left:-1000},speed-400)
-                $('.text5').animate({top:1000},speed)
-            },speed_remove)
-        }
-        function second_remove()
-        {
-            $('.text4').animate({left:-1000},speed-400)
-            $('.text5').animate({top:1000},speed)
-
-        }
-
-        function third()
-        {
-            //  clearTimeout(currentID_3)
-
-            $('.text6').css({left:-1000,top: 90,display:'block'})
-            $('.text7').css({left:-1000,top: 155,display:'block'})
-            $('.text8').css({left:-1000,top: 220,display:'block'})
-            $('.text6').animate({left:50},speed-200)
-            $('.text7').animate({left:50},speed)
-            $('.text8').animate({left:50},speed+200)
-            currentID_3 = setTimeout(function(){
-
-                $('.text6').animate({top:-1000},speed-200)
-                $('.text7').animate({left:-1000},speed)
-                $('.text8').animate({top:1000},speed+200)
-            },speed_remove)
-        }
-        function third_remove()
-        {
-            $('.text6').animate({top:-1000},speed-200)
-            $('.text7').animate({left:-1000},speed)
-            $('.text8').animate({top:1000},speed+200)
 
         }
 

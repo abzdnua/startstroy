@@ -1,5 +1,17 @@
 <?
     $page -> setTitle("Start stroy");
+$page -> addScript('js/jquery.form.js');
+require_once $root."/lib/class.invis.db.php";
+require_once $root."/lib/class.db.manager.php";
+require_once $root."/lib/class.dll.php";
+require_once 'class.review.php';
+$db = db::getInstance();
+$dm = new db_manager();
+$reviews = $dm->getAllReviewsShow();
+
+if (count($reviews) > 0)
+{
+
 
 ?>
 <script>
@@ -19,7 +31,41 @@
 <h1 >Все отзывы</h1>
 
     <table>
-        <tr>
+
+
+        <?$i=1;
+        foreach($reviews as $item) {?>
+            <?echo ($i%2==1)?'<tr>':''?>
+
+             <td <? echo ($i%2==1)?'class="left"':'class="right"'?>>
+
+                 <div class="img">
+                     <div class="img_top"></div>
+                     <div class="all"> <img src="../img/client/m_<? echo $dm->getImgClient($item->get_client_id())?>"/></div>
+
+                 </div>
+                 <div class="text">
+
+                     <p class="text_rev"><? echo $item->get_text()?></p>
+                     <p class="name"><? echo $dm->getClientName($item->get_client_id())?></p>
+                     <p class="date"><? echo date('d.m.Y',strtotime($item->get_dateCreate()))?></p>
+                 </div>
+                 <?
+                 echo (strlen( $item->get_text())>450)?'<div class="clr"></div>
+                 <a  href="/reviews/more/'.$item->get_id().'"class="bt_more">ПОДРОБНЕЕ</a>':''?>
+
+             </td>
+            <? echo ($i%2==0)?'</tr>':''?>
+
+            <?$i++;}?>
+
+
+
+
+
+
+
+        <!--tr>
             <td class="left">
                 <div class="img">
                     <div class="img_top"></div>
@@ -109,8 +155,10 @@
                 <div class="clr"></div>
                 <a  href="/reviews/more"class="bt_more">ПОДРОБНЕЕ</a>
             </td>
-        </tr>
+        </tr-->
+
     </table>
+    <?}?>
     <div class="clr"></div>
 
 
@@ -152,9 +200,11 @@
                     <input id="phone" name="phone"  type="text">
                     <p>   * Телефон:</p>
 
-            <div class="clr"></div>
-                    <input   type="submit" class="bt_send f_r" value="ОТПРАВИТЬ"/>
-        </div>
+                                <div class="clr"></div>
+                    <input   type="button" id="add_rw" class="bt_send f_r" value="ОТПРАВИТЬ"/>
+                </div>
+
+
         <div class="clr"></div>
         </form>
     </div>
