@@ -19,7 +19,7 @@
     $controller = new controller();
     //$db = new MyDB(const_hostName,const_userName,const_password,const_dbName);
 	//$db=db :: getInstance();
-    
+    $controller->setDelimiter('p');
     $controller -> getView();
     $page -> setDoctype(Page :: $XHTML);
    	//if ($_SERVER['REMOTE_ADDR'] != "127.0.0.1") $page -> addMetric("metrics/yandex.inc","metrics/google.inc");

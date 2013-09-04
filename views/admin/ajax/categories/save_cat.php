@@ -10,14 +10,19 @@ if($_POST['category_name']){
     $parent_id = $_POST['parent_id'];
     $user = $_SESSION['userID'];
     $date = date('Y-m-d H:i:s');
+    $col = ($parent_id=='0')?$_POST['col']:0;
+    $row = ($parent_id=='0')?$_POST['row']:0;
 
     if($_POST['id']!=''){
         $id = $_POST['id'];
         $link .='_'.$id;
+
         $sql = "UPDATE categories SET
                 name = '{$name}',
                 link = '{$link}',
                 parent_id = {$parent_id},
+                col = {$col},
+                row = {$row},
                 userUpdate = {$user},
                 dateUpdate = '{$date}'
                 WHERE id = {$id}";
@@ -28,9 +33,9 @@ if($_POST['category_name']){
         </script>';
     }else{
         $sql = "INSERT INTO categories
-                (name,parent_id,userCreate,dateCreate)
+                (name,parent_id,col,row,userCreate,dateCreate)
                 VALUES
-                ('{$name}',{$parent_id},{$user},'{$date}')";
+                ('{$name}',{$parent_id},{$col},{$row},{$user},'{$date}')";
 //        echo "error: ".$sql;
         $db->query($sql);
         $last = $db->last();

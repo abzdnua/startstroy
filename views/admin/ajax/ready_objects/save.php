@@ -19,7 +19,7 @@ if(!empty($_POST)){
                 name = '{$name}',
                 objectDate = '{$dateObject}',
                 userUpdate = {$user},
-                  show = '{$show}',
+                  `show` = '{$show}',
                 dateUpdate = '{$date}'
                 WHERE id = {$id}";
     //    echo "error: ".$sql;
@@ -30,7 +30,7 @@ if(!empty($_POST)){
                 (name,objectDate,userCreate,`show`,dateCreate)
                 VALUES
                 ('{$name}','{$dateObject}','{$show}',{$user},'{$date}')";
-       echo "error: ".$sql;
+//       echo "error: ".$sql;
         $db->query($sql);
         $id = $db->last();
 

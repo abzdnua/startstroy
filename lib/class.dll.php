@@ -23,9 +23,10 @@ class DLL {
         'h', 'c', 'ch', 'sh', 'sh\'', '\'', 'i', '\'', 'e', 'yu', 'ya'
     );
     
-    public function linkInBD($text)
+    public function linkInBD($text,$id)
     { 
-        return strtolower(preg_replace('/[^0-9-_\+a-zA-Z]/', '', str_replace($this -> _ru, $this -> _en, preg_replace('/ +/', '_', trim(preg_replace('/\(.+?\)/si', '', $text))))));
+        return strtolower(preg_replace('/[^0-9-_\+a-zA-Z]/', '', str_replace($this -> _ru, $this -> _en, preg_replace('/ +/', '_', trim(preg_replace('/\(.+?\)/si', '', $text)))))).'_'.$id;
+
     }
     
     function __construct() {
@@ -52,7 +53,7 @@ class DLL {
         list($y,$m,$d) = explode('-', $date);
         if($m > 12 || $m < 1) return false;
         $aMonth = array('января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря');
-        return $d.' '.$aMonth[$m - 1].' '.$y.'г';
+        return $d.' '.$aMonth[$m - 1].' '.$y.' г.';
     }
 
     public function mb_ucfirst($str)
@@ -64,7 +65,7 @@ class DLL {
     public function idGen()
     {
         $date = date('Y-m-d 00:00:00');
-        $this -> _db -> query("SELECT `idGen` FROM booking WHERE `autoDate` >= '{$date}' ORDER BY `autoDate` DESC LIMIT 1");
+        $this -> _db -> query("SELECT `No` FROM `orders` WHERE `order_time` >= '{$date}' ORDER BY `order_time` DESC LIMIT 1");
         if ($this -> _db -> getCount())  
             $idGen = $this -> _db -> getValue() + 1;
         else $idGen = (int)date('ymd').'001';
@@ -290,6 +291,21 @@ public function morph($n, $f1, $f2, $f5) {
             return $selectB.$optionF.$options.$selectE;
         }
     }
+
+
+    public function getActualDate()
+    {
+        $this -> _db -> query("SELECT dateCreate FROM `products` ORDER BY dateCreate DESC LIMIT 1");
+        if ($this -> _db -> getCount() > 0)
+        {
+            $actualDT = $this -> _db -> getValue();
+            $this -> _db -> query("SELECT dateUpdate FROM `products` WHERE dateUpdate > '{$actualDT}' ORDER BY dateUpdate DESC LIMIT 1");
+            if ($this -> _db -> getCount() > 0)
+            {$actualDT = $this -> _db -> getValue();}
+        }
+        return date('d.m.Y',strtotime($actualDT));
+    }
+
 }
 
 $DLL = new DLL();

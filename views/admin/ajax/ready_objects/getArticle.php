@@ -12,7 +12,7 @@ echo '
                    <td colspan="6" style="padding: 10px;">
                         <div style="margin-bottom:10px;font:10pt Verdana;">Добавить новый объект</div>
                         <form method="post">
-                            <input type="hidden" name="id" value="">
+                            <input type="hidden" name="id" value="'.$obj['id'].'">
                             <table align="center" border="none">
                                 <tr>
                                     <div style="margin:7px">

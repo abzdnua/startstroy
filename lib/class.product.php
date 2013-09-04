@@ -92,8 +92,8 @@ class product
                 $this->name         = $res['name'];
                 $this->price        = $res['price'];
                 $this->priceForSale = $res['priceForSale'];
-                $this->material     = $res['material'];
-                $this->firm         = $res['firm'];
+                $this->material     = $res['material_id'];
+                $this->firm         = $res['firm_id'];
                 $this->category     = $res['category_id'];
                 $this->subCategory  = $res['subCategory_id'];
                 $this->img      = $res['img'];

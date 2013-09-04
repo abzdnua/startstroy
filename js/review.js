@@ -1,4 +1,6 @@
 $(function(){
+
+    $('[name=phone]').mask('+38 (999) 999 99 99')
     var review = {
         url: "/lib/review.php",
 
@@ -8,26 +10,74 @@ $(function(){
         success:function(responseText){
             console.log(responseText)
             responseText = $.parseJSON(responseText)
-
+            console.log(responseText)
             if(!responseText['err'])
             {
-                $('<div id="secret"><div class="title_popup" style="text-align: left;margin: 3px 0 0 10px;">Спасибо за отзыв.</div> <div class="popup_buy_table" style="margin-bottom: 17px;">Ваш отзыв принят и будет опубликован сразу же после проверки администратором<div></div>').dialog({modal:true,resizable:false,draggable:false,width:'250',buttons:[{text:'',click:function() { $( this ).remove(); } }], close: function( event, ui ) {$( this ).remove(); },open: function(){$('.ui-button').blur()} })
-               // $('#popup_bg_add_reviews').hide()
+                $("<div>Спасибо за Ваш отзыв<br>Он появится на сайте после проверки администратором</div>").dialog({
+                    dialogClass: "style-dialog",
+                    modal:true,
+                    width: 500,
+                    title: "Спасибо",
+                    resizable:false,
+                    position: { my: "center", at: "center", of: window },
+                    open:function(){$('.ui-button').blur(); $(this).css({Height:'auto',minHeight:0})},
+                    buttons:[
+                        { text: "OK", click: function() {
+                            $(this).dialog( "close" );
+                        } }]
+                })
             }
             else
             {
-                $('<div id="secret"><div class="title_popup" style="text-align: left;margin: 3px 0 0 10px;">Ошибка</div> <div class="popup_buy_table" style="margin-bottom: 17px;">'+responseText['err']+'<div></div>').dialog({modal:true,resizable:false,draggable:false,width:'250',buttons:[{text:'',click:function() { $( this ).remove();} }], close: function( event, ui ) {$( this ).remove();},open: function(){$('.ui-button').blur()} })
-                //$('#popup_bg_add_reviews').hide()
-                   //alert(responseText['err']);
+                $("<div>"+responseText['err']+"</div>").dialog({
+                    dialogClass: "style-dialog",
+                    modal:true,
+                    width: 500,
+                    title: "Ошибка",
+                    resizable:false,
+                    position: { my: "center", at: "center", of: window },
+                    open:function(){$('.ui-button').blur(); $(this).css({Height:'auto',minHeight:0})},
+                    buttons:[
+                        { text: "OK", click: function() {
+                            $(this).dialog( "close" );
+                        } }]
+                })
             }
         }
     }
 
     $('#add_rw_full , #add_rw').live('click', function(){
-        console.log('sfdffd')
+        var error = ""
+        if($('[name=name]').val()=='')
+            error +='Поле "Ваше имя" не может быть пустым<br>'
+        if($('[name=phone]').val()=='')
+            error +='Поле "Телефон" не может быть пустым'
+
+        if(error!=''){
+        $("<div>"+error+"</div>").dialog({
+                dialogClass: "style-dialog",
+                modal:true,
+                width: 500,
+                title: "Предупреждение",
+                resizable:false,
+                position: { my: "center", at: "center", of: window },
+                open:function(){$('.ui-button').blur(); $(this).css({Height:'auto',minHeight:0})},
+                buttons:[
+                    { text: "OK", click: function() {
+                        $(this).dialog( "close" );
+                    } }]
+            }
+        )
+            return false;
+        }
         $('[name=review_full]').ajaxSubmit(review)
         return false;
     })
+
+
+
+
+
 
 
 

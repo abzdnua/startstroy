@@ -3,9 +3,14 @@
 require_once $root."/lib/class.invis.db.php";
 require_once $root."/lib/class.db.manager.php";
 require_once $root."/lib/class.dll.php";
+$aPage = ($controller->getParam(1))?$controller->getParam(1):1;
 $db = db::getInstance();
 $dm = new db_manager();
-$articles = $dm->getAllArticles();
+$perPage = 6;
+$articles = $dm->getAllArticles(($aPage-1)*$perPage,$perPage);
+$db->query("SELECT COUNT(id) FROM articles WHERE `show` = 1 AND deleted=0 ");
+$aCount = $db->getValue();
+
 if (count($articles) > 0)
 {
 
@@ -26,7 +31,8 @@ if (count($articles) > 0)
                     </div>
                 <div class="more_padding">
                     <p class="name"><? echo $item->get_name()?></p>
-                    <p class="date">10 июля 2013 г.</p>
+                    <?$date = ($item->get_dateCreate()>$item->get_dateUpdate())?$item->get_dateCreate():$item->get_dateUpdate();?>
+                    <p class="date"><?echo $DLL->getRusDate($date)?></p>
                     <div class="clr"></div>
                     <p class="text"><? echo $item->get_shortDes()?></p>
                 </div>
@@ -53,18 +59,18 @@ if (count($articles) > 0)
 
 
 <div class="clr"></div>
-<div class="navigate ">
+<?if($aCount>$perPage){?>
+    <div class="navigate ">
 
 
-
-    <a href=""><span class="active">1</span></a>
-    <a href=""><span>2</span></a>
-    <a href=""><span>3</span></a>
-    <a href=""><span>4</span></a>
-    <a href=""><span>5</span></a>
-
-</div>
-<div class="clr"></div>
+        <?$max = ceil($aCount/$perPage);
+        for($i=1;$i<=$max;$i++){
+            ?>
+            <a href="/article/p/<?=$i?>"><span class="<?=($i == $aPage)?"active":""?>"><?=$i?></span></a>
+        <?}?>
+    </div>
+    <div class="clr"></div>
+<?}?>
 <script>
     $( document ).ready(function() {
 

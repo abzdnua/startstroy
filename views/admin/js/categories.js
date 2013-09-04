@@ -1,6 +1,7 @@
 $(document).ready(function(){
     $(document).on('click','#add_cat',function(){
         $('#form').show()
+
     }).on('click','[name=save]',function(){
             console.log('123')
         if($('[name=category_name]').val()==''){
@@ -29,11 +30,15 @@ $(document).ready(function(){
             $(this).parents('form').ajaxSubmit(data)
         }
     }).on('click','.edit',function(){
-        $('#form').show()
-        $('[name=id]').val($(this).data('id'))
-        $('[name=category_name]').val($(this).data('name'))
-        $('[name=parent_id]').val($(this).data('parent'))
-    }).on('click','.del',function(){
+            $.post('/views/admin/ajax/categories/getCategory.php',{id:$(this).data('id')},function(data){
+//                alert(data)
+                $('#form').replaceWith(data)
+                $('#form').show()
+            })
+
+
+
+        }).on('click','.del',function(){
         if(confirm('Удалить категорию?'))
         {
             var th = $(this)

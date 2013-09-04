@@ -132,11 +132,11 @@ class article
     }
 
     public function get_dateUpdate(){
-        return $this->dateCreate;
+        return $this->dateUpdate;
     }
 
     public function get_userUpdate_id(){
-        return $this->userCreate;
+        return $this->userUpdate;
     }
 
     public function get_deleted(){

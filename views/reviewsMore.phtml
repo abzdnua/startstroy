@@ -1,6 +1,6 @@
 <?
     $page -> setTitle("Start stroy");
-$page -> addScript('js/jquery.form.js');
+$page -> addScript('js/jquery.form.js','js/review.js');
 $id = $controller->getParam(1);
 require_once 'class.review.php';
 
@@ -11,6 +11,8 @@ require_once 'class.review.php';
 $db = db::getInstance();
 $dm = new db_manager();
 $rew = new review($id);
+$db->query("SELECT id FROM reviews WHERE `show`=1 AND deleted=0");
+$allReviews = $db->getArray();
 ?>
 
 <script>
@@ -39,7 +41,7 @@ $rew = new review($id);
                 </div>
             <div class="text">
                 <p class="name"><? echo $dm->getClientName($rew->get_client_id())?></p>
-                <p class="date"><? echo date('d.m.Y',strtotime($rew->get_dateCreate()))?></p>
+                <p class="date"><? echo $DLL->getRusDate($rew->get_dateCreate())?></p>
                                <p class="text_rev"><? echo $rew->get_text()?></p>
 
 
@@ -51,12 +53,21 @@ $rew = new review($id);
         </tr>
 
     </table>
-
+<?if(count($allReviews)>1){
+    for($i=0;$i<count($allReviews);$i++){
+        if($allReviews[$i]['id']==$id){
+            $cur = $i;
+        }
+    }?>
     <div class="navigate_arrow">
-        <a href="/" class=" f_l">Предыдущий отзыв</a>
-        <a href="/" class=" f_r">Следующий отзыв</a>
-
+        <?if($cur!=0){?>
+        <a href="/reviews/more/<?=$allReviews[$cur-1]['id']?>" class=" f_l">Предыдущий отзыв</a>
+        <?}?>
+        <?if($cur!=(count($allReviews)-1)){?>
+        <a href="/reviews/more/<?=$allReviews[$cur+1]['id']?>" class=" f_r">Следующий отзыв</a>
+        <?}?>
     </div>
+    <?}?>
     <div class="clr"></div>
 
 

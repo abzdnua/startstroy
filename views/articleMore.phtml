@@ -1,16 +1,21 @@
 <?
     $page -> setTitle("Start stroy");
     $id = $controller->getParam(1);
-    require_once 'class.article.php';
+require_once 'class.article.php';
+require_once "class.dll.php";
+require_once "class.invis.db.php";
+$db = db::getInstance();
     $art = new article($id);
-
+$db->query("SELECT id FROM articles WHERE `show`=1 AND deleted=0");
+$allArts = $db->getArray();
 ?>
         <h1 >Статьи</h1>
 <div class="more_margin article_more">
 
 
     <div class="title_page"><span><?echo $art->get_name()?></span></div>
-    <div class="date_text"><? echo date('d.m.Y',strtotime($art->get_dateCreate()))?></div>
+    <?$date = ($art->get_dateCreate()>$art->get_dateUpdate())?$art->get_dateCreate():$art->get_dateUpdate();?>
+    <div class="date_text"><? echo $DLL->getRusDate($date)?></div>
     <div class="img_more">
         <div class="vert_al">
 
@@ -23,11 +28,19 @@
 
     </div>
 
-
+    <?if(count($allArts)>1){
+    for($i=0;$i<count($allArts);$i++){
+        if($allArts[$i]['id']==$id){
+            $cur = $i;
+        }
+    }?>
 </div>  <div class="navigate_arrow">
-        <a href="/" class=" f_l">Предыдущая статья</a>
-        <a href="/" class=" f_r">Следующая статья</a>
-
+    <?if($cur!=0){?>
+        <a href="/article/more/<?=$allArts[$cur-1]['id']?>" class=" f_l">Предыдущая статья</a>
+    <?}?>
+    <?if($cur!=(count($allArts)-1)){?>
+        <a href="/article/more/<?=$allArts[$cur+1]['id']?>" class=" f_r">Следующая статья</a>
+    <?}?>
     </div>
-
+<?}?>
 <div class="clr"></div>

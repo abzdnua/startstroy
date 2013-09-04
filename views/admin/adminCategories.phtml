@@ -30,11 +30,27 @@ $cats = $dm->getAllCategories();
                                 <tr>
                                     <td align="right">Название</td>
                                     <td style="width: 350px"><input type="text" style="width: 100%"name="category_name"></td>
-                                    <td style="vertical-align:middle" rowspan="2"><button type="button" name="save">Сохранить</button> </td>
+                                    <td style="vertical-align:middle" rowspan="4"><button type="button" name="save">Сохранить</button> </td>
                                 </tr>
                                 <tr>
                                     <td align="right">Родительская категория</td>
                                     <td style="width: 350px"><?echo $dm->getCategorySelect('parent_id')?></td>
+                                </tr>
+                                <tr class="forParent">
+                                    <td align="right">Колонка меню</td>
+                                    <td style="width: 350px"><select name="col">
+                                            <?for($i=1;$i<=3;$i++){?>
+                                                <option value="<?=$i?>"><?=$i?></option>
+                                            <?}?>
+                                    </select></td>
+                                </tr>
+                                <tr class="forParent">
+                                    <td align="right">Строка меню</td>
+                                    <td style="width: 350px"><select name="row">
+                                            <?for($i=1;$i<=10;$i++){?>
+                                            <option value="<?=$i?>"><?=$i?></option>
+                                            <?}?>
+                                    </select></td>
                                 </tr>
                             </table>
                         </form>

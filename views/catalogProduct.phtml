@@ -4,14 +4,13 @@
 require_once $root."/lib/class.invis.db.php";
 require_once $root."/lib/class.db.manager.php";
 require_once $root."/lib/class.dll.php";
+require_once $root."/lib/class.product.php";
 $db = db::getInstance();
 $dm = new db_manager();
 
-$id = $controller->getParam(3);
+$id = end(explode('_',$controller->getParam(1)));
 
-
-$db->query("SELECT * FROM products WHERE id = ".$id );
-$product = $db->getRow();
+$product = new product($id);
 $db->query("SELECT * FROM characteristics WHERE product_id = ".$id);
 $char = $db->getArray();
 ?>
@@ -25,34 +24,34 @@ $char = $db->getArray();
 <h1 >Каталог продукции</h1>
 
 <div class="trail_href">
-      <a href="/">Каталог продукции</a>
+      <a href="/catalog/">Каталог продукции</a>
       <span></span>
-    <a href="/<?echo $dm->getCategory_link($product['category_id']);?>"><?echo $dm->getCategoryName($product['category_id']);?></a>
+    <a href="/catalog/p/<?echo $dm->getCategory_link($product->get_category_id());?>"><?echo $dm->getCategoryName($product->get_category_id());?></a>
         <span></span>
-        <a href="/<?echo $dm->getCategory_link($product['category_id']);?>"> <? echo $dm->getSubCategory_name($product['subCategory_id'])?> </a>
+        <a href="/catalog/p/<?echo $dm->getCategory_link($product->get_category_id());?>/<?echo $dm->getCategory_link($product->get_subCategory_id());?>"> <? echo $dm->getSubCategory_name($product->get_subCategory_id())?> </a>
     <span></span>
-    <p><?echo $product['name'];?></p>
+    <p><?echo $product->get_name();?></p>
 </div>
     <div class="h_50">
-        <div class="title_page f_l"><span><?echo $product['name'];?></span></div>
+        <div class="title_page f_l"><span><?echo $product->get_name();?></span></div>
 
     </div>
 
    <div class="img_tovar">
-      <div><img src="../img/products/<?echo $product['img'];?>"/></div>
+      <div><img src="../img/products/<?echo $product->get_img();?>"/></div>
    </div>
     <div class="tovar_text">
-        <p class="title">Тип материала: <? echo $dm->getMaterialName($product['material_id'])?></p>
-        <p class="title2">Производитель: <? echo $dm->getFirmName($product['firm_id'])?></p>
-        <p><? echo $product['des']?></p>
+        <p class="title">Тип материала: <? echo $dm->getMaterialName($product->get_material_id())?></p>
+        <p class="title2">Производитель: <? echo $dm->getFirmName($product->get_firm_id())?></p>
+        <p><? echo $product->get_des()?></p>
 
         <div class="price">
             <p class="text">Стоимость за единицу</p>
-            <p class="text_right">Цены на 10.08.2013</p>
+            <p class="text_right">Цены на <?=$DLL->getActualDate()?></p>
 <br>
-            <p class="proce_old"  <?echo ($product['price']==0)?"style='display:none'":""?>   ><? echo $product['price']?> грн.</p>
-            <p class="proce_new  <?echo ($product['price']==0)?"":"red"?>"><? echo $product['priceForSale']?> грн.</p>
-            <a href="/buy" class="buy">ЗАКАЗАТЬ</a>
+            <p class="proce_old"  <?echo ($product->get_price()==0)?"style='display:none'":""?>   ><? echo $product->get_price()?> грн.</p>
+            <p class="proce_new  <?echo ($product->get_price()==0)?"":"red"?>"><? echo $product->get_priceForSale()?> грн.</p>
+            <a href="/buy/p/<?=$DLL->linkInBD($product->get_name(),$product->get_id())?>" class="buy">ЗАКАЗАТЬ</a>
         </div>
     </div>
 

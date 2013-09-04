@@ -1,11 +1,13 @@
 <?
 
-	$page -> addScript('js/jquery-1.8.2.js','js/jquery-ui_1.9.1.js','js/review.js');
+	$page -> addScript('js/jquery-1.8.2.js','js/jquery-ui_1.9.1.js', 'js/mask.js');
     $page -> addCss('css/reset.css','css/style.css','http://fonts.googleapis.com/css?family=Open+Sans:400,300&subset=latin,cyrillic');
 
 
       $page -> setFavicon('/img/favicon.ico');
 $bUrl = "http://".$_SERVER['SERVER_NAME'].'/';
+require_once "class.invis.db.php";
+$db = db::getInstance();
 ?>
 
 
@@ -17,39 +19,30 @@ $bUrl = "http://".$_SERVER['SERVER_NAME'].'/';
         <a href="/" class="logo"></a>
         <div class="menu_top">
             <div class="p">
-                <a>Каталог</a>
+                <a href="/catalog/">Каталог</a>
                  <div class="Submenu">
                      <div class="border_top">
-                         <div class="f_l">
-                             <a href="/catalog" class="title">Стеновые материалы</a>
-                             <a href="/catalog/Product">Газобетон ЮДК</a>
-                             <a>Керамические блоки Кератерм </a>
-                             <a>Клинкерный кирпич Керамейя</a>
+                         <?$db-> query("SELECT id,name,link,col,row FROM categories WHERE parent_id = 0 AND deleted=0 ORDER BY col ASC, row ASC");
+                         $menu = $db->getArray();
+                         $col=1;
+                         foreach($menu as $item){
+                             if($item['col']!=$col){
+                                 echo '</div>';
+                                 $col = $item['col'];
+                             }
+                             if($item['row']==1){
+                             ?>
+                         <div class="f_l <?=($item['col']>1)?"mar_left_28":""?>">
+                             <?}?>
+                             <a href="/catalog/p/<?=$item['link']?>" class="<?=($item['row']>1)?"mar_top_15":""?> title"><?=$item['name']?></a>
+                                <?$db->query("SELECT name,link FROM categories WHERE parent_id = {$item['id']} AND deleted=0 ");
+                                $subMenu = $db->getArray();
+                                foreach($subMenu as $subItem){?>
+                             <a href="/catalog/p/<?=$item['link']?>/<?=$subItem['link']?>"><?=$subItem['name']?></a>
+                             <?}?>
                              <div class="clr"></div>
-                             <a class=" mar_top_15 title">Ландшафтные материалы</a>
 
-                             <a>Клинкерная брусчатка Керамейя</a>
-                             <a>плитка ФЭМ</a>
-                         </div>
-                         <div class=" mar_left_28 f_l">
-                             <a class="title">Кровельные материалы</a>
-                             <a>Битумная черепица IKO</a>
-                             <a>Керамическая черепица  Braas</a>
-                             <a>Натуральная черепица Braas, Аляска</a>
-                             <a>Композитная черепица Metrotile</a>
-                             <a>Металическая черепица RUUKKI</a>
-
-                         </div>
-                         <div class=" mar_left_28 f_l">
-                             <a class="title">Фасадные материалы</a>
-                             <a>Фасадная штукатурка</a>
-                             <a>Сухие смеси Kreisel</a>
-                             <a>Клинкерная плитка </a>
-                             <div class="clr"></div>
-                             <a class=" mar_top_15 title">Утеплители</a>
-                             <a>Минеральная вата</a>
-                             <a>Пенопласт</a>
-                             <a>Экструдированный пенополистерол</a>
+                         <?}?>
                          </div>
                      </div>
                  </div>

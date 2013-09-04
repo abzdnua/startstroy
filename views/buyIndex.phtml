@@ -1,6 +1,16 @@
 <?
     $page -> setTitle("Start stroy");
+$page->addScript('js/buy.js','js/jquery.form.js');
+require_once $root."/lib/class.invis.db.php";
+require_once $root."/lib/class.db.manager.php";
+require_once $root."/lib/class.dll.php";
+require_once $root."/lib/class.product.php";
+$db = db::getInstance();
+$dm = new db_manager();
 
+$id = end(explode('_',$controller->getParam(1)));
+
+$product = new product($id);
 ?>
 
 <div class="catalog_page buy_page">
@@ -12,17 +22,17 @@
 
 
         <li class="no_mar_left">
-            <a href="catalog/Product">
+            <a href="catalog/product/<?=$DLL->linkInBD($product->get_name(),$product->get_id())?>">
 
 
 
-            <div class="img"><div><img src="../img/t1.jpg"/></div></div>
-            <div class="text">Кератерм блоки ® 25 с <br>  доставкой по Донецку  доставкой по Доfgнецку  доставdfgffffffdddddfffdfgкой по Донецку  досfgтавкой по Донецку</div>
+            <div class="img"><div><img src="../img/products/m_<?=$product->get_img()?>"/></div></div>
+            <div class="text"><?=$product->get_name()?></div>
 
               <div class="price_block">
                 <div class="vert_align">
-                        <div class="old_price">10,00 грн.</div>
-                        <div class="new_price red">9,50 грн.</div>
+                    <div class="old_price" <?echo ($product->get_price()==0)?"style='display:none'":""?>  ><? echo $product->get_price()?> грн.</div>
+                    <div class="new_price <?echo ($product->get_price()==0)?"":"red"?>"><? echo $product->get_priceForSale()?> грн.</div>
                 </div>
               </div>
             </a>
@@ -37,16 +47,19 @@
 </div>
 
     <div class="buy_block f_l">
+        <form name="order" method="post" >
+            <input type="hidden" name="prod_id" value="<?=$product->get_id()?>"/>
    <div class="f_l" style="margin-right: 29px">
-       <input type="text"/>
+
+       <input type="text" name="name"/>
          <p>* Ваше имя:</p>
 
        <div class="clr"></div>
-       <input type="text"/>
+       <input type="text" name="phone"/>
         <p>* Телефон:</p><br>
        <div class="clr"></div>
 
-       <input type="text"/>
+       <input type="text" name="email"/>
         <p>E-mail:</p>
        <div class="clr"></div>
 
@@ -54,16 +67,17 @@
         <div class="f_l">
             <p style="float: left !important;">Комментарий:</p>
             <div class="clr"></div>
-           <textarea ></textarea>
+           <textarea name="comment"></textarea>
         </div>
 
         <div class="clr"></div>
-        <div class="buy" style="margin-bottom: 70px;">ЗАКАЗАТЬ</div>
+        <div class="buy" id="make_order" style="margin-bottom: 25px;">ЗАКАЗАТЬ</div>
         <div class="text">Заполните форму заказа. Укажите в комментарии количество товара, удобный способ оплаты и доставки. Наш менеджер свяжется с Вами в ближайшее время для уточнения заказа.</div>
         <div class="price_text f_r">Цены на 10,08,2013</div>
         <div class="clr"></div>
 
    </div>
+    </form>
 <div class="clr"></div>
 
 </div>

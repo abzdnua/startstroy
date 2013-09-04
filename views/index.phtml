@@ -43,7 +43,7 @@ if (count($products) > 0)
                     <img src="../img/banner/<?echo $item->get_img()?>" width="1024" height="360">
                     <div class="tex_fly block1 "><?echo $item->get_firstStr()?></div>
                     <div class="tex_fly block2 "><?echo $item->get_secondStr()?></div>
-                    <div class="tex_fly block3 "><?echo $item->get_thirdStr()?></div>
+                    <? if($item->get_thirdStr()!=''){?><div class="tex_fly block3 "><?echo $item->get_thirdStr()?></div><?}?>
                 </div>
 
                 <?$i++;}?>
@@ -78,16 +78,16 @@ if (count($products) > 0)
 <div class="w_980">
     <div class="h_50">
         <div class="title_page f_l"><span>Топ</span> предложения строительных материалов</div>
-        <div class="price_text f_r">Цены на 10.08.2013</div>
+        <div class="price_text f_r">Цены на <?=$DLL->getActualDate()?></div>
     </div>
 
     <ul class="product_ul">
     <?$i=1;
     foreach($products as $item) {?>
     <li <? echo ($i%4==1)?'class="no_mar_left"':''?>>
-        <a href="catalog/Product/<? echo $dm->getCategory_link( $item->get_category_id())?>/<? echo  $dm->getSubCategory_link( $item->get_subCategory_id())?>/<? echo $item->get_id()?>">
+        <a href="catalog/product/<? echo $DLL->linkInBD($item->get_name(),$item->get_id())?>">
             <div class="max_height">   <div class="img"><div><img src="../img/products/m_<? echo $item->get_img()?>"/></div></div></div>
-            <div class="text"><? echo $item->get_des()?></div>
+            <div class="text"><? echo $item->get_name()?></div>
 
             <div class="price_block">
                 <div class="vert_align">
@@ -95,7 +95,7 @@ if (count($products) > 0)
                     <div class="new_price <?echo ($item->get_price()==0)?"":"red"?>"><? echo $item->get_priceForSale()?> грн.</div>
                 </div>
             </div>
-            <a href="/buy" class="buy">ЗАКАЗАТЬ</a>
+            <a href="/buy/p/<? echo $DLL->linkInBD($item->get_name(),$item->get_id())?>" class="buy">ЗАКАЗАТЬ</a>
         </a>
     </li>
 

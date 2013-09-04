@@ -226,9 +226,9 @@ class db_manager
     }
 
 
-    public function getAllArticles(){
+    public function getAllArticles($from,$count){
         $db = $this->_db;
-        $sql = "SELECT id FROM articles WHERE deleted = 0 ";
+        $sql = "SELECT id FROM articles WHERE `show`=1 AND deleted = 0 LIMIT {$from}, {$count}";
         $db->query($sql);
         $out = array();
         $cats = $db->getArray();
@@ -284,9 +284,9 @@ class db_manager
         }
         return $out;
     }
-    public function getAllReviewsShow(){
+    public function getAllReviewsShow($from,$count){
         $db = $this->_db;
-        $sql = "SELECT id FROM reviews WHERE 'show' = 0";
+        $sql = "SELECT id FROM reviews WHERE `show` = 1 AND deleted=0 LIMIT {$from}, {$count}";
         $db->query($sql);
         $out = array();
         $cats = $db->getArray();

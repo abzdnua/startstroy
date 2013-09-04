@@ -1,234 +1,265 @@
 <?
     $page -> setTitle("Start stroy");
+require_once "class.product.php";
+require_once "class.dll.php";
+$cat_id  = end(explode('_',$_SERVER['REQUEST_URI']));
+$perPage = 16;
+if(!is_numeric($cat_id)){
+    $db->query("SELECT id FROM products ORDER BY dateUpdate LIMIT 0,{$perPage}");
+}else{
+    $db->query("SELECT id FROM products WHERE category_id={$cat_id} OR subCategory_id = {$cat_id} ORDER BY dateUpdate LIMIT 0,{$perPage}");
+}
 
+$products = $db->getArray();
+if($products)
+foreach($products as $product){
+    $products_obj[] = new product($product['id']);
+}
+if(is_numeric($cat_id)){
+$db->query("SELECT name, parent_id FROM categories WHERE id = {$cat_id}");
+$curCat = $db->getRow();
+if($curCat['parent_id'] != 0){
+    $db->query("SELECT name,link FROM categories WHERE id = {$curCat['parent_id']}");
+    $curParCat = $db->getRow();
+}
+
+}
 ?>
 
 <div class="catalog_page">
 <h1 >Каталог продукции</h1>
 
 <div class="trail_href">
-      <a href="/">Каталог продукции</a>
+      <a href="/catalog/">Каталог продукции</a>
       <span></span>
-      <p>Стеновые материалы</p>
+<?if($curParCat){?>
+    <a href="/catalog/p/<?=$curParCat['link']?>"><?=$curParCat['name']?></a>
+    <span></span>
+    <?}?>
+
+      <p><?=$curCat['name']?></p>
 
 </div>
     <div class="h_50">
-        <div class="title_page f_l"><span>Стеновые материалы</span></div>
-        <div class="price_text f_r">Цены на 10.08.2013</div>
+        <div class="title_page f_l"><span><?=($curCat['name'])?$curCat['name']:"Каталог продукции"?></span></div>
+        <div class="price_text f_r">Цены на <?=$DLL->getActualDate()?></div>
     </div>
-
+<?if($products_obj){
+    $k = 1;
+?>
     <ul class="product_ul">
-        <li class="no_mar_left">
-            <a href="catalog/Product">
-                <div class="max_height">      <div class="img"><div><img src="../img/t1.jpg"/></div></div></div>
-            <div class="text">Кератерм блоки ® 25 с <br>  доставкой по Донецку  доставкой по Доfgнецку  доставdfgffffffdddddfffdfgкой по Донецку  досfgтавкой по Донецку</div>
+    <?foreach($products_obj as $prod){?>
+        <li class="<?=($k%4==1)?"no_mar_left":""?>">
+            <a href="catalog/product/<?=$DLL->linkInBD($prod->get_name(),$prod->get_id())?>">
+                <div class="max_height">      <div class="img"><div><img src="../img/products/m_<?=$prod->get_img()?>"/></div></div></div>
+            <div class="text"><?=$prod->get_name()?></div>
 
               <div class="price_block">
                 <div class="vert_align">
-                        <div class="old_price">10,00 грн.</div>
-                        <div class="new_price red">9,50 грн.</div>
+                    <div class="old_price" <?echo ($prod->get_price()==0)?"style='display:none'":""?>  ><? echo $prod->get_price()?> грн.</div>
+                    <div class="new_price <?echo ($prod->get_price()==0)?"":"red"?>"><? echo $prod->get_priceForSale()?> грн.</div>
                 </div>
               </div>
             </a>
-            <div class="buy">ЗАКАЗАТЬ</div>
+            <a href="/buy/p/<?=$DLL->linkInBD($prod->get_name(),$prod->get_id())?>" class="buy">ЗАКАЗАТЬ</a>
         </li>
+        <?$k++;}?>
 
-
-        <li class="">
-            <a href="catalog/Product">
-                <div class="max_height">     <div class="img"><div><img src="../img/t1.jpg"/></div></div></div>
-            <div class="text">Кератерм блоки ® 25 с</div>
-
-            <div class="price_block">
-                <div class="vert_align">
-
-                    <div class="new_price ">9,50 грн.</div>
-                </div>
-            </div>
-            <div class="buy">ЗАКАЗАТЬ</div>
-                </a>
-        </li>
-        <li class="">
-            <a href="catalog/Product">
-                <div class="max_height">    <div class="img"><div><img src="../img/t2.jpg"/></div></div></div>
-            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку dfsdsg fdhd</div>
-
-            <div class="price_block">
-                <div class="vert_align">
-
-                    <div class="new_price ">9,50 грн.</div>
-                </div>
-            </div>
-            <div class="buy">ЗАКАЗАТЬ</div>
-                </a>
-        </li>
-        <li class="">
-            <div class="max_height">     <div class="img"><div><img src="../img/t1.jpg"/></div></div></div>
-            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>
-
-            <div class="price_block">
-                <div class="vert_align">
-                    <div class="old_price">10,00 грн.</div>
-                    <div class="new_price red">9,50 грн.</div>
-                </div>
-            </div>
-            <div class="buy">ЗАКАЗАТЬ</div>
-        </li>
-        <li class="height_normal no_mar_left">
-            <div class="max_height">     <div class="img"><div><img src="../img/t3.jpg"/></div></div></div>
-            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>
-
-            <div class="price_block">
-                <div class="vert_align">
-                    <div class="old_price">10,00 грн.</div>
-                    <div class="new_price red">9,50 грн.</div>
-                </div>
-            </div>
-            <div class="buy">ЗАКАЗАТЬ</div>
-        </li>
-        <li class="height_normal">
-            <div class="max_height">      <div class="img"><div><img src="../img/t1.jpg"/></div></div></div>
-            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>
-
-            <div class="price_block">
-                <div class="vert_align">
-                    <div class="old_price">10,00 грн.</div>
-                    <div class="new_price red">9,50 грн.</div>
-                </div>
-            </div>
-            <div class="buy">ЗАКАЗАТЬ</div>
-        </li>
-        <li class="height_normal">
-            <div class="max_height">        <div class="img"><div><img src="../img/t3.jpg"/></div></div></div>
-            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>
-
-            <div class="price_block">
-                <div class="vert_align">
-                    <div class="old_price">10,00 грн.</div>
-                    <div class="new_price red">9,50 грн.</div>
-                </div>
-            </div>
-            <div class="buy">ЗАКАЗАТЬ</div>
-        </li>
-        <li class="height_normal">
-            <div class="max_height">       <div class="img"><div><img src="../img/t2.jpg"/></div></div></div>
-            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>
-
-            <div class="price_block">
-                <div class="vert_align">
-                    <div class="old_price">10,00 грн.</div>
-                    <div class="new_price red">9,50 грн.</div>
-                </div>
-            </div>
-            <div class="buy">ЗАКАЗАТЬ</div>
-        </li>
-
-        <li class="no_mar_left">
-            <a href="catalog/Product">
-                <div class="max_height">      <div class="img"><div><img src="../img/t1.jpg"/></div></div></div>
-                <div class="text">Кератерм блоки ® 25 с <br>  доставкой по Донецку  доставкой по Доfgнецку  доставdfgffffffdddddfffdfgкой по Донецку  досfgтавкой по Донецку</div>
-
-                <div class="price_block">
-                    <div class="vert_align">
-                        <div class="old_price">10,00 грн.</div>
-                        <div class="new_price red">9,50 грн.</div>
-                    </div>
-                </div>
-            </a>
-            <div class="buy">ЗАКАЗАТЬ</div>
-        </li>
-
-
-        <li class="">
-            <a href="catalog/Product">
-                <div class="max_height">     <div class="img"><div><img src="../img/t1.jpg"/></div></div></div>
-                <div class="text">Кератерм блоки ® 25 с</div>
-
-                <div class="price_block">
-                    <div class="vert_align">
-
-                        <div class="new_price ">9,50 грн.</div>
-                    </div>
-                </div>
-                <div class="buy">ЗАКАЗАТЬ</div>
-            </a>
-        </li>
-        <li class="">
-            <a href="catalog/Product">
-                <div class="max_height">    <div class="img"><div><img src="../img/t2.jpg"/></div></div></div>
-                <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку dfsdsg fdhd</div>
-
-                <div class="price_block">
-                    <div class="vert_align">
-
-                        <div class="new_price ">9,50 грн.</div>
-                    </div>
-                </div>
-                <div class="buy">ЗАКАЗАТЬ</div>
-            </a>
-        </li>
-        <li class="">
-            <div class="max_height">     <div class="img"><div><img src="../img/t1.jpg"/></div></div></div>
-            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>
-
-            <div class="price_block">
-                <div class="vert_align">
-                    <div class="old_price">10,00 грн.</div>
-                    <div class="new_price red">9,50 грн.</div>
-                </div>
-            </div>
-            <div class="buy">ЗАКАЗАТЬ</div>
-        </li>
-        <li class="height_normal no_mar_left">
-            <div class="max_height">     <div class="img"><div><img src="../img/t3.jpg"/></div></div></div>
-            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>
-
-            <div class="price_block">
-                <div class="vert_align">
-                    <div class="old_price">10,00 грн.</div>
-                    <div class="new_price red">9,50 грн.</div>
-                </div>
-            </div>
-            <div class="buy">ЗАКАЗАТЬ</div>
-        </li>
-        <li class="height_normal">
-            <div class="max_height">      <div class="img"><div><img src="../img/t1.jpg"/></div></div></div>
-            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>
-
-            <div class="price_block">
-                <div class="vert_align">
-                    <div class="old_price">10,00 грн.</div>
-                    <div class="new_price red">9,50 грн.</div>
-                </div>
-            </div>
-            <div class="buy">ЗАКАЗАТЬ</div>
-        </li>
-        <li class="height_normal">
-            <div class="max_height">        <div class="img"><div><img src="../img/t3.jpg"/></div></div></div>
-            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>
-
-            <div class="price_block">
-                <div class="vert_align">
-                    <div class="old_price">10,00 грн.</div>
-                    <div class="new_price red">9,50 грн.</div>
-                </div>
-            </div>
-            <div class="buy">ЗАКАЗАТЬ</div>
-        </li>
-        <li class="height_normal">
-            <div class="max_height">       <div class="img"><div><img src="../img/t2.jpg"/></div></div></div>
-            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>
-
-            <div class="price_block">
-                <div class="vert_align">
-                    <div class="old_price">10,00 грн.</div>
-                    <div class="new_price red">9,50 грн.</div>
-                </div>
-            </div>
-            <div class="buy">ЗАКАЗАТЬ</div>
-        </li>
+<!--        <li class="">-->
+<!--            <a href="catalog/Product">-->
+<!--                <div class="max_height">     <div class="img"><div><img src="../img/t1.jpg"/></div></div></div>-->
+<!--            <div class="text">Кератерм блоки ® 25 с</div>-->
+<!---->
+<!--            <div class="price_block">-->
+<!--                <div class="vert_align">-->
+<!---->
+<!--                    <div class="new_price ">9,50 грн.</div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="buy">ЗАКАЗАТЬ</div>-->
+<!--                </a>-->
+<!--        </li>-->
+<!--        <li class="">-->
+<!--            <a href="catalog/Product">-->
+<!--                <div class="max_height">    <div class="img"><div><img src="../img/t2.jpg"/></div></div></div>-->
+<!--            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку dfsdsg fdhd</div>-->
+<!---->
+<!--            <div class="price_block">-->
+<!--                <div class="vert_align">-->
+<!---->
+<!--                    <div class="new_price ">9,50 грн.</div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="buy">ЗАКАЗАТЬ</div>-->
+<!--                </a>-->
+<!--        </li>-->
+<!--        <li class="">-->
+<!--            <div class="max_height">     <div class="img"><div><img src="../img/t1.jpg"/></div></div></div>-->
+<!--            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>-->
+<!---->
+<!--            <div class="price_block">-->
+<!--                <div class="vert_align">-->
+<!--                    <div class="old_price">10,00 грн.</div>-->
+<!--                    <div class="new_price red">9,50 грн.</div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="buy">ЗАКАЗАТЬ</div>-->
+<!--        </li>-->
+<!--        <li class="height_normal no_mar_left">-->
+<!--            <div class="max_height">     <div class="img"><div><img src="../img/t3.jpg"/></div></div></div>-->
+<!--            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>-->
+<!---->
+<!--            <div class="price_block">-->
+<!--                <div class="vert_align">-->
+<!--                    <div class="old_price">10,00 грн.</div>-->
+<!--                    <div class="new_price red">9,50 грн.</div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="buy">ЗАКАЗАТЬ</div>-->
+<!--        </li>-->
+<!--        <li class="height_normal">-->
+<!--            <div class="max_height">      <div class="img"><div><img src="../img/t1.jpg"/></div></div></div>-->
+<!--            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>-->
+<!---->
+<!--            <div class="price_block">-->
+<!--                <div class="vert_align">-->
+<!--                    <div class="old_price">10,00 грн.</div>-->
+<!--                    <div class="new_price red">9,50 грн.</div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="buy">ЗАКАЗАТЬ</div>-->
+<!--        </li>-->
+<!--        <li class="height_normal">-->
+<!--            <div class="max_height">        <div class="img"><div><img src="../img/t3.jpg"/></div></div></div>-->
+<!--            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>-->
+<!---->
+<!--            <div class="price_block">-->
+<!--                <div class="vert_align">-->
+<!--                    <div class="old_price">10,00 грн.</div>-->
+<!--                    <div class="new_price red">9,50 грн.</div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="buy">ЗАКАЗАТЬ</div>-->
+<!--        </li>-->
+<!--        <li class="height_normal">-->
+<!--            <div class="max_height">       <div class="img"><div><img src="../img/t2.jpg"/></div></div></div>-->
+<!--            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>-->
+<!---->
+<!--            <div class="price_block">-->
+<!--                <div class="vert_align">-->
+<!--                    <div class="old_price">10,00 грн.</div>-->
+<!--                    <div class="new_price red">9,50 грн.</div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="buy">ЗАКАЗАТЬ</div>-->
+<!--        </li>-->
+<!---->
+<!--        <li class="no_mar_left">-->
+<!--            <a href="catalog/Product">-->
+<!--                <div class="max_height">      <div class="img"><div><img src="../img/t1.jpg"/></div></div></div>-->
+<!--                <div class="text">Кератерм блоки ® 25 с <br>  доставкой по Донецку  доставкой по Доfgнецку  доставdfgffffffdddddfffdfgкой по Донецку  досfgтавкой по Донецку</div>-->
+<!---->
+<!--                <div class="price_block">-->
+<!--                    <div class="vert_align">-->
+<!--                        <div class="old_price">10,00 грн.</div>-->
+<!--                        <div class="new_price red">9,50 грн.</div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </a>-->
+<!--            <div class="buy">ЗАКАЗАТЬ</div>-->
+<!--        </li>-->
+<!---->
+<!---->
+<!--        <li class="">-->
+<!--            <a href="catalog/Product">-->
+<!--                <div class="max_height">     <div class="img"><div><img src="../img/t1.jpg"/></div></div></div>-->
+<!--                <div class="text">Кератерм блоки ® 25 с</div>-->
+<!---->
+<!--                <div class="price_block">-->
+<!--                    <div class="vert_align">-->
+<!---->
+<!--                        <div class="new_price ">9,50 грн.</div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="buy">ЗАКАЗАТЬ</div>-->
+<!--            </a>-->
+<!--        </li>-->
+<!--        <li class="">-->
+<!--            <a href="catalog/Product">-->
+<!--                <div class="max_height">    <div class="img"><div><img src="../img/t2.jpg"/></div></div></div>-->
+<!--                <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку dfsdsg fdhd</div>-->
+<!---->
+<!--                <div class="price_block">-->
+<!--                    <div class="vert_align">-->
+<!---->
+<!--                        <div class="new_price ">9,50 грн.</div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="buy">ЗАКАЗАТЬ</div>-->
+<!--            </a>-->
+<!--        </li>-->
+<!--        <li class="">-->
+<!--            <div class="max_height">     <div class="img"><div><img src="../img/t1.jpg"/></div></div></div>-->
+<!--            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>-->
+<!---->
+<!--            <div class="price_block">-->
+<!--                <div class="vert_align">-->
+<!--                    <div class="old_price">10,00 грн.</div>-->
+<!--                    <div class="new_price red">9,50 грн.</div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="buy">ЗАКАЗАТЬ</div>-->
+<!--        </li>-->
+<!--        <li class="height_normal no_mar_left">-->
+<!--            <div class="max_height">     <div class="img"><div><img src="../img/t3.jpg"/></div></div></div>-->
+<!--            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>-->
+<!---->
+<!--            <div class="price_block">-->
+<!--                <div class="vert_align">-->
+<!--                    <div class="old_price">10,00 грн.</div>-->
+<!--                    <div class="new_price red">9,50 грн.</div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="buy">ЗАКАЗАТЬ</div>-->
+<!--        </li>-->
+<!--        <li class="height_normal">-->
+<!--            <div class="max_height">      <div class="img"><div><img src="../img/t1.jpg"/></div></div></div>-->
+<!--            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>-->
+<!---->
+<!--            <div class="price_block">-->
+<!--                <div class="vert_align">-->
+<!--                    <div class="old_price">10,00 грн.</div>-->
+<!--                    <div class="new_price red">9,50 грн.</div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="buy">ЗАКАЗАТЬ</div>-->
+<!--        </li>-->
+<!--        <li class="height_normal">-->
+<!--            <div class="max_height">        <div class="img"><div><img src="../img/t3.jpg"/></div></div></div>-->
+<!--            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>-->
+<!---->
+<!--            <div class="price_block">-->
+<!--                <div class="vert_align">-->
+<!--                    <div class="old_price">10,00 грн.</div>-->
+<!--                    <div class="new_price red">9,50 грн.</div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="buy">ЗАКАЗАТЬ</div>-->
+<!--        </li>-->
+<!--        <li class="height_normal">-->
+<!--            <div class="max_height">       <div class="img"><div><img src="../img/t2.jpg"/></div></div></div>-->
+<!--            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>-->
+<!---->
+<!--            <div class="price_block">-->
+<!--                <div class="vert_align">-->
+<!--                    <div class="old_price">10,00 грн.</div>-->
+<!--                    <div class="new_price red">9,50 грн.</div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="buy">ЗАКАЗАТЬ</div>-->
+<!--        </li>-->
     </ul>
-
+<?}?>
 <div class="clr"></div>
 <div class="bt_more">ПОКАЗАТЬ ЕЩЕ</div>
 </div>
