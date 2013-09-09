@@ -5,7 +5,7 @@ $page->addScript('views/admin/js/partners.js');
 //require_once $root."/lib/class.category.php";
 $db = db::getInstance();
 $dm = new db_manager();
-$db->query("SELECT * FROM PARTNERS WHERE DELETED = 0");
+$db->query("SELECT * FROM PARTNERS WHERE DELETED = 0 ORDER BY id DESC");
 $partner = $db->getArray();
 
 //print_r($cats);
@@ -25,21 +25,27 @@ $partner = $db->getArray();
         <fieldset>
             <table align="center" style="width:100%">
                 <tr id="form" style="display:none;" >
-                    <td colspan="6" style="padding: 10px;">
-                        <div style="margin-bottom:10px;font:10pt Verdana;">Добавить нового партнера</div>
+                    <td colspan="8" style="padding: 10px;">
+                        <div style="font:10pt Verdana;">Добавить нового партнера</div>
+                        <div class="silver">Поля отмеченные <span class="required">*</span> обязательны к заполнению</div>
                         <form method="post">
                             <input type="hidden" name="id" value="">
-                            <table align="center" border="none">
+                            <table align="center" border="none" width="100%">
                                 <tr>
-                                    <td align="right">Название</td>
-                                    <td style="width: 350px"><input type="text" style="width: 100%"name="partner_name"></td>
+                                    <td align="right">Название<span class="required">*</span></td>
+                                    <td style="width: 630px"><input type="text" style="width: 100%"name="partner_name"></td>
+                                    <td style="vertical-align:middle" rowspan="5"><button type="button" name="save">Сохранить</button> </td>
                                 </tr>
                                 <tr>
-                                    <td align="right">Описание</td>
+                                    <td align="right">Отображать на сайте</td>
+                                    <td><input type="checkbox" name="show"/></td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Описание<span class="required">*</span></td>
                                     <td style="width: 350px"><textarea rows=3 style="width: 100%"name="partner_des"></textarea></td>
                                 </tr>
                                 <tr>
-                                    <td align="right">Картинка</td>
+                                    <td align="right">Картинка<span class="required">*</span></td>
                                     <td style="width: 350px"><input type="file" style="width: 100%"name="partner_img">
                                                        <input type="hidden" name="partner_img_val">
                                         <img id="id_img_edit" style="display:none"/>
@@ -47,8 +53,8 @@ $partner = $db->getArray();
                                 </tr>
                                 <tr>
                                     <td align="right">Ссылка</td>
-                                    <td style="width: 350px"><input type="text" style="width: 100%"name="partner_link"></td>
-                                    <td style="vertical-align:middle" rowspan="2"><button type="button" name="save">Сохранить</button> </td>
+                                    <td style="width: 350px"><input type="text" style="width: 100%"name="partner_link" value="http://"></td>
+
                                 </tr>
                             </table>
                         </form>
@@ -64,8 +70,9 @@ $partner = $db->getArray();
                         <td style="width:200px; height: 25px; vertical-align:middle; font-weight: bold;">Описание</td>
                         <td style="width:200px; height: 25px; vertical-align:middle; font-weight: bold;">Картинка</td>
                         <td style="width:200px; height: 25px; vertical-align:middle; font-weight: bold;">Ссылка</td>
-                        <td style="width:90px; height: 25px; vertical-align:middle; font-weight: bold;">Редактировать</td>
-                        <td style="width:70px; height: 25px; vertical-align:middle; font-weight: bold;">Удалить</td>
+                        <td style="width:30px; height: 25px; vertical-align:middle; font-weight: bold;"></td>
+                        <td style="width:30px; height: 25px; vertical-align:middle; font-weight: bold;"></td>
+                        <td style="width:30px; height: 25px; vertical-align:middle; font-weight: bold;"></td>
                     </tr>
                     <?foreach($partner as $cat){?>
                     <tr>
@@ -74,8 +81,9 @@ $partner = $db->getArray();
                         <td><?echo $cat['des'];?></td>
                         <td><img src="/img/partners/<?echo $cat['img'];?>"/></td>
                         <td><?echo $cat['link'];?></td>
-                        <td><button type="button" class="edit" data-id="<?echo $cat['id'];?>" data-name="<?echo $cat['name']?>" data-des="<?echo $cat['des']?>" data-link="<?echo $cat['link']?>" data-img="<?echo $cat['img']?>"">Редактировать</button></td>
-                        <td><button type="button" class="del" data-id="<?echo $cat['id'];?>">Удалить</button></td>
+                        <td><img src="img/admin/<?=($cat['show'])?"item_show.png":"item_hide.png"?>" title="<?=($cat['show'])?"Отображается":"Скрыт"?>"></td>
+                        <td><img src="img/admin/b_edit.png" data-id ="<?=$cat['id']?>" data-name="<?echo $cat['name']?>" title="Редактировать" style="cursor: pointer" class="edit"></td>
+                        <td><img src="img/admin/b_drop.png" data-id ="<?=$cat['id']?>" title="Удалить" style="cursor: pointer" class="del"></td>
                     </tr>
                 <?}?>
 

@@ -77,7 +77,7 @@ class db_manager
     public function getClientName($id){
         $sql = "SELECT name FROM clients WHERE id = ".$id;
         $this->_db->query($sql);
-        return $this->_db->getValue();
+        return (($this->_db->getCount())?($this->_db->getValue()):"");
     }
 
     public function getFirmName($id){
@@ -104,7 +104,11 @@ class db_manager
     public function getImgClient($id){
         $sql = "SELECT img FROM clients WHERE id = ".$id;
         $this->_db->query($sql);
-        return $this->_db->getValue();
+        if(is_file($_SERVER['DOCUMENT_ROOT'].'/img/client/m_'.$this->_db->getValue())){
+            return 'm_'.$this->_db->getValue();
+        }else{
+            return 'ava_default.jpg';
+        }
     }
 
     public function getCategory_link($id){
@@ -242,9 +246,14 @@ class db_manager
     }
 
 
-    public function getAllProducts(){
+    public function getAllProducts($from=0, $count=0, $cat=null){
         $db = $this->_db;
-        $sql = "SELECT id FROM products WHERE deleted = 0 ";
+        $lim = ($count!=0)? "LIMIT ".$from.', '.$count:"";
+        if($cat){
+            $sql = "SELECT id FROM products WHERE (category_id={$cat} OR subCategory_id={$cat}) AND `show` = 1 AND deleted = 0 {$lim}";
+        }else{
+            $sql = "SELECT id FROM products WHERE `show` = 1 AND deleted = 0 {$lim}";
+        }
         $db->query($sql);
         $out = array();
         $cats = $db->getArray();
@@ -258,7 +267,7 @@ class db_manager
     }
     public function getAllBanners(){
         $db = $this->_db;
-        $sql = "SELECT id FROM banners WHERE deleted = 0 ";
+        $sql = "SELECT id FROM banners WHERE deleted = 0 AND `show`=1 ";
         $db->query($sql);
         $out = array();
         $cats = $db->getArray();
@@ -293,6 +302,21 @@ class db_manager
         if(count($cats)>0){
             foreach($cats as $cat){
                 $tmp =  new review($cat['id']);
+                array_push($out,$tmp);
+            }
+        }
+        return $out;
+    }
+
+    public function getAllObjects(){
+        $db = $this->_db;
+        $sql = "SELECT id FROM objects WHERE deleted = 0 AND `show`=1 ";
+        $db->query($sql);
+        $out = array();
+        $cats = $db->getArray();
+        if(count($cats)>0){
+            foreach($cats as $cat){
+                $tmp =  new readyObject($cat['id']);
                 array_push($out,$tmp);
             }
         }

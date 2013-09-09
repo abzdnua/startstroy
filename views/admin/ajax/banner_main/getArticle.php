@@ -9,40 +9,37 @@ $ban = $db->getRow();
     $checked = ($ban['show'] == 1)?' checked':'';
 
 echo '
- <tr id="form" style="display:none;" >
-
-
-                    <td colspan="6" style="padding: 10px;">
-                        <div style="margin-bottom:10px;font:10pt Verdana;">Добавить новый баннер</div>
+ <td colspan="6" style="padding: 10px;">
+                        <div style="font:10pt Verdana;">Редактирование баннера</div>
+                        <div class="silver">Поля отмеченные <span class="required">*</span> обязательны к заполнению</div>
                         <form method="post">
-                            <input type="hidden" name="id" value="">
-                            <table align="center" border="none">
-                                <div style="margin:7px">
-                                    Отображать <input type="checkbox" name="show" '.$checked.' style="position: "/><br />
-                                </div>
+                            <input type="hidden" name="id" value="'.$ban['id'].'">
+                            <table align="center" border="none" width="100%">
                                 <tr>
-                                    <td align="right">Строка 1</td>
-                                    <td style="width: 350px"><input value="'.$ban['firstStr'].'"type="text" style="width: 100%"name="str1"></td>
-
+                                    <td align="right">Строка 1<span class="required">*</span></td>
+                                    <td style="width: 630px"><input type="text" style="width: 100%" name="str1" value="'.$ban['firstStr'].'"></td>
+                                    <td style="vertical-align:middle" rowspan="5"><button type="button" name="save">Сохранить</button> </td>
                                 </tr>
                                 <tr>
                                     <td align="right">Строка 2</td>
-                                    <td style="width: 350px"><input value="'.$ban['secondStr'].'" type="text" style="width: 100%"name="str2"></td>
+                                    <td style="width: 350px"><input type="text" style="width: 100%" name="str2" value="'.$ban['secondStr'].'"></td>
 
                                 </tr>
                                 <tr>
                                     <td align="right">Строка 3</td>
-                                    <td style="width: 350px"><input type="text" value="'.$ban['thirdStr'].'"  style="width: 100%"name="str3"></td>
-                                    <td style="vertical-align:middle" rowspan="4"><button type="button" name="save">Сохранить</button> </td>
+                                    <td style="width: 350px"><input type="text" style="width: 100%" name="str3" value="'.$ban['thirdStr'].'"></td>
+
                                 </tr>
-
-
-
-
                                 <tr>
-                                    <td align="right">Изображение</td>
-                                    <td style="width: 350px"><input type="file" style="width: 100%"name="banner_img">
-                                    <img src="/img/banner/'.$ban['img'].'" width="204" height="72"/>
+                                    <td align="right">Отображать</td>
+                                    <td style="width: 350px"><input type="checkbox" name="show" '.(($ban['show'])?"checked=checked":"").'/></td>
+
+                                </tr>
+                                <tr>
+                                    <td align="right">Изображение<span class="required">*</span></td>
+                                    <td style="width: 350px"><input type="file" style="width: 100%" name="banner_img">
+                                    <img src="/img/banners/'.$ban['img'].'" style="width:600px"/>
+                                    <input type="hidden" name="banner_img_val" value="'.$ban['img'].'">
                                     </td>
 
                                 </tr>
@@ -50,6 +47,5 @@ echo '
 
                             </table>
                         </form>
-                    </td>
-                </tr>';
+                    </td>';
 }

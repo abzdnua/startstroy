@@ -21,7 +21,7 @@ if(!empty($_POST)){
                 secondStr = '{$str2}',
                 thirdStr = '{$str3}',
                 userUpdate = {$user},
-                show = '{$show}',
+                `show` = '{$show}',
                 dateUpdate = '{$date}'
 
                 WHERE id = {$id}";

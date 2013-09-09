@@ -10,16 +10,17 @@ if(!empty($_POST)){
     $name = $_POST['partner_name'];
     $des = $_POST['partner_des'];
    // $img = $_POST['partner_img'];
-    $link = $_POST['partner_link'];
+    $link = (substr($_POST['partner_link'],7))?$_POST['partner_link']:"";
     $user = $_SESSION['userID'];
     $date = date('Y-m-d H:i:s');
+    $show = ($_POST['show']=='on')?1:0;
 
     if($_POST['id']!=''){
         $id = $_POST['id'];
         $sql = "UPDATE partners SET
                 name = '{$name}',
                 des = '{$des}',
-
+                `show` = {$show},
                 link = '{$link}',
                 userUpdate = {$user},
                 dateUpdate = '{$date}'
@@ -29,9 +30,9 @@ if(!empty($_POST)){
 
     }else{
         $sql = "INSERT INTO partners
-                (name,des,link,userCreate,dateCreate)
+                (name,des,`show`,link,userCreate,dateCreate)
                 VALUES
-                ('{$name}','{$des}','{$link}',{$user},'{$date}')";
+                ('{$name}','{$des}',{$show},'{$link}',{$user},'{$date}')";
 //        echo "error: ".$sql;
         $db->query($sql);
         $id = $db->last();

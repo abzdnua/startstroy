@@ -1,7 +1,9 @@
 <?
-require_once $root."/lib/class.invis.db.php";
-require_once $root."/lib/class.db.manager.php";
+require_once "class.invis.db.php";
+require_once "class.db.manager.php";
+require_once "class.dll.php";
 $page->addScript('views/admin/js/ready_objects.js');
+$page->addCss('css/jquery-ui-1.9.1.css');
 //require_once $root."/lib/class.category.php";
 $db = db::getInstance();
 $dm = new db_manager();
@@ -31,16 +33,18 @@ $objects = $db->getArray();
                             <input type="hidden" name="id" value="">
                             <table align="center" border="none">
                                 <tr>
-                                    <div style="margin:7px">
-                                        Отображать <input type="checkbox" name="show" style="position: "/><br />
-                                    </div>
                                     <td align="right">Название</td>
                                     <td style="width: 350px"><input type="text" style="width: 100%"name="objects_name"></td>
                                     <td style="vertical-align:middle" rowspan="4"><button type="button" name="save">Сохранить</button> </td>
                                 </tr>
                                 <tr>
+                                    <td align="right">Отображать</td>
+                                    <td style="width: 350px"><input type="checkbox" name="show" /></td>
+
+                                </tr>
+                                <tr>
                                     <td align="right">Дата</td>
-                                    <td style="width: 350px"><input type="text" style="width: 100%"name="objects_date"></td>
+                                    <td style="width: 350px"><input type="text" placeholder="гггг-мм-дд" style="width: 100%"name="objects_date"></td>
 
                                 </tr>
 
@@ -64,27 +68,23 @@ $objects = $db->getArray();
                 {?>
                     <tr>
                         <td style="width:15px;">№</td>
-                        <td style="width:200px; height: 25px; vertical-align:middle; font-weight: bold;">Название</td>
-                        <td style="width:90px; height: 25px; vertical-align:middle; font-weight: bold;">Изображение</td>
-                        <td style="width:90px; height: 25px; vertical-align:middle; font-weight: bold;">Отображается</td>
-                        <td style="width:90px; height: 25px; vertical-align:middle; font-weight: bold;">Редактировать</td>
-                        <td style="width:70px; height: 25px; vertical-align:middle; font-weight: bold;">Удалить</td>
+                        <td style="height: 25px; vertical-align:middle; font-weight: bold;">Название</td>
+                        <td style="width:150px; height: 25px; vertical-align:middle; font-weight: bold;">Дата</td>
+                        <td style="width:110px; height: 25px; vertical-align:middle; font-weight: bold;">Изображение</td>
+                        <td style="width:20px; height: 25px; vertical-align:middle; font-weight: bold;"></td>
+                        <td style="width:20px; height: 25px; vertical-align:middle; font-weight: bold;"></td>
+                        <td style="width:20px; height: 25px; vertical-align:middle; font-weight: bold;"></td>
                     </tr>
                     <?foreach($objects as $cat){?>
                     <tr>
                         <td><?echo $cat['id'];?></td>
                         <td><?echo $cat['name'];?></td>
+                        <td><?echo $DLL->getRusDate($cat['objectDate'])?></td>
 
-
-                        <td><img width="100" height="50" src="/img/objects/<?echo $cat['img'];?>"/></td>
-                        <? if($cat['show'] == 1){
-                            echo '<td><span style="color: green">Отображается</span></td>';
-                        }
-                        else{
-                            echo '<td><span style="color: red">Скрыт</span></td>';
-                        }?>
-                       <td><button type="button" class="edit" data-id="<?echo $cat['id'];?>">Редактировать</button></td>
-                        <td><button type="button" class="del" data-id="<?echo $cat['id'];?>">Удалить</button></td>
+                        <td><img  src="/img/objects/m_<?echo $cat['img'];?>"/></td>
+                        <td><img src="img/admin/<?=($cat['show'])?"item_show.png":"item_hide.png"?>" title="<?=($cat['show'])?"Отображается":"Скрыт"?>"></td>
+                        <td><img src="img/admin/b_edit.png" data-id ="<?=$cat['id']?>" title="Редактировать" style="cursor: pointer" class="edit"></td>
+                        <td><img src="img/admin/b_drop.png" data-id ="<?=$cat['id']?>" title="Удалить" style="cursor: pointer" class="del"></td>
                     </tr>
                 <?}?>
 

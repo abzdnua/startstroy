@@ -20,6 +20,7 @@ if(!empty($_POST)){
     $subcategory_id = $_POST['subCategory_id'];
     $material_id = $_POST['material'];
     $firm_id = $_POST['firm'];
+    $show = ($_POST['show']=='on')?1:0;
     if($_POST['id']!=''){
         $id = $_POST['id'];
         $sql = "UPDATE products SET
@@ -31,6 +32,7 @@ if(!empty($_POST)){
                 subCategory_id = {$subcategory_id},
                 material_id = {$material_id},
                 firm_id = {$firm_id},
+                `show` = {$show},
                 userUpdate = {$user},
                 dateUpdate = '{$date}'
                 WHERE id = {$id}";
@@ -39,9 +41,9 @@ if(!empty($_POST)){
 
     }else{
         $sql = "INSERT INTO products
-                (name,des,price,priceForSale,category_id,subCategory_id,material_id,firm_id,userCreate,dateCreate)
+                (name,des,price,priceForSale,category_id,subCategory_id,material_id,firm_id,`show`,userCreate,dateCreate)
                 VALUES
-                ('{$name}','{$des}',{$price},{$priceForSale},{$category_id},{$subcategory_id},{$material_id},{$firm_id},{$user},'{$date}')";
+                ('{$name}','{$des}',{$price},{$priceForSale},{$category_id},{$subcategory_id},{$material_id},{$firm_id},{$show},{$user},'{$date}')";
        echo "error: ".$sql;
         $db->query($sql);
         $id = $db->last();

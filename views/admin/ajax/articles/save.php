@@ -14,14 +14,14 @@ if(!empty($_POST)){
 
     $user = $_SESSION['userID'];
     $date = date('Y-m-d H:i:s');
-
+    $show = ($_POST['show']=='on')?1:0;
     if($_POST['id']!=''){
         $id = $_POST['id'];
         $sql = "UPDATE articles SET
                 name = '{$name}',
                 shortDes = '{$des}',
                 text = '{$text}',
-
+                `show`={$show},
                 userUpdate = {$user},
                 dateUpdate = '{$date}'
                 WHERE id = {$id}";
@@ -30,9 +30,9 @@ if(!empty($_POST)){
 
     }else{
         $sql = "INSERT INTO articles
-                (name,shortDes,text,userCreate,dateCreate)
+                (name,shortDes,text,`show`,userCreate,dateCreate)
                 VALUES
-                ('{$name}','{$des}','{$text}',{$user},'{$date}')";
+                ('{$name}','{$des}','{$text}',{$show},{$user},'{$date}')";
 //        echo "error: ".$sql;
         $db->query($sql);
         $id = $db->last();

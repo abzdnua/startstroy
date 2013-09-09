@@ -1,6 +1,8 @@
 $(document).ready(function(){
     $(document).on('click','#add_new',function(){
         $('#form').show()
+        $('#form input').val('')
+        $('#editor_title').text('Добавление нового производителя')
     }).on('click','[name=save]',function(){
             console.log('123')
             if($('[name=firm_name]').val()==''){
@@ -32,9 +34,9 @@ $(document).ready(function(){
             $('#form').show()
             $('[name=id]').val($(this).data('id'))
             $('[name=firm_name]').val($(this).data('name'))
-
+            $('#editor_title').text('Редактирование производителя')
         }).on('click','.del',function(){
-            if(confirm('Удалить фирму?'))
+            if(confirm('Удалить производителя?'))
             {
                 var th = $(this)
                 var id=th.data('id')

@@ -23,18 +23,19 @@ $cats = $dm->getAllCategories();
             <table align="center" style="width:100%">
                 <tr id="form" style="display:none;" >
                     <td colspan="6" style="padding: 10px;">
-                        <div style="margin-bottom:10px;font:10pt Verdana;">Добавить новую категорию</div>
+                        <div style="font:10pt Verdana;">Добавление новой категории</div>
+                        <div class="silver">Поля отмеченные <span class="required">*</span> обязательны к заполнению</div>
                         <form method="post">
                             <input type="hidden" name="id" value="">
-                            <table align="center" border="none">
+                            <table align="center" border="none" width="100%">
                                 <tr>
-                                    <td align="right">Название</td>
-                                    <td style="width: 350px"><input type="text" style="width: 100%"name="category_name"></td>
+                                    <td align="right">Название<span class="required">*</span></td>
+                                    <td style="width: 630px"><input type="text" style="width: 100%"name="category_name"></td>
                                     <td style="vertical-align:middle" rowspan="4"><button type="button" name="save">Сохранить</button> </td>
                                 </tr>
                                 <tr>
                                     <td align="right">Родительская категория</td>
-                                    <td style="width: 350px"><?echo $dm->getCategorySelect('parent_id')?></td>
+                                    <td style="width: 630px"><?echo $dm->getCategorySelect('parent_id')?></td>
                                 </tr>
                                 <tr class="forParent">
                                     <td align="right">Колонка меню</td>
@@ -65,8 +66,8 @@ $cats = $dm->getAllCategories();
                     <td style="width:200px; height: 25px; vertical-align:middle; font-weight: bold;">Название</td>
                     <td style="width:200px; height: 25px; vertical-align:middle; font-weight: bold;">ЧПУ</td>
                     <td style="width:200px; height: 25px; vertical-align:middle; font-weight: bold;">Родительская категория</td>
-                    <td style="width:90px; height: 25px; vertical-align:middle; font-weight: bold;">Редактировать</td>
-                    <td style="width:70px; height: 25px; vertical-align:middle; font-weight: bold;">Удалить</td>
+                    <td style="width:20px; height: 25px; vertical-align:middle; font-weight: bold;"></td>
+                    <td style="width:20px; height: 25px; vertical-align:middle; font-weight: bold;"></td>
                 </tr>
                 <?foreach($cats as $cat){?>
                     <tr>
@@ -74,8 +75,8 @@ $cats = $dm->getAllCategories();
                         <td><?echo $cat->get_name();?></td>
                         <td><?echo $cat->get_link();?></td>
                         <td><?echo $dm->getCategoryName($cat->get_parent_id());?></td>
-                        <td><button type="button" class="edit" data-id="<?echo $cat->get_id();?>" data-name="<?echo $cat->get_name()?>" data-parent="<?echo $cat->get_parent_id?>">Редактировать</button></td>
-                        <td><button type="button" class="del" data-id="<?echo $cat->get_id();?>">Удалить</button></td>
+                        <td><img src="img/admin/b_edit.png" data-id="<?echo $cat->get_id();?>" title="Редактировать" style="cursor: pointer" class="edit"></td>
+                        <td><img src="img/admin/b_drop.png" data-id="<?echo $cat->get_id();?>" title="Удалить" style="cursor: pointer" class="del"></td>
                     </tr>
                 <?}?>
 

@@ -10,7 +10,7 @@ $db = db::getInstance();
 $dm = new db_manager();
 $db->query("SELECT COUNT(id) FROM reviews WHERE `show` = 1 AND deleted=0 ");
 $rCount = $db->getValue();
-$perPage = 2;
+$perPage = 4;
 $reviews = $dm->getAllReviewsShow(($rPage-1)*$perPage,$perPage);
 
 if (count($reviews) > 0)
@@ -45,7 +45,7 @@ if (count($reviews) > 0)
 
                  <div class="img">
                      <div class="img_top"></div>
-                     <div class="all"> <img src="../img/client/m_<? echo $dm->getImgClient($item->get_client_id())?>"/></div>
+                     <div class="all"> <img src="../img/client/<? echo $dm->getImgClient($item->get_client_id())?>"/></div>
 
                  </div>
                  <div class="text">

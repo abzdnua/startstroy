@@ -6,7 +6,7 @@ require_once $root.'/lib/class.dll.php';
 $db = db::getInstance();
 if($_POST['category_name']){
     $name = $_POST['category_name'];
-    $link = $DLL->linkInBD($name);
+    $link = $DLL->linkInBD($name,'');
     $parent_id = $_POST['parent_id'];
     $user = $_SESSION['userID'];
     $date = date('Y-m-d H:i:s');
@@ -15,7 +15,7 @@ if($_POST['category_name']){
 
     if($_POST['id']!=''){
         $id = $_POST['id'];
-        $link .='_'.$id;
+        $link .=$id;
 
         $sql = "UPDATE categories SET
                 name = '{$name}',
@@ -39,7 +39,7 @@ if($_POST['category_name']){
 //        echo "error: ".$sql;
         $db->query($sql);
         $last = $db->last();
-        $link .='_'.$last;
+        $link .=$last;
         $sql = "UPDATE categories SET
                 link = '{$link}'
                 WHERE id = {$last}";

@@ -3,14 +3,14 @@ $(document).ready(function(){
         $('#form').show()
     }).on('click','[name=save]',function(){
 
-            if($('[name=partner_name]').val()=='')  {
-                $('[name=partner_name]').css('border','1px solid red')
+            if($('[name=name]').val()=='')  {
+                $('[name=name]').css('border','1px solid red')
                 return false
             }
 
             else
             {
-                $('[name=partner_name]').css('border','none')
+                $('[name=name]').css('border','none')
             }
             if($('[name=partner_img_val]').val()=='')  {
                 $('[name=partner_img]').css('color','red')
@@ -44,13 +44,12 @@ $(document).ready(function(){
                 return false;
             }
         }).on('click','.edit',function(){
-            $('#form').show()
-            $('[name=id]').val($(this).data('id'))
-            $('[name=partner_name]').val($(this).data('name'))
-            $('[name=partner_des]').val($(this).data('des'))
-            $('#id_img_edit').show().attr('src','/img/partners/'+$(this).data('img'))
-            $('[name=partner_img_val]').val($(this).data('img'))
-            $('[name=partner_link]').val($(this).data('link'))
+            $.post('/views/admin/ajax/partners/getPartner.php',{id:$(this).data('id')},function(data){
+                $('#form').html(data).show()
+            })
+
+
+
         }).on('click','.del',function(){
             if(confirm('Удалить партнера?'))
             {

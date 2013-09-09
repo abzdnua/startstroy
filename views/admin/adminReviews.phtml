@@ -20,63 +20,63 @@ $dm = new db_manager();
         <fieldset>
             <table align="center" style="width:100%;">
                 <tr id="form" style="display: none">
-                    <td colspan="5">
-                        <span>Добавить новый отзыв</span>
+                    <td colspan="6">
+                        <div id="editor_title" style="font:10pt Verdana;">Добавление нового отзыва</div>
+                        <div class="silver">Поля отмеченные <span class="required">*</span> обязательны к заполнению</div>
                         <form method="post" name="add_review">
-                            <div style="float: right">
-                                ОТЗЫВ<br/>
-                                <textarea name="review"  rows="8" cols="80"></textarea>
-                                <input type="hidden" name="action" value="add" />
-                            </div>
-                            <div style="width:200px; text-align: right">
-                                <div style="margin:7px">
-                                    Отображать <input type="checkbox" name="show" style="position: "/><br />
-                                </div>
-                                <div style="margin:7px">
-                                    Имя: <input type="text" name="name" value="" /><br />
-                                </div>
-
-                            </div>
-                            <div style="clear: both"></div>
-                            <div style="text-align: center">
-                                <input type="submit" class="sbm" value="Добавить"  style="margin:10px;width:150px"/>
-                            </div>
+                            <input type="hidden" name="id" value="">
+                            <table align="center" border="none" width="100%">
+                                <tr>
+                                    <td align="right">Имя<span class="required">*</span></td>
+                                    <td style="width: 630px"><input style="width:100%" type="text" name="name" value="" /></td>
+                                    <td style="vertical-align:middle" rowspan="3"><button type="button" name="save">Сохранить</button> </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Отзыв<span class="required">*</span></td>
+                                    <td style="width: 630px"><textarea name="text"  rows="8" cols="80"></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Отображать</td>
+                                    <td style="width: 630px"><input type="checkbox" name="show" /></td>
+                                </tr>
+                            </table>
                         </form>
+
                     </td>
                 </tr>
                 <tr id="form_edit">
                 </tr>
 
                 <?
-                $sql = "SELECT * FROM reviews";
+                $sql = "SELECT * FROM reviews ORDER BY id DESC";
                 $db->query($sql);
                 if($db->getCount()>0)
                 {
                     echo '<tr>
                             <td style="width:30px; font-weight: bold;">№</td>
                             <td style="width:150px; font-weight: bold;">Имя</td>
-                            <td style="width:650px; height: 25px; vertical-align:middle; font-weight: bold;">Отзыв</td>
-                            <td style=" height: 25px; vertical-align:middle; font-weight: bold;">Отображается</td>
-                            <td style=" height: 25px; vertical-align:middle; font-weight: bold;">Редактировать</td>
-                            <td style=" height: 25px; vertical-align:middle; font-weight: bold;">Удалить</td>
+                            <td style="height: 25px; vertical-align:middle; font-weight: bold;">Отзыв</td>
+                            <td style="width:20px; height: 25px; vertical-align:middle; font-weight: bold;"></td>
+                            <td style="width:20px; height: 25px; vertical-align:middle; font-weight: bold;"></td>
+                            <td style="width:20px; height: 25px; vertical-align:middle; font-weight: bold;"></td>
                           </tr>';
                     $arr = $db->getArray();
-                    foreach($arr as $key=>$val){
+                    foreach($arr as $val){
 
 
                         echo '<tr>';
-                        echo '<td>'.($key+1).'<input type="hidden" name="id" value="'.$val['id'].'" /></td>';
-                        echo '<td>'.$dm->getClientName($val['client_id']).'</td>';
+                        echo '<td>'.$val['id'].'<input type="hidden" name="id" value="'.$val['id'].'" /></td>';
+                        echo '<td>'.(($dm->getClientName($val['client_id']))?$dm->getClientName($val['client_id']):'<span style="color:red">не подписан</span>').'</td>';
                         $text = $DLL->substrText($val['text'],300);
                         echo '<td>'.$text['text'].'</td>';
                         if($val['show'] == 1){
-                            echo '<td><span style="color: green">Отображается</span></td>';
+                            echo '<td><img src="/img/admin/item_show.png" title="Отображается"/></td>';
                         }
                         else{
-                            echo '<td><span style="color: red">Скрыт</span></td>';
+                            echo '<td><img src="/img/admin/item_hide.png" title="Скрыт"/></td>';
                         }
-                        echo '<td><img src="img/admin/b_edit.png" style="cursor: pointer" class="edit_review"></td>';
-                        echo '<td><img src="img/admin/b_drop.png" style="cursor: pointer" class="del_review"></td>';
+                        echo '<td><img src="img/admin/b_edit.png" data-id ="'.$val['id'].'" title="Редактировать" style="cursor: pointer" class="edit"></td>';
+                        echo '<td><img src="img/admin/b_drop.png" data-id ="'.$val['id'].'" title="Удалить" style="cursor: pointer" class="del"></td>';
                         echo '</tr>';
                     }
                 }

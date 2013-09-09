@@ -20,14 +20,19 @@ $art = $db->getRow();
 echo '
  <tr id="form" style="display:none;" >
                     <td colspan="11" style="padding: 10px;">
-                        <div style="margin-bottom:10px;font:10pt Verdana;">Добавить новый товар</div>
+                        <div id="editor_title" style="margin-bottom:10px;font:10pt Verdana;">Редактирование товара</div>
+                        <div class="silver">Поля отмеченные <span class="required">*</span> обязательны к заполнению</div>
                         <form method="post">
                             <input type="hidden" name="id" value="'.$id.'">
                             <table align="center" border="none">
                                 <tr>
-                                    <td align="right">Название</td>
-                                    <td style="width: 670px"><input type="text" style="width: 100%"name="product_name" value="'.$art['name'].'"></td>
-                                    <td style="vertical-align:middle" rowspan="4"><button type="button" name="save">Сохранить</button> </td>
+                                    <td align="right">Название<span class="required">*</span></td>
+                                    <td style="width: 635px"><input type="text" style="width: 100%"name="product_name" value="'.$art['name'].'"></td>
+                                    <td style="vertical-align:middle" rowspan="11"><button type="button" name="save">Сохранить</button> </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Отображать на сайте</td>
+                                    <td style="width: 350px"><input type="checkbox" name="show" '.(($art['show'])?"checked=checked":"").'/></td>
                                 </tr>
                                 <tr>
                                     <td align="right">Описание</td>
@@ -35,15 +40,15 @@ echo '
                                 </tr>
 
                                 <tr>
-                                    <td align="right">Цена</td>
+                                    <td align="right">Старая цена</td>
                                     <td style="width: 350px"><input type="text" style="width: 100%"name="product_price" value="'.$art['price'].'"></td>
                                 </tr>
                                 <tr>
-                                    <td align="right">Новая цена</td>
+                                    <td align="right">Цена продажи<span class="required">*</span></td>
                                     <td style="width: 350px"><input type="text" style="width: 100%"name="product_priceforsale" value="'.$art['priceForSale'].'"></td>
                                 </tr>
                                 <tr>
-                                    <td align="right">Изображение</td>
+                                    <td align="right">Изображение<span class="required">*</span></td>
                                     <td style="width: 350px"><input type="file" style="width: 100%"name="product_img" >
                                         <input type="hidden" name="product_img_val" value="'.$art['img'].'"/>
                                         <img id="id_img_edit_img" style="display:none"/>
@@ -51,7 +56,7 @@ echo '
 
                                 </tr>
                                 <tr>
-                                    <td align="right">Категория</td>
+                                    <td align="right">Категория<span class="required">*</span></td>
                                     <td>
                                         '.$dm -> getCategorySelect("category_id",$art['category_id']).'
                                     </td>
@@ -87,13 +92,13 @@ echo '
                                            {
                                             for($i=1;$i<=count($char);$i++)
                                                  {
-                                                echo '<div class="char">Наименование: <input style="width: 150px;margin-right: 29px;" name="c_name_'.$i.'" type="text"  value="'.$char[$i-1]['name'].'" class="name"/> Значение: <input style="width: 252px;" name="c_value_'.$i.'" type="text"  value="'.$char[$i-1]['value'].'"  class="value"/><div class="del_char" title="Удалить характеристику"><img src="img/admin/remove.png" /></div></div>';
+                                                echo '<div class="char"><div class="del_char" title="Удалить характеристику"><img src="img/admin/remove.png" /></div>Наименование: <input style="width: 150px;margin-right: 29px;" name="c_name_'.$i.'" type="text"  value="'.$char[$i-1]['name'].'" class="name"/> Значение: <input style="width: 240px;" name="c_value_'.$i.'" type="text"  value="'.$char[$i-1]['value'].'"  class="value"/><div style="clear:both"></div></div>';
 
                                                  }
                                            }
 
     echo '
-                                        <input type="button" id="add_char" value="Добавить характеристику">
+                                        <button type="button" id="add_char">Добавить характеристику</button>
                                     </td>
                                 </tr>
 

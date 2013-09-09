@@ -5,7 +5,7 @@ $page->addScript('views/admin/js/banner_main.js');
 //require_once $root."/lib/class.category.php";
 $db = db::getInstance();
 $dm = new db_manager();
-$db->query("SELECT * FROM banners WHERE DELETED = 0");
+$db->query("SELECT * FROM banners WHERE deleted = 0");
 $banners = $db->getArray();
 
 //print_r($cats);
@@ -26,36 +26,35 @@ $banners = $db->getArray();
             <table align="center" style="width:100%">
                 <tr id="form" style="display:none;" >
                     <td colspan="6" style="padding: 10px;">
-                        <div style="margin-bottom:10px;font:10pt Verdana;">Добавить новый баннер</div>
+                        <div style="font:10pt Verdana;">Добавление нового баннера</div>
+                        <div class="silver">Поля отмеченные <span class="required">*</span> обязательны к заполнению</div>
                         <form method="post">
                             <input type="hidden" name="id" value="">
-                            <table align="center" border="none">
-                                <div style="margin:7px">
-                                    Отображать <input type="checkbox" name="show" style="position: "/><br />
-                                </div>
+                            <table align="center" border="none" width="100%">
                                 <tr>
-                                    <td align="right">Строка 1</td>
-                                    <td style="width: 350px"><input type="text" style="width: 100%"name="str1"></td>
-
+                                    <td align="right">Строка 1<span class="required">*</span></td>
+                                    <td style="width: 630px"><input type="text" style="width: 100%" name="str1"></td>
+                                    <td style="vertical-align:middle" rowspan="5"><button type="button" name="save">Сохранить</button> </td>
                                 </tr>
                                 <tr>
                                     <td align="right">Строка 2</td>
-                                    <td style="width: 350px"><input type="text" style="width: 100%"name="str2"></td>
+                                    <td style="width: 350px"><input type="text" style="width: 100%" name="str2"></td>
 
                                 </tr>
                                 <tr>
                                     <td align="right">Строка 3</td>
-                                    <td style="width: 350px"><input type="text" style="width: 100%"name="str3"></td>
-                                    <td style="vertical-align:middle" rowspan="4"><button type="button" name="save">Сохранить</button> </td>
+                                    <td style="width: 350px"><input type="text" style="width: 100%" name="str3"></td>
+
                                 </tr>
-
-
-
-
                                 <tr>
-                                    <td align="right">Изображение</td>
-                                    <td style="width: 350px"><input type="file" style="width: 100%"name="banner_img">
+                                    <td align="right">Отображать</td>
+                                    <td style="width: 350px"><input type="checkbox" name="show" style="position: "/></td>
 
+                                </tr>
+                                <tr>
+                                    <td align="right">Изображение<span class="required">*</span></td>
+                                    <td style="width: 350px"><input type="file" style="width: 100%" name="banner_img">
+                                        <input type="hidden" name="banner_img_val" value="">
                                     </td>
 
                                 </tr>
@@ -77,9 +76,9 @@ $banners = $db->getArray();
 
 
                         <td style="width:200px; height: 25px; vertical-align:middle; font-weight: bold;">Картинка</td>
-                        <td style="width:90px; height: 25px; vertical-align:middle; font-weight: bold;">Отображается</td>
-                        <td style="width:90px; height: 25px; vertical-align:middle; font-weight: bold;">Редактировать</td>
-                        <td style="width:70px; height: 25px; vertical-align:middle; font-weight: bold;">Удалить</td>
+                        <td style="width:20px; height: 25px; vertical-align:middle; font-weight: bold;"></td>
+                        <td style="width:20px; height: 25px; vertical-align:middle; font-weight: bold;"></td>
+                        <td style="width:20px; height: 25px; vertical-align:middle; font-weight: bold;"></td>
                     </tr>
                     <?foreach($banners as $cat){?>
                     <tr>
@@ -88,14 +87,9 @@ $banners = $db->getArray();
                         <td><?echo $cat['secondStr'];?></td>
                         <td><?echo $cat['thirdStr'];?></td>
                         <td><img width="204" height="72" src="/img/banner/<?echo $cat['img'];?>"/></td>
-                       <? if($cat['show'] == 1){
-                        echo '<td><span style="color: green">Отображается</span></td>';
-                        }
-                        else{
-                        echo '<td><span style="color: red">Скрыт</span></td>';
-                        }?>
-                        <td><button type="button" class="edit" data-id="<?echo $cat['id'];?>">Редактировать</button></td>
-                        <td><button type="button" class="del" data-id="<?echo $cat['id'];?>">Удалить</button></td>
+                        <td><img  src="img/admin/<?=($cat['show'])?"item_show.png":"item_hide.png"?>" title="<?=($cat['show'])?"Отображается":"Скрыт"?>"></td>
+                        <td><img src="img/admin/b_edit.png" data-id ="<?=$cat['id']?>" data-name="<?echo $cat['name']?>" title="Редактировать" style="cursor: pointer" class="edit"></td>
+                        <td><img src="img/admin/b_drop.png" data-id ="<?=$cat['id']?>" title="Удалить" style="cursor: pointer" class="del"></td>
                     </tr>
                 <?}?>
 

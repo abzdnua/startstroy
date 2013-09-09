@@ -10,18 +10,19 @@ if($_POST){
     $cat = $db->getRow();
     echo '<tr id="form" style="display:none;" >
                     <td colspan="6" style="padding: 10px;">
-                        <div style="margin-bottom:10px;font:10pt Verdana;">Добавить новую категорию</div>
+                        <div id="editor_title" style="font:10pt Verdana;">Редактирование категории</div>
+                        <div class="silver">Поля отмеченные <span class="required">*</span> обязательны к заполнению</div>
                         <form method="post">
                             <input type="hidden" name="id" value="'.$cat['id'].'">
-                            <table align="center" border="none">
+                            <table align="center" border="none" width="100%">
                                 <tr>
-                                    <td align="right">Название</td>
+                                    <td align="right">Название<span class="required">*</span></td>
                                     <td style="width: 350px"><input type="text" style="width: 100%"name="category_name" value="'.$cat['name'].'"></td>
                                     <td style="vertical-align:middle" rowspan="4"><button type="button" name="save">Сохранить</button> </td>
                                 </tr>
                                 <tr>
                                     <td align="right">Родительская категория</td>
-                                    <td style="width: 350px">'.$dm->getCategorySelect('parent_id',$cat['parent_id']).'</td>
+                                    <td style="width: 630px">'.$dm->getCategorySelect('parent_id',$cat['parent_id']).'</td>
                                 </tr>
                                 <tr class="forParent">
                                     <td align="right">Колонка меню</td>

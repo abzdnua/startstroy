@@ -5,6 +5,6 @@ $db = db::getInstance();
 
 if($_POST){
     $id = $_POST['id'];
-    $sql = "DELETE FROM reviews WHERE id = ".$id;
+    $sql = "UPDATE reviews SET deleted=1 WHERE id = ".$id;
     $db->query($sql);
 }

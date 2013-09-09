@@ -5,10 +5,18 @@ $(document).ready(function(){
 
     $(document).on('click','#add_new',function(){
         $('#form').show()
+        $('#form input').val('')
     }).on('click','[name=save]',function(){
 
-
-            if($('[name=banner_img]').val()=='')  {
+            if($('[name=str1]').val()=='')  {
+                $('[name=str1]').css('border','1px solid red')
+                return false
+            }
+            else
+            {
+                $('[name=str1]').css('border','')
+            }
+            if($('[name=banner_img_val]').val()=='')  {
                 $('[name=banner_img]').css('color','red')
                 return false
             }
@@ -42,8 +50,7 @@ $(document).ready(function(){
         }).on('click','.edit',function(){
             $.post('/views/admin/ajax/banner_main/getArticle.php',{id:$(this).data('id')},function(data){
 //                alert(data)
-                $('#form').replaceWith(data)
-                $('#form').show()
+                $('#form').html(data).show()
             })
 
 
@@ -66,6 +73,8 @@ $(document).ready(function(){
                     })
                 })
             }
+        }).on('change','[name=banner_img]',function(){
+            $('[name=banner_img_val]').val($('[name=banner_img]').val())
         })
 
 })

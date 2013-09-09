@@ -5,7 +5,7 @@ $page->addScript('views/admin/js/articles.js');
 //require_once $root."/lib/class.category.php";
 $db = db::getInstance();
 $dm = new db_manager();
-$db->query("SELECT * FROM ARTICLES WHERE DELETED = 0");
+$db->query("SELECT * FROM ARTICLES WHERE DELETED = 0 ORDER BY id DESC");
 $article = $db->getArray();
 
 //print_r($cats);
@@ -26,33 +26,38 @@ $article = $db->getArray();
             <table align="center" style="width:100%">
                 <tr id="form" style="display:none;" >
                     <td colspan="6" style="padding: 10px;">
-                        <div style="margin-bottom:10px;font:10pt Verdana;">Добавить новую статью</div>
+                        <div style="font:10pt Verdana;">Добавить новую статью</div>
+                        <div class="silver">Поля отмеченные <span class="required">*</span> обязательны к заполнению</div>
                         <form method="post">
                             <input type="hidden" name="id" value="">
-                            <table align="center" border="none">
+                            <table align="center" border="none" width="100%">
                                 <tr>
-                                    <td align="right">Название</td>
-                                    <td style="width: 350px"><input type="text" style="width: 100%"name="article_name"></td>
-                                    <td style="vertical-align:middle" rowspan="4"><button type="button" name="save">Сохранить</button> </td>
+                                    <td align="right">Название<span class="required">*</span></td>
+                                    <td style="width: 630px"><input type="text" style="width: 100%"name="article_name"></td>
+                                    <td style="vertical-align:middle" rowspan="6"><button type="button" name="save">Сохранить</button> </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Отображать на сайте</td>
+                                    <td><input type="checkbox" name="show"/></td>
                                 </tr>
                                 <tr>
                                     <td align="right">Короткое описание</td>
-                                    <td style="width: 350px"><textarea rows=3  type="text" style="width: 100%"name="article_shortdes"></textarea></td>
+                                    <td style="width: 350px"><textarea rows=3  type="text" style="width: 99%"name="article_shortdes"></textarea></td>
                                 </tr>
 
                                 <tr>
-                                    <td align="right">Текст статьи</td>
+                                    <td align="right">Текст статьи<span class="required">*</span></td>
                                     <td style="width: 350px">
                                         <button style="width: 32%;" type="button" class="b" title="Жирный"><b>B</b></button>
                                         <button style="width: 32%;" type='button'' class='i' title='Курсив'><i style='font-family: times new roman;'>I</i></button>    <button style="width: 32%;" type="button" class="l" title="Cсылка">URL</button>
-                                        <textarea rows=7 style="width: 100%"name="article_text"></textarea>
+                                        <textarea rows=45 style="width: 99%"name="article_text"></textarea>
 
 
                                     </td>
                                 </tr>
 
                                 <tr>
-                                    <td align="right">Изображение</td>
+                                    <td align="right">Изображение<span class="required">*</span></td>
                                     <td style="width: 350px"><input type="file" style="width: 100%"name="article_img">
                                         <input type="hidden" name="article_img_val">
                                         <img id="id_img_edit_img" style="display:none"/>
@@ -78,12 +83,13 @@ $article = $db->getArray();
                 {?>
                     <tr>
                         <td style="width:15px;">№</td>
-                        <td style="width:200px; height: 25px; vertical-align:middle; font-weight: bold;">Название</td>
-                        <td style="width:200px; height: 25px; vertical-align:middle; font-weight: bold;">Короткое описание</td>
+                        <td style="width:250px; height: 25px; vertical-align:middle; font-weight: bold;">Название</td>
+                        <td style="height: 25px; vertical-align:middle; font-weight: bold;">Короткое описание</td>
 
-                        <td style="width:200px; height: 25px; vertical-align:middle; font-weight: bold;">Превью</td>
-                        <td style="width:90px; height: 25px; vertical-align:middle; font-weight: bold;">Редактировать</td>
-                        <td style="width:70px; height: 25px; vertical-align:middle; font-weight: bold;">Удалить</td>
+                        <td style="width:100px;height: 25px; vertical-align:middle; font-weight: bold;">Превью</td>
+                        <td style="width:20px; height: 25px; vertical-align:middle; font-weight: bold;"></td>
+                        <td style="width:20px; height: 25px; vertical-align:middle; font-weight: bold;"></td>
+                        <td style="width:20px; height: 25px; vertical-align:middle; font-weight: bold;"></td>
                     </tr>
                     <?foreach($article as $cat){?>
                     <tr>
@@ -91,9 +97,10 @@ $article = $db->getArray();
                         <td><?echo $cat['name'];?></td>
                         <td><?echo $cat['shortDes'];?></td>
 
-                        <td><img src="/img/articles/<?echo $cat['thumb'];?>"/></td>
-                       <td><button type="button" class="edit" data-id="<?echo $cat['id'];?>">Редактировать</button></td>
-                        <td><button type="button" class="del" data-id="<?echo $cat['id'];?>">Удалить</button></td>
+                        <td><img style="width:100px" src="/img/articles/<?echo $cat['thumb'];?>"/></td>
+                        <td><img  src="img/admin/<?=($cat['show'])?"item_show.png":"item_hide.png"?>" title="<?=($cat['show'])?"Отображается":"Скрыт"?>"></td>
+                        <td><img src="img/admin/b_edit.png" data-id ="<?=$cat['id']?>" data-name="<?echo $cat['name']?>" title="Редактировать" style="cursor: pointer" class="edit"></td>
+                        <td><img src="img/admin/b_drop.png" data-id ="<?=$cat['id']?>" title="Удалить" style="cursor: pointer" class="del"></td>
                     </tr>
                 <?}?>
 

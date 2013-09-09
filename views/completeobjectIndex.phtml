@@ -2,18 +2,36 @@
     $page -> setTitle("Start stroy");
 $page -> addScript('/js/cloud-zoom.1.0.2.js');
 
+require_once $root."/lib/class.invis.db.php";
+require_once $root."/lib/class.db.manager.php";
+require_once $root."/lib/class.dll.php";
+$db = db::getInstance();
+$dm = new db_manager();
+
+$objects = $dm->getAllObjects();
 
 ?>
 <script>
     $(document).ready(function(){
+     var des_array = [];
+        var i=1;
+        <?foreach($objects as $object){?>
+        des_array[i] = [];
+        des_array[i][1] = "<?=$object->get_name()?>";
+        des_array[i][2] = "<?=$DLL->getRusDate($object->get_objectDate())?>";
+            i++;
+        <?}?>
+        console.log(des_array)
+        $('.gallery_title').text(des_array[1][1])
+        $('.date_text').text(des_array[1][2])
 var temp_i = 0
 
-//галирея
+//галерея
         var y=0;
         var temp_one =0
 
         var arr = []
-var i =1
+        var i =1
         var max = 0
 
 
@@ -171,7 +189,9 @@ var i =1
               }
            left()
             }
-
+            var  f=parseInt($('.active').attr('id').split('_')[1]);
+            $('.gallery_title').text(des_array[f][1])
+            $('.date_text').text(des_array[f][2])
 
             temp_i = 0
 
@@ -223,7 +243,7 @@ if (e.keyCode==39)$('.right').trigger("click");
             <div class="right showcase-arrow-previous"></div>
                 <div class="photo_view">
                 <span  class="cloud-zoom" id="zoom1" rel="position: 'inside' " onclick="return false" style="position: relative; display: block;">
-               <div class="vert_al"> <img src="/img/tem/Image0054.png" style="display: block;"/></div>
+               <div class="vert_al"> <img src="/img/objects/<?=$objects[0]->get_img()?>" style="display: block;"/></div>
 
                 </span>
 
@@ -234,21 +254,27 @@ if (e.keyCode==39)$('.right').trigger("click");
             <div class="photos_min">
                 <a><div class="scroll_up"></div></a>
                 <div class="scroll_photos">
-                    <a class=" pos_1 cloud-zoom-gallery" rel=" smallImage: '/img/tem/Image0054.png' "><img id="p_1" class="zoom-tiny-image active" src="/img/tem/min/01.jpg"/></a>
-                    <a class="pos_2 cloud-zoom-gallery" rel=" smallImage: '/img/tem/02.jpg',title_img:'dfgdg' "><img id="p_2" class="zoom-tiny-image" src="/img/tem/min/02.jpg"  /></a>
-                    <a  class="pos_3 cloud-zoom-gallery" rel=" smallImage: '/img/tem/03.jpg', title_img:'dfgdg' "><img id="p_3" class="zoom-tiny-image" src="/img/tem/min/03.jpg" /></a>
-                    <a  class="pos_4 cloud-zoom-gallery" rel=" smallImage: '/img/tem/04.jpg', title_img:'dfgdg' "><img id="p_4" class="zoom-tiny-image" src="/img/tem/min/04.jpg" /></a>
-                    <a  class="pos_5 cloud-zoom-gallery" rel=" smallImage: '/img/tem/05.jpg', title_img:'dfgdg' "><img id="p_5" class="zoom-tiny-image" src="/img/tem/min/05.jpg" /></a>
-                    <a  class="pos_6 cloud-zoom-gallery" rel=" smallImage: '/img/tem/06.jpg', title_img:'dfgdg' "><img id="p_6" class="zoom-tiny-image" src="/img/tem/min/06.jpg" /></a>
-                    <a  class="pos_7 cloud-zoom-gallery" rel=" smallImage: '/img/tem/07.jpg', title_img:'dfgdg' "><img id="p_7" class="zoom-tiny-image" src="/img/tem/min/07.jpg" /></a>
-                    <a  class="pos_8 cloud-zoom-gallery" rel=" smallImage: '/img/tem/08.jpg', title_img:'dfgdg' "><img id="p_8" class="zoom-tiny-image" src="/img/tem/min/08.jpg" /></a>
-                    <a  class="pos_9 cloud-zoom-gallery" rel=" smallImage: '/img/tem/09.jpg',title_img:'dfgdg'  "><img id="p_9" class="zoom-tiny-image" src="/img/tem/min/09.jpg" /></a>
+                    <?
+                    $i=1;
+                    foreach($objects as $object){?>
+                    <a class=" pos_<?=$i?> cloud-zoom-gallery" rel=" smallImage: '/img/objects/<?=$object->get_img()?>' "><img id="p_<?=$i?>" class="zoom-tiny-image <?=($i==1)?"active":""?>" src="/img/objects/m_<?=$object->get_img()?>"/></a>
+                    <?$i++;}?>
+
+<!--                    <a class=" pos_1 cloud-zoom-gallery" rel=" smallImage: '/img/tem/Image0054.png' "><img id="p_1" class="zoom-tiny-image active" src="/img/tem/min/01.jpg"/></a>-->
+<!--                    <a class="pos_2 cloud-zoom-gallery" rel=" smallImage: '/img/tem/02.jpg',title_img:'dfgdg' "><img id="p_2" class="zoom-tiny-image" src="/img/tem/min/02.jpg"  /></a>-->
+<!--                    <a  class="pos_3 cloud-zoom-gallery" rel=" smallImage: '/img/tem/03.jpg', title_img:'dfgdg' "><img id="p_3" class="zoom-tiny-image" src="/img/tem/min/03.jpg" /></a>-->
+<!--                    <a  class="pos_4 cloud-zoom-gallery" rel=" smallImage: '/img/tem/04.jpg', title_img:'dfgdg' "><img id="p_4" class="zoom-tiny-image" src="/img/tem/min/04.jpg" /></a>-->
+<!--                    <a  class="pos_5 cloud-zoom-gallery" rel=" smallImage: '/img/tem/05.jpg', title_img:'dfgdg' "><img id="p_5" class="zoom-tiny-image" src="/img/tem/min/05.jpg" /></a>-->
+<!--                    <a  class="pos_6 cloud-zoom-gallery" rel=" smallImage: '/img/tem/06.jpg', title_img:'dfgdg' "><img id="p_6" class="zoom-tiny-image" src="/img/tem/min/06.jpg" /></a>-->
+<!--                    <a  class="pos_7 cloud-zoom-gallery" rel=" smallImage: '/img/tem/07.jpg', title_img:'dfgdg' "><img id="p_7" class="zoom-tiny-image" src="/img/tem/min/07.jpg" /></a>-->
+<!--                    <a  class="pos_8 cloud-zoom-gallery" rel=" smallImage: '/img/tem/08.jpg', title_img:'dfgdg' "><img id="p_8" class="zoom-tiny-image" src="/img/tem/min/08.jpg" /></a>-->
+<!--                    <a  class="pos_9 cloud-zoom-gallery" rel=" smallImage: '/img/tem/09.jpg',title_img:'dfgdg'  "><img id="p_9" class="zoom-tiny-image" src="/img/tem/min/09.jpg" /></a>-->
                 </div>
                 <a><div class="scroll_down"></div></a>
             </div>
 
         </div>
 </div>
-    <div class="title">Достаточное и не слишком длинное название объекта</div>
+    <div class="gallery_title">Достаточное и не слишком длинное название объекта</div>
     <div class="date_text">10 июля 2013 г.</div>
 </div>

@@ -2,19 +2,16 @@
     $page -> setTitle("Start stroy");
 require_once "class.product.php";
 require_once "class.dll.php";
+require_once "class.db.manager.php";
 $cat_id  = end(explode('_',$_SERVER['REQUEST_URI']));
 $perPage = 16;
+$dm = new db_manager();
 if(!is_numeric($cat_id)){
-    $db->query("SELECT id FROM products ORDER BY dateUpdate LIMIT 0,{$perPage}");
+    $products_obj = $dm->getAllProducts(0,10);
 }else{
-    $db->query("SELECT id FROM products WHERE category_id={$cat_id} OR subCategory_id = {$cat_id} ORDER BY dateUpdate LIMIT 0,{$perPage}");
+    $products_obj = $dm->getAllProducts(0,10,$cat_id);
 }
 
-$products = $db->getArray();
-if($products)
-foreach($products as $product){
-    $products_obj[] = new product($product['id']);
-}
 if(is_numeric($cat_id)){
 $db->query("SELECT name, parent_id FROM categories WHERE id = {$cat_id}");
 $curCat = $db->getRow();

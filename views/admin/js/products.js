@@ -4,7 +4,7 @@ $(document).ready(function(){
         var count = $('.char',$(this).parents('td')).length;
 
 
-        $(this).before('<div class="char">Наименование: <input style="width: 150px;margin-right: 29px;" name="c_name_'+(count+1)+'" type="text"  class="name"/> Значение: <input style="width: 252px;" name="c_value_'+(count+1)+'" type="text" class="value"/><div class="del_char" title="Удалить характеристику"><img src="img/admin/remove.png" /></div></div>')
+        $(this).before('<div class="char"><div class="del_char" title="Удалить характеристику"><img src="img/admin/remove.png" /></div>Наименование: <input style="width: 150px;margin-right: 29px;" name="c_name_'+(count+1)+'" type="text"  class="name"/> Значение: <input style="width: 240px;" name="c_value_'+(count+1)+'" type="text" class="value"/><div style="clear:both"></div></div>')
         $('input[name=char_count]').val(count+1);
     })
 
@@ -29,6 +29,8 @@ $(document).ready(function(){
 
     $(document).on('click','#add_new',function(){
         $('#form').show()
+        $('#form input, #form textarea, #form select').val('')
+        $('#editor_title').text('Добавление нового товара')
     }).on('click','[name=save]',function(){
             console.log('123')
             if($('[name=product_name]').val()=='')  {
@@ -127,7 +129,7 @@ $(document).ready(function(){
             var th=$(this)
             $.post('views/admin/ajax/products/getSelect.php',{id:id},function(data){
                 $('[name=subCategory_id]').parent().parent().remove()
-                th.parent().parent().after('<tr><td>Подкатегория</td><td>'+data+'</td></tr>')
+                th.parent().parent().after('<tr><td  align="right">Подкатегория</td><td>'+data+'</td></tr>')
             })
         })
 

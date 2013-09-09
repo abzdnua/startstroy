@@ -20,6 +20,9 @@ $(document).ready(function(){
 
     $(document).on('click','#add_new',function(){
         $('#form').show()
+        $('#form input, #form textarea').val('')
+        $('#id_img_edit_img').hide()
+        $('#id_img_edit').hide()
     }).on('click','[name=save]',function(){
             console.log('123')
             if($('[name=article_name]').val()=='')  {
@@ -29,8 +32,26 @@ $(document).ready(function(){
 
             else
             {
-                $('[name=article_name]').css('border','none')
+                $('[name=article_name]').css('border','')
             }
+            if($('[name=article_text]').val()=='')  {
+                $('[name=article_text]').css('border','1px solid red')
+                return false
+            }
+
+            else
+            {
+                $('[name=article_text]').css('border','')
+            }
+            if($('[name=article_img_val]').val()=='')  {
+                $('[name=article_img]').css('color','red')
+                return false
+            }
+            else
+            {
+                $('[name=article_img]').css('color','black')
+            }
+
             if($('[name=article_img_val]').val()=='')  {
                 $('[name=article_img]').css('color','red')
                 return false
@@ -65,8 +86,8 @@ $(document).ready(function(){
         }).on('click','.edit',function(){
             $.post('/views/admin/ajax/articles/getArticle.php',{id:$(this).data('id')},function(data){
 //                alert(data)
-                $('#form').replaceWith(data)
-                $('#form').show()
+                $('#form').html(data).show()
+
             })
 
 

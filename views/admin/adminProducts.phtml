@@ -5,7 +5,7 @@ require_once $root."/lib/class.db.manager.php";
 $page->addScript('views/admin/js/products.js');
 $db = db::getInstance();
 $dm = new db_manager();
-$db->query("SELECT * FROM products WHERE DELETED = 0");
+$db->query("SELECT * FROM products WHERE DELETED = 0 ORDER BY id DESC");
 $product = $db->getArray();
 
 //print_r($cats);
@@ -26,14 +26,19 @@ $product = $db->getArray();
             <table align="center" style="width:100%">
                 <tr id="form" style="display:none;" >
                     <td colspan="11" style="padding: 10px;">
-                        <div style="margin-bottom:10px;font:10pt Verdana;">Добавить новый товар</div>
+                        <div style="margin-bottom:10px;font:10pt Verdana;">Добавление нового товара</div>
+                        <div class="silver">Поля отмеченные <span class="required">*</span> обязательны к заполнению</div>
                         <form method="post">
                             <input type="hidden" name="id" value="">
                             <table align="center" border="none">
                                 <tr>
-                                    <td align="right">Название</td>
-                                    <td style="width: 670px"><input type="text" style="width: 100%"name="product_name"></td>
-                                    <td style="vertical-align:middle" rowspan="4"><button type="button" name="save">Сохранить</button> </td>
+                                    <td align="right">Название<span class="required">*</span></td>
+                                    <td style="width: 635px"><input type="text" style="width: 100%"name="product_name"></td>
+                                    <td style="vertical-align:middle" rowspan="11><button type="button" name="save">Сохранить</button> </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Отображать на сайте</td>
+                                    <td style="width: 350px"><input type="checkbox" name="show"/></td>
                                 </tr>
                                 <tr>
                                     <td align="right">Описание</td>
@@ -41,15 +46,15 @@ $product = $db->getArray();
                                 </tr>
 
                                 <tr>
-                                    <td align="right">Цена</td>
+                                    <td align="right">Старая цена</td>
                                     <td style="width: 350px"><input type="text" style="width: 100%"name="product_price"></td>
                                 </tr>
                                 <tr>
-                                    <td align="right">Новая цена</td>
+                                    <td align="right">Цена продажи<span class="required">*</span></td>
                                     <td style="width: 350px"><input type="text" style="width: 100%"name="product_priceforsale"></td>
                                 </tr>
                                 <tr>
-                                    <td align="right">Изображение</td>
+                                    <td align="right">Изображение<span class="required">*</span></td>
                                     <td style="width: 350px"><input type="file" style="width: 100%"name="product_img">
                                         <input type="hidden" name="product_img_val">
                                         <img id="id_img_edit_img" style="display:none"/>
@@ -57,7 +62,7 @@ $product = $db->getArray();
 
                                 </tr>
                                 <tr>
-                                    <td align="right">Категория</td>
+                                    <td align="right">Категория<span class="required">*</span></td>
                                     <td>
                                         <?echo $dm->getCategorySelect('category_id')?>
                                     </td>
@@ -79,7 +84,7 @@ $product = $db->getArray();
                                     <td align="right">Характеристики</td>
                                     <td>
                                         <input type="hidden" name="char_count" value="0">
-                                        <input type="button" id="add_char" value="Добавить характеристику">
+                                        <button type="button" id="add_char">Добавить характеристику</button>
                                     </td>
                                 </tr>
 
@@ -95,16 +100,17 @@ $product = $db->getArray();
                 {?>
                     <tr>
                         <td style="width:15px;">№</td>
-                        <td style="width:200px; height: 25px; vertical-align:middle; font-weight: bold;">Название</td>
+                        <td style="height: 25px; vertical-align:middle; font-weight: bold;">Название</td>
 
-                        <td style="width:90px; height: 25px; vertical-align:middle; font-weight: bold;">Цена</td>
-                        <td style="width:90px; height: 25px; vertical-align:middle; font-weight: bold;">Новая цена</td>
+                        <td style="width:60px; height: 25px; vertical-align:middle; font-weight: bold;">Старая цена</td>
+                        <td style="width:60px; height: 25px; vertical-align:middle; font-weight: bold;">Цена продажи</td>
                         <td style="width:90px; height: 25px; vertical-align:middle; font-weight: bold;">Категория</td>
                         <td style="width:90px; height: 25px; vertical-align:middle; font-weight: bold;">Производитель</td>
                         <td style="width:90px; height: 25px; vertical-align:middle; font-weight: bold;">Тип материала</td>
-                        <td style="width:200px; height: 25px; vertical-align:middle; font-weight: bold;">Изображение</td>
-                        <td style="width:90px; height: 25px; vertical-align:middle; font-weight: bold;">Редактировать</td>
-                        <td style="width:70px; height: 25px; vertical-align:middle; font-weight: bold;">Удалить</td>
+                        <td style="width:90px; height: 25px; vertical-align:middle; font-weight: bold;">Изображение</td>
+                        <td style="width:20px; height: 25px; vertical-align:middle; font-weight: bold;"></td>
+                        <td style="width:20px; height: 25px; vertical-align:middle; font-weight: bold;"></td>
+                        <td style="width:20px; height: 25px; vertical-align:middle; font-weight: bold;"></td>
                     </tr>
                     <?foreach($product as $cat){?>
                     <tr>
@@ -116,9 +122,10 @@ $product = $db->getArray();
                         <td><?echo $dm-> getCategoryName( $cat['category_id']);?></td>
                         <td><?echo $dm-> getFirmName( $cat['firm_id']);?></td>
                         <td><?echo $dm-> getMaterialName( $cat['material_id']);?></td>
-                        <td><img src="/img/products/m_<?echo $cat['img'];?>"/></td>
-                        <td><button type="button" class="edit" data-id="<?echo $cat['id'];?>">Редактировать</button></td>
-                        <td><button type="button" class="del" data-id="<?echo $cat['id'];?>">Удалить</button></td>
+                        <td align="center"><img style="width:90px" src="/img/products/m_<?echo $cat['img'];?>"/></td>
+                        <td><img src="img/admin/<?=($cat['show'])?"item_show.png":"item_hide.png"?>" title="<?=($cat['show'])?"Отображается":"Скрыт"?>"></td>
+                        <td><img src="img/admin/b_edit.png" data-id ="<?=$cat['id']?>" title="Редактировать" style="cursor: pointer" class="edit"></td>
+                        <td><img src="img/admin/b_drop.png" data-id ="<?=$cat['id']?>" title="Удалить" style="cursor: pointer" class="del"></td>
                     </tr>
                 <?}?>
 

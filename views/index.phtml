@@ -42,33 +42,11 @@ if (count($products) > 0)
                 <div>
                     <img src="../img/banner/<?echo $item->get_img()?>" width="1024" height="360">
                     <div class="tex_fly block1 "><?echo $item->get_firstStr()?></div>
-                    <div class="tex_fly block2 "><?echo $item->get_secondStr()?></div>
+                    <? if($item->get_secondStr()!=''){?><div class="tex_fly block2 "><?echo $item->get_secondStr()?></div><?}?>
                     <? if($item->get_thirdStr()!=''){?><div class="tex_fly block3 "><?echo $item->get_thirdStr()?></div><?}?>
                 </div>
 
                 <?$i++;}?>
-
-
-
-
-            <!--div>
-                 <img src="../img/main4.jpg" width="1024" height="360" alt="Slide 1">
-                    <div class="tex_fly block1 ">Идеальное решение</div>
-                    <div class="tex_fly block2 ">для домов</div>
-                    <div class="tex_fly block3 ">и котеджей</div>
-            </div>
-            <div>
-                 <img src="../img/main6.jpg" width="1024" height="360" alt="Slide 2">
-                    <div class="tex_fly block1 ">Новые перспективы </div>
-                    <div class="tex_fly block2 ">в домостроении</div>
-            </div>
-            <div>
-                    <img src="../img/main2.jpg" width="1024" height="360" alt="Slide 3">
-                        <div class="tex_fly block1 ">Удобная схема</div>
-                        <div class="tex_fly block2 ">прямых поставок</div>
-                        <div class="tex_fly block3 ">к Вам на обьект</div>
-            </div-->
-
 
         </div>
 

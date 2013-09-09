@@ -1,6 +1,8 @@
 $(document).ready(function(){
     $(document).on('click','#add_new',function(){
         $('#form').show()
+        $('#form input').val('')
+        $('#editor_title').text('Добавление нового типа материала')
     }).on('click','[name=save]',function(){
             console.log('123')
             if($('[name=material_name]').val()==''){
@@ -32,7 +34,7 @@ $(document).ready(function(){
             $('#form').show()
             $('[name=id]').val($(this).data('id'))
             $('[name=material_name]').val($(this).data('name'))
-
+            $('#editor_title').text('Редактирование типа материала')
         }).on('click','.del',function(){
             if(confirm('Удалить материал?'))
             {

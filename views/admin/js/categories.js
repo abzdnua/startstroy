@@ -1,6 +1,8 @@
 $(document).ready(function(){
     $(document).on('click','#add_cat',function(){
         $('#form').show()
+        $('#form input, #form select').val('')
+        $('#editor_title').text('Добавление новой категории')
 
     }).on('click','[name=save]',function(){
             console.log('123')

@@ -5,6 +5,8 @@ $(document).ready(function(){
 
     $(document).on('click','#add_new',function(){
         $('#form').show()
+        $('#form input').val('')
+        $('[name=objects_date]').mask('9999-99-99').datepicker();
     }).on('click','[name=save]',function(){
 
             if($('[name=objects_name]').val()=='')  {
@@ -25,14 +27,14 @@ $(document).ready(function(){
             {
                 $('[name=objects_date]').css('border','none')
             }
-          /*  if($('[name=objects_img_val]').val()=='')  {
+            if($('[name=objects_img_val]').val()=='')  {
                 $('[name=objects_img]').css('color','red')
                 return false
             }
             else
             {
                 $('[name=objects_img]').css('color','black')
-            }*/
+            }
             {
                 var data = {
                     url: 'views/admin/ajax/ready_objects/save.php',
@@ -62,6 +64,7 @@ $(document).ready(function(){
 
                 $('#form').replaceWith(data)
                 $('#form').show()
+                $('[name=objects_date]').mask('9999-99-99').datepicker();
             })
 
 
@@ -84,11 +87,8 @@ $(document).ready(function(){
                     })
                 })
             }
-        }).on('change','[name=article_thumb]',function(){
-            $('[name=article_thumb_val]').val($('[name=article_thumb]').val())
-
-        }).on('change','[name=article_img]',function(){
-            $('[name=article_img_val]').val($('[name=article_img]').val())
+        }).on('change','[name=objects_img]',function(){
+            $('[name=objects_img_val]').val($('[name=objects_img]').val())
 
         })
 
