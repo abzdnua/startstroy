@@ -49,7 +49,7 @@ $(document).ready(function(){
 
             else
             {
-                $('[name=product_priceforsale]').css('border','none')
+                $('[name=product_priceforsale]').css('border','')
             }
             if($('[name=product_img_val]').val()=='')  {
                 $('[name=product_img]').css('color','red')
@@ -60,13 +60,13 @@ $(document).ready(function(){
                 $('[name=product_img]').css('color','black')
             }
 
-            if($('[name=category_id]').val()=='')  {
-                $('[name=category_id]').css('color','red')
+            if($('[name=category_id]').val()==0)  {
+                $('[name=category_id]').css('border','1px solid red')
                 return false
             }
             else
             {
-                $('[name=category_id]').css('color','black')
+                $('[name=category_id]').css('border','')
             }
 
 
