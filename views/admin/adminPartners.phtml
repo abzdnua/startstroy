@@ -5,7 +5,7 @@ $page->addScript('views/admin/js/partners.js');
 //require_once $root."/lib/class.category.php";
 $db = db::getInstance();
 $dm = new db_manager();
-$db->query("SELECT * FROM PARTNERS WHERE DELETED = 0 ORDER BY id DESC");
+$db->query("SELECT * FROM partners WHERE deleted = 0 ORDER BY id DESC");
 $partner = $db->getArray();
 
 //print_r($cats);
