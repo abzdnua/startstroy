@@ -23,10 +23,10 @@ if (count($partners) > 0)
             <li <? echo ($i%4==1)?'class="no_mar_left"':''?>>
                 <div class="img">
                     <div class="vert_al">
-                   <a <? echo ($item->get_link())?'href="'.$item->get_link().'"':''?>  ><img src="../img/partners/<? echo $item->get_img()?>"/></a>
+                   <a target="_blank" <? echo ($item->get_link())?'href="'.$item->get_link().'"':''?>  ><img src="../img/partners/<? echo $item->get_img()?>"/></a>
                     </div>
                 </div>
-                <a  <? echo ($item->get_link())?'target="_blank" href="'.$item->get_link().'"':''?>  ><? echo $item->get_name()?></a>
+                <a target="_blank" <? echo ($item->get_link())?'target="_blank" href="'.$item->get_link().'"':''?>  ><? echo $item->get_name()?></a>
                     <div class="text"><? echo $item->get_des()?></div>
 
             </li>
