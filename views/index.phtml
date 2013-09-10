@@ -53,9 +53,9 @@ if (count($products) > 0)
                 },
                 start: function(number) {
                     $('.block1, .block2, .block3').hide()
-                    $('.block1').stop().animate({left:-1000},500)
+                 /*   $('.block1').stop().animate({left:-1000},500)
                     $('.block2').stop().animate({left:-1000},500)
-                    $('.block3').stop().animate({left:-1000},500)
+                    $('.block3').stop().animate({left:-1000},500)*/
 
                 },
                 complete: function(number) {
@@ -69,6 +69,7 @@ if (count($products) > 0)
         });
     });
 </script>
+
 
 
 <div class="clr"></div>
@@ -100,6 +101,10 @@ if (count($products) > 0)
         <div class="title_page f_l"><span>Топ</span> предложения строительных материалов</div>
         <div class="price_text f_r">Цены на <?=$DLL->getActualDate()?></div>
     </div>
+
+
+
+
 
     <ul class="product_ul">
     <?$i=1;
