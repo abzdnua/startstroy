@@ -511,7 +511,7 @@ padding: 2px;
     width:385px ;
     margin: 0 auto;
     height: 31px;
-
+    overflow: hidden;
 }
 
 .footer_a
