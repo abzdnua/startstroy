@@ -1,5 +1,7 @@
 $(document).ready(function(){
 //Добавление характеристики
+    $('[name=product_price]').mask('9?99999')
+    $('[name=product_priceforsale]').mask('9?99999')
     $('#add_char').live('click', function(){
         var count = $('.char',$(this).parents('td')).length;
 
@@ -98,6 +100,8 @@ $(document).ready(function(){
 //                alert(data)
                 $('#form').replaceWith(data)
                 $('#form').show()
+                $('[name=product_price]').mask('9?99999')
+                $('[name=product_priceforsale]').mask('9?99999')
             })
 
 
