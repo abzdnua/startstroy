@@ -40,9 +40,8 @@ if($_POST)
         $client_id =$db->getValue();
         $db->query("UPDATE clients SET name='{$name}' WHERE id={$client_id}");
     }
-    $id=$db->last();
 
-    $sql = "INSERT INTO reviews(client_id,text,dateCreate,`show`) VALUES ({$id},'{$review}',NOW(),0)";
+    $sql = "INSERT INTO reviews(client_id,text,dateCreate,`show`) VALUES ({$client_id},'{$review}',NOW(),0)";
     $db->query($sql);
 
 

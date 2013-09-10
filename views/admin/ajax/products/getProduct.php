@@ -51,7 +51,7 @@ echo '
                                     <td align="right">Изображение<span class="required">*</span></td>
                                     <td style="width: 350px"><input type="file" style="width: 100%"name="product_img" >
                                         <input type="hidden" name="product_img_val" value="'.$art['img'].'"/>
-                                        <img id="id_img_edit_img" style="display:none"/>
+                                        <img id="id_img_edit_img" src="/img/products/'.$art['img'].'"/>
                                     </td>
 
                                 </tr>
@@ -62,7 +62,7 @@ echo '
                                     </td>
                                 </tr>
                                    <tr>
-                                    <td align="right">Подкатегория</td>
+                                    <td align="right">Подкатегория<span class="required">*</span></td>
                                     <td>
                                         '.$dm -> getCategorySelect("subCategory_id",$art['subCategory_id'],$art['category_id']).'
                                     </td>

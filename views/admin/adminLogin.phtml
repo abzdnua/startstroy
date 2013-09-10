@@ -68,10 +68,10 @@ if (isset($login) && isset($pass)) {
         Header ("Location: /admin/index");
         exit;
     }
-//    else {
-//        Header ("Location: in/errorLogin/4");
-//        exit;
-//    }
+    else {
+        Header ("Location: in/errorLogin/4");
+        exit;
+    }
 }
 else
     if (isset($login) && !isset($pass)) {

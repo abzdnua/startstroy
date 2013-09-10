@@ -24,27 +24,46 @@ $db = db::getInstance();
                 <a href="/catalog/">Каталог</a>
                  <div class="Submenu">
                      <div class="border_top">
-                         <?$db-> query("SELECT id,name,link,col,row FROM categories WHERE parent_id = 0 AND deleted=0 ORDER BY col ASC, row ASC");
+                         <?$db-> query("SELECT c.name, c.id AS cname, c.col, c.row, c.link
+                                        FROM products AS p, categories AS c
+                                        WHERE c.id = p.category_id
+                                        AND c.deleted =0
+                                        AND p.deleted =0
+                                        GROUP BY c.id
+                                        ORDER BY c.col ASC, c.row ASC");
                          $menu = $db->getArray();
-                         $col=1;
+                         if($menu){
+                         $col=$menu[0]['col'];
+                         $first=true;?>
+                         <div class="f_l <?=($menu[0]['col']>1)?"mar_left_28":""?>">
+                         <?$row=100;
                          foreach($menu as $item){
-                             if($item['col']!=$col){
-                                 echo '</div>';
-                                 $col = $item['col'];
-                             }
-                             if($item['row']==1){
-                             ?>
-                         <div class="f_l <?=($item['col']>1)?"mar_left_28":""?>">
-                             <?}?>
-                             <a href="/catalog/p/<?=$item['link']?>" class="<?=($item['row']>1)?"mar_top_15":""?> title"><?=$item['name']?></a>
-                                <?$db->query("SELECT name,link FROM categories WHERE parent_id = {$item['id']} AND deleted=0 ");
+                             if($item['col']!=$col){?>
+                                 </div>
+                                 <div class="f_l <?=($item['col']>1)?"mar_left_28":""?>">
+                                 <?$col = $item['col'];
+                                 $first = true;
+                             }     ?>
+
+
+                             <a href="/catalog/p/<?=$item['link']?>" class="<?=(!$first)?"mar_top_15":""?> title"><?=$item['name']?></a>
+
+                                <?
+                                $first=false;
+                                $db->query("SELECT c.name, c.id AS cname, c.link
+                                        FROM products AS p, categories AS c
+                                        WHERE c.id = p.subCategory_id
+                                        AND c.parent_id = {$item['cname']}
+                                        AND c.deleted =0
+                                        AND p.deleted =0
+                                        GROUP BY c.id");
                                 $subMenu = $db->getArray();
                                 foreach($subMenu as $subItem){?>
                              <a href="/catalog/p/<?=$item['link']?>/<?=$subItem['link']?>"><?=$subItem['name']?></a>
                              <?}?>
                              <div class="clr"></div>
 
-                         <?}?>
+                         <?}}?>
                          </div>
                      </div>
                  </div>
@@ -60,7 +79,6 @@ $db = db::getInstance();
                 <a href="/reviews">Отзывы </a>
             </ul>
         </div>
-
         <div class="f_r contact_top">
            <p>+380 (95) 384-89-99</p>
             <p> +380 (66) 908-66-63</p>

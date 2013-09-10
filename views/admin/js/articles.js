@@ -24,9 +24,10 @@ $(document).ready(function(){
         $('#id_img_edit_img').hide()
         $('#id_img_edit').hide()
     }).on('click','[name=save]',function(){
+            var th = $(this)
             console.log('123')
             if($('[name=article_name]').val()=='')  {
-                $('[name=article_name]').css('border','1px solid red')
+                $('[name=article_name]').css('border','1px solid red').focus()
                 return false
             }
 
@@ -35,7 +36,7 @@ $(document).ready(function(){
                 $('[name=article_name]').css('border','')
             }
             if($('[name=article_text]').val()=='')  {
-                $('[name=article_text]').css('border','1px solid red')
+                $('[name=article_text]').css('border','1px solid red').focus()
                 return false
             }
 
@@ -44,7 +45,7 @@ $(document).ready(function(){
                 $('[name=article_text]').css('border','')
             }
             if($('[name=article_img_val]').val()=='')  {
-                $('[name=article_img]').css('color','red')
+                $('[name=article_img]').css('color','red').focus()
                 return false
             }
             else
@@ -53,7 +54,7 @@ $(document).ready(function(){
             }
 
             if($('[name=article_img_val]').val()=='')  {
-                $('[name=article_img]').css('color','red')
+                $('[name=article_img]').css('color','red').focus()
                 return false
             }
             else
@@ -69,17 +70,18 @@ $(document).ready(function(){
                     },
                     success: function(responseText){
                         console.log(responseText)
-                        if(responseText.indexOf('error') == -1)
+                        if(responseText == '')
                         {
                             location.reload();
                         }
                         else{
                             alert(responseText)
+                            th.removeAttr('disabled')
                         }
-                        $(this).removeAttr('disabled')
+
                     }
                 }
-
+                th.attr('disabled',true)
                 $(this).parents('form').ajaxSubmit(data)
                 return false;
             }

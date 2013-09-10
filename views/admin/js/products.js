@@ -1,7 +1,7 @@
 $(document).ready(function(){
 //Добавление характеристики
-    $('[name=product_price]').mask('9?99999')
-    $('[name=product_priceforsale]').mask('9?99999')
+//    $('[name=product_price]').mask('9?99999')
+//    $('[name=product_priceforsale]').mask('9?99999')
     $('#add_char').live('click', function(){
         var count = $('.char',$(this).parents('td')).length;
 
@@ -33,8 +33,10 @@ $(document).ready(function(){
         $('#form').show()
         $('#form input, #form textarea, #form select').val('')
         $('#editor_title').text('Добавление нового товара')
+        $('#id_img_edit_img').hide()
     }).on('click','[name=save]',function(){
             console.log('123')
+            var th = $(this)
             if($('[name=product_name]').val()=='')  {
                 $('[name=product_name]').css('border','1px solid red')
                 return false
@@ -70,6 +72,14 @@ $(document).ready(function(){
             {
                 $('[name=category_id]').css('border','')
             }
+            if($('[name=subCategory_id]').val()==0)  {
+                $('[name=subCategory_id]').css('border','1px solid red')
+                return false
+            }
+            else
+            {
+                $('[name=category_id]').css('border','')
+            }
 
 
             {
@@ -81,17 +91,18 @@ $(document).ready(function(){
                     },
                     success: function(responseText){
                         console.log(responseText)
-                        if(responseText.indexOf('error') == -1)
+                        if(responseText == '')
                         {
                             location.reload();
                         }
                         else{
                             alert(responseText)
+                            th.removeAttr('disabled')
                         }
-                        $(this).removeAttr('disabled')
+
                     }
                 }
-
+                th.attr('disabled',true)
                 $(this).parents('form').ajaxSubmit(data)
                 return false;
             }
@@ -133,8 +144,25 @@ $(document).ready(function(){
             var th=$(this)
             $.post('views/admin/ajax/products/getSelect.php',{id:id},function(data){
                 $('[name=subCategory_id]').parent().parent().remove()
-                th.parent().parent().after('<tr><td  align="right">Подкатегория</td><td>'+data+'</td></tr>')
+                th.parent().parent().after('<tr><td  align="right">Подкатегория<span class="required">*</span></td><td>'+data+'</td></tr>')
             })
+        }).on('focusout','[name=product_price],[name=product_priceforsale]',function(){
+            var number = $(this).val()
+            if(number.match(/^\d+\.{1}\d+/))
+            {
+                $(this).val(number.match(/^\d+\.{1}\d+/))
+            }
+            else
+            {
+                if(number.match(/^\d+/))
+                {
+                    $(this).val(number.match(/^\d+/))
+                }
+                else
+                {
+                    $(this).val('')
+                }
+            }
         })
 
 })
