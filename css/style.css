@@ -511,7 +511,7 @@ padding: 2px;
     width:385px ;
     margin: 0 auto;
     height: 31px;
-background: url(../img/like.png) no-repeat    ;
+
 }
 
 .footer_a
@@ -1926,4 +1926,15 @@ width: inherit;
 #addres1:hover,#addres2:hover
 {
     text-decoration: none;
+}
+.center .soc .soc_block
+{
+    float: left;
+    margin-right: 20px;
+    margin-top: 5px;
+}
+.center .soc .soc_block.google
+{
+    width: 73px;
+    margin-right: 0;
 }
