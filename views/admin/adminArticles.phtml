@@ -5,7 +5,7 @@ $page->addScript('views/admin/js/articles.js');
 //require_once $root."/lib/class.category.php";
 $db = db::getInstance();
 $dm = new db_manager();
-$db->query("SELECT * FROM ARTICLES WHERE DELETED = 0 ORDER BY id DESC");
+$db->query("SELECT * FROM articles WHERE deleted = 0 ORDER BY id DESC");
 $article = $db->getArray();
 
 //print_r($cats);
