@@ -15,7 +15,7 @@ if($_POST){
     foreach($prods as $prod){?>
         <li class="<?=($k%4==1)?"no_mar_left":""?>">
                     <a href="catalog/product/<?=$DLL->linkInBD($prod->get_name(),$prod->get_id())?>">
-                        <div class="max_height">      <div class="img"><div><img src="../img/products/m_<?=$prod->get_img()?>"/></div></div></div>
+                        <div class="max_height">      <div class="img"><div><?if(is_file($_SERVER['DOCUMENT_ROOT'].'/img/products/m_'.$prod->get_img())){?><img src="../img/products/m_<? echo $prod->get_img()?>"/><?}?></div></div></div>
                     <div class="text"><?=$prod->get_name()?></div>
 
         <div class="price_block">
