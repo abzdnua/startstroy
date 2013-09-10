@@ -47,9 +47,9 @@ if (count($products) > 0)
             },
            callback: {
                 loaded: function(number) {
-                    $('.block1').animate({left:50},800)
-                    $('.block2').animate({left:50},1000)
-                    $('.block3').animate({left:50},1200)
+                    $('.block1').stop().animate({left:50},800)
+                    $('.block2').stop().animate({left:50},1000)
+                    $('.block3').stop().animate({left:50},1200)
                 },
                 start: function(number) {
                     $('.block1, .block2, .block3').hide()
