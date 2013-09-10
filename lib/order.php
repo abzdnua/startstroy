@@ -80,11 +80,13 @@ if(isset($_POST))
     }
     $mess .= '</table>';
 
-echo $mess;
-//    $subject = '=?utf-8?B?'.base64_encode("Заказ").'?=';
-//    $headers = "Content-type: text/html; charset=utf-8 \r\n";
-//    $headers .= 'From:' .'=?utf-8?B?'.base64_encode("STOCK-CLOCK ").'?='. '<support@stock-clock.com.ua>' . "\r\n" ;
+//echo $mess;
+    $subject = '=?utf-8?B?'.base64_encode("Заказ").'?=';
+    $headers = "Content-type: text/html; charset=utf-8 \r\n";
+    $headers .= 'From:' .'=?utf-8?B?'.base64_encode("StartStroy ").'?='. '<support@startstroy.com.ua>' . "\r\n" ;
 //    mail('abz@inbox.ru', $subject, $mess, $headers);
+    if($email) mail($email, $subject, $mess, $headers);
+    mail('artygeneration@gmail.com', $subject, $mess, $headers);
 
 //    $sms = new sms();
 //    $sms->setLogin('stockclock');
