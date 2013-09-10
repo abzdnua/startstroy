@@ -53,17 +53,17 @@ if (count($products) > 0)
                 },
                 start: function(number) {
 
-                   $('.block1').stop().animate({left:-1000},500)
-                    $('.block2').stop().animate({left:-1000},500)
-                    $('.block3').stop().animate({left:-1000},500)
-                    //$('.block1, .block2, .block3').hide()
+                   $('.block1').stop().animate({left:-100},500)
+                    $('.block2').stop().animate({left:-100},500)
+                    $('.block3').stop().animate({left:-100},500)
+                    $('.block1, .block2, .block3').hide()
                 },
                 complete: function(number) {
-                   // $('.block1, .block2, .block3').show()
+                    $('.block1, .block2, .block3').show()
                    $('.block1').stop().animate({left:50},800)
                     $('.block2').stop().animate({left:50},1000)
                     $('.block3').stop().animate({left:50},1200)
-                    console.log(this)
+                    //console.log(this)
                 }
             }
         });
