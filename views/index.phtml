@@ -1,6 +1,6 @@
 <?
     $page -> setTitle("Start stroy");
-$page -> addScript('js/jquery.slides.min.js');
+$page -> addScript('js/jquery.slides.js');
 $page -> addCss('css/style_slider_main.css');
 require_once $root."/lib/class.invis.db.php";
 require_once $root."/lib/class.db.manager.php";
@@ -58,13 +58,13 @@ if (count($products) > 0)
                     $('.block3').stop().animate({left:-1000},500)
 
                 },
-              /*  complete: function(number) {
+                complete: function(number) {
                     $('.block1, .block2, .block3').show()
                     $('.block1').animate({left:50},800)
                     $('.block2').animate({left:50},1000)
                     $('.block3').animate({left:50},1200)
                     console.log(this)
-                }*/
+                }
             }
         });
     });
