@@ -1,6 +1,6 @@
 <?
     $page -> setTitle("Start stroy");
-$page -> addScript('js/slides.js');
+$page -> addScript('js/jquery.slides.min.js');
 $page -> addCss('css/style_slider_main.css');
 require_once $root."/lib/class.invis.db.php";
 require_once $root."/lib/class.db.manager.php";
@@ -14,24 +14,66 @@ if (count($products) > 0)
 {
 
 ?>
+<style>
+    #slides {
+        display:none;
+    }
+</style>
+<script>
+    $(function(){
+        $("#slides").slidesjs({
+            width: 1024,
+            height: 360,
+            navigation:{
+                active:false
+            },
+            play: {
+                active: false,
+                // [boolean] Generate the play and stop buttons.
+                // You cannot use your own buttons. Sorry.
+                effect: "slide",
+                // [string] Can be either "slide" or "fade".
+                interval: 5000,
+                // [number] Time spent on each slide in milliseconds.
+                auto: true,
+                // [boolean] Start playing the slideshow on load.
+                swap: true,
+                // [boolean] show/hide stop and play buttons
+                pauseOnHover: false,
+                pause:10,
+                // [boolean] pause a playing slideshow on hover
+                restartDelay: 2500
+                // [number] restart delay on inactive slideshow
+            },
+            callback: {
+                loaded: function(number) {
+                    $('.block1').animate({left:50},800)
+                    $('.block2').animate({left:50},1000)
+                    $('.block3').animate({left:50},1200)
+                },
+                start: function(number) {
+                    $('.block1, .block2, .block3').hide()
+                    $('.block1').stop().animate({left:-1000},500)
+                    $('.block2').stop().animate({left:-1000},500)
+                    $('.block3').stop().animate({left:-1000},500)
 
-
+                },
+                complete: function(number) {
+                    $('.block1, .block2, .block3').show()
+                    $('.block1').animate({left:50},800)
+                    $('.block2').animate({left:50},1000)
+                    $('.block3').animate({left:50},1200)
+                    console.log(this)
+                }
+            }
+        });
+    });
+</script>
 
 
 <div class="clr"></div>
 </div>
 <div class="slider">
-
-
-
-
-
-
-
-
-
-
-
     <div id="container">
 
 
@@ -79,307 +121,6 @@ if (count($products) > 0)
 
         <?$i++;}?>
 
-        <!--li class="no_mar_left">
-            <a href="catalog/Product">
-                <div class="max_height">   <div class="img"><div><img src="../img/t1.jpg"/></div></div></div>
-            <div class="text">Кератерм блоки ® 25 с <br>  доставкой по Донецку  доставкой по Доfgнецку  доставdfgffffffdddddfffdfgкой по Донецку  досfgтавкой по Донецку</div>
-
-              <div class="price_block">
-                <div class="vert_align">
-                        <div class="old_price">10,00 грн.</div>
-                        <div class="new_price red">9,50 грн.</div>
-                </div>
-              </div>
-                <a href="/buy" class="buy">ЗАКАЗАТЬ</a>
-                </a>
-        </li>
-
-
-        <li class="">
-            <a href="catalog/Product">
-                <div class="max_height"> <div class="img"><div><img src="../img/t1.jpg"/></div></div></div>
-            <div class="text">Кератерм блоки ® 25 с</div>
-
-            <div class="price_block">
-                <div class="vert_align">
-
-                    <div class="new_price ">9,50 грн.</div>
-                </div>
-            </div>
-            <a href="/buy" class="buy">ЗАКАЗАТЬ</a>
-                </a>
-        </li>
-        <li class="">
-            <div class="max_height"> <div class="img"><div><img src="../img/t2.jpg"/></div></div> </div>
-            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку dfsdsg fdhd</div>
-
-            <div class="price_block">
-                <div class="vert_align">
-
-                    <div class="new_price ">9,50 грн.</div>
-                </div>
-            </div>
-            <a href="/buy" class="buy">ЗАКАЗАТЬ</a>
-        </li>
-        <li class="">
-            <div class="max_height"> <div class="img"><div><img src="../img/t1.jpg"/></div></div></div>
-            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>
-
-            <div class="price_block">
-                <div class="vert_align">
-                    <div class="old_price">10,00 грн.</div>
-                    <div class="new_price red">9,50 грн.</div>
-                </div>
-            </div>
-            <div class="buy">ЗАКАЗАТЬ</div>
-        </li>
-        <li class="height_normal no_mar_left">
-            <div class="max_height">   <div class="img"><div><img src="../img/t3.jpg"/></div></div></div>
-            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>
-
-            <div class="price_block">
-                <div class="vert_align">
-                    <div class="old_price">10,00 грн.</div>
-                    <div class="new_price red">9,50 грн.</div>
-                </div>
-            </div>
-            <div class="buy">ЗАКАЗАТЬ</div>
-        </li>
-        <li class="height_normal">
-            <div class="max_height">  <div class="img"><div><img src="../img/t1.jpg"/></div></div></div>
-            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>
-
-            <div class="price_block">
-                <div class="vert_align">
-                    <div class="old_price">10,00 грн.</div>
-                    <div class="new_price red">9,50 грн.</div>
-                </div>
-            </div>
-            <div class="buy">ЗАКАЗАТЬ</div>
-        </li>
-        <li class="height_normal">
-            <div class="max_height"> <div class="img"><div><img src="../img/t3.jpg"/></div></div></div>
-            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>
-
-            <div class="price_block">
-                <div class="vert_align">
-                    <div class="old_price">10,00 грн.</div>
-                    <div class="new_price red">9,50 грн.</div>
-                </div>
-            </div>
-            <div class="buy">ЗАКАЗАТЬ</div>
-        </li>
-        <li class="height_normal">
-            <div class="max_height">  <div class="img"><div><img src="../img/t2.jpg"/></div></div></div>
-            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>
-
-            <div class="price_block">
-                <div class="vert_align">
-                    <div class="old_price">10,00 грн.</div>
-                    <div class="new_price red">9,50 грн.</div>
-                </div>
-            </div>
-            <div class="buy">ЗАКАЗАТЬ</div>
-        </li>
-
-        <li class="no_mar_left">
-            <a href="catalog/Product">
-                <div class="max_height">   <div class="img"><div><img src="../img/t1.jpg"/></div></div></div>
-                <div class="text">Кератерм блоки ® 25 с <br>  доставкой по Донецку  доставкой по Доfgнецку  доставdfgffffffdddddfffdfgкой по Донецку  досfgтавкой по Донецку</div>
-
-                <div class="price_block">
-                    <div class="vert_align">
-                        <div class="old_price">10,00 грн.</div>
-                        <div class="new_price red">9,50 грн.</div>
-                    </div>
-                </div>
-                <a href="/buy" class="buy">ЗАКАЗАТЬ</a>
-            </a>
-        </li>
-
-
-        <li class="">
-            <a href="catalog/Product">
-                <div class="max_height"> <div class="img"><div><img src="../img/t1.jpg"/></div></div></div>
-                <div class="text">Кератерм блоки ® 25 с</div>
-
-                <div class="price_block">
-                    <div class="vert_align">
-
-                        <div class="new_price ">9,50 грн.</div>
-                    </div>
-                </div>
-                <a href="/buy" class="buy">ЗАКАЗАТЬ</a>
-            </a>
-        </li>
-        <li class="">
-            <div class="max_height"> <div class="img"><div><img src="../img/t2.jpg"/></div></div> </div>
-            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку dfsdsg fdhd</div>
-
-            <div class="price_block">
-                <div class="vert_align">
-
-                    <div class="new_price ">9,50 грн.</div>
-                </div>
-            </div>
-            <a href="/buy" class="buy">ЗАКАЗАТЬ</a>
-        </li>
-        <li class="">
-            <div class="max_height"> <div class="img"><div><img src="../img/t1.jpg"/></div></div></div>
-            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>
-
-            <div class="price_block">
-                <div class="vert_align">
-                    <div class="old_price">10,00 грн.</div>
-                    <div class="new_price red">9,50 грн.</div>
-                </div>
-            </div>
-            <div class="buy">ЗАКАЗАТЬ</div>
-        </li>
-        <li class="height_normal no_mar_left">
-            <div class="max_height">   <div class="img"><div><img src="../img/t3.jpg"/></div></div></div>
-            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>
-
-            <div class="price_block">
-                <div class="vert_align">
-                    <div class="old_price">10,00 грн.</div>
-                    <div class="new_price red">9,50 грн.</div>
-                </div>
-            </div>
-            <div class="buy">ЗАКАЗАТЬ</div>
-        </li>
-        <li class="height_normal">
-            <div class="max_height">  <div class="img"><div><img src="../img/t1.jpg"/></div></div></div>
-            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>
-
-            <div class="price_block">
-                <div class="vert_align">
-                    <div class="old_price">10,00 грн.</div>
-                    <div class="new_price red">9,50 грн.</div>
-                </div>
-            </div>
-            <div class="buy">ЗАКАЗАТЬ</div>
-        </li>
-        <li class="height_normal">
-            <div class="max_height"> <div class="img"><div><img src="../img/t3.jpg"/></div></div></div>
-            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>
-
-            <div class="price_block">
-                <div class="vert_align">
-                    <div class="old_price">10,00 грн.</div>
-                    <div class="new_price red">9,50 грн.</div>
-                </div>
-            </div>
-            <div class="buy">ЗАКАЗАТЬ</div>
-        </li>
-        <li class="height_normal">
-            <div class="max_height">  <div class="img"><div><img src="../img/t2.jpg"/></div></div></div>
-            <div class="text">Кератерм блоки ® 25 с <br> доставкой по Донецку</div>
-
-            <div class="price_block">
-                <div class="vert_align">
-                    <div class="old_price">10,00 грн.</div>
-                    <div class="new_price red">9,50 грн.</div>
-                </div>
-            </div>
-            <div class="buy">ЗАКАЗАТЬ</div>
-        </li-->
     </ul>
 
     <?}?>
-
-    <script>
-
-
-        /*
-         Get the curent slide
-         */
-
-        function currentSlide( current ) {
-            $(".current_slide").text(current + " of " + $("#slides").slides("status","total") );
-        }
-
-        $(function(){
-            /*
-             Initialize SlidesJS
-             */
-
-            $("#slides").slides({
-                navigateEnd: function( current ) {
-                    currentSlide( current );
-                },
-                loaded: function(){
-                    currentSlide( 1 );
-                }
-            });
-
-
-        });
-    </script>
-
-    <script>
-
-        $(document).ready(function()
-        {
-
-
-            speed = 1000
-            speed_remove = 5000
-            first()
-            setTimeout( df,5000);
-
-
-
-            $('.product_ul li').hover(
-                function() {
-                    $(this).find('img').removeAttr('style')
-
-                    var height = $(this).find('img').height();
-                    var width  = $(this).find('img').width();
-                    height_old = height;
-                    width_old = width;
-                    height = (height*110)/100;
-                    width = (width*110)/100;
-
-                    $(this).find('img').stop().animate({width:width,height:height},300)
-
-
-
-
-                },
-                function() {
-
-                    $(this).find('img').stop().animate({width:width_old,height:height_old},300)
-
-                }
-            );
-
-
-
-        })
-
-
-
-        function first()
-        {
-
-
-
-            $('.block1').animate({left:50},speed-200)
-            $('.block2').animate({left:50},speed)
-            $('.block3').animate({left:50},speed+200)
-
-
-
-        }
-
-
-        function df(){
-
-            $("#slides").slides("play");
-        }
-
-
-
-
-    </script>
