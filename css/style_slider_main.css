@@ -42,21 +42,21 @@
 	Pagination
 */
 
-.slidesPagination {
+.slidesjs-pagination {
     position: relative;
     top: -27px;
     left: 50%;
-    z-index: 9;
+    z-index: 20;
 
 }
 
-.slidesPagination li {
+.slidesjs-pagination li {
 	float:left;
 	margin:0 1px;
 	list-style:none;
 }
 
-.slidesPagination li a {
+.slidesjs-pagination li a {
 	display:block;
     width: 20px;
     height: 0;
@@ -67,7 +67,7 @@
 	overflow:hidden;
 }
 
-.slidesPagination li.slidesCurrent a {
+.slidesjs-pagination li a.active {
 	background-position:0 -19px;
 }
 
