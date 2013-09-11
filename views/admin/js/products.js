@@ -110,7 +110,8 @@ $(document).ready(function(){
             $.post('/views/admin/ajax/products/getProduct.php',{id:$(this).data('id'), type:'edit'},function(data){
 //                alert(data)
                 $('#form').replaceWith(data)
-                $('#form').show().focus()
+                $('#form').show()
+                $(window).scrollTop(0)
                 $('[name=product_price]').mask('9?99999')
                 $('[name=product_priceforsale]').mask('9?99999')
             })
@@ -121,7 +122,8 @@ $(document).ready(function(){
             $.post('/views/admin/ajax/products/getProduct.php',{id:$(this).data('id'),type:'copy'},function(data){
 //                alert(data)
                 $('#form').replaceWith(data)
-                $('#form').show().focus()
+                $('#form').show()
+                $(window).scrollTop(0)
                 $('[name=product_price]').mask('9?99999')
                 $('[name=product_priceforsale]').mask('9?99999')
             })
