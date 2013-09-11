@@ -66,6 +66,7 @@ var temp_i = 0
                         arr[i] = y
                         i = i+1
                         max = y
+                        console.log(max)
 
                     });
                 }
@@ -92,7 +93,7 @@ var temp_i = 0
                         if (parseInt($(this).css('left')) < -90)
                         {
 
-                            $(this).css('left',"+=1065px");
+                            $(this).css('left',"+="+max+"px");
                         }
 
                     })
@@ -116,7 +117,7 @@ var temp_i = 0
                     $('.scroll_photos img').map(function(){
                         if (parseInt($(this).css('left'))>720)
                         {
-                            $(this).css('left',"-=1065px");
+                            $(this).css('left',"-="+max+"px");
                         }
                     })
                     var active = $('.active').width() +30
