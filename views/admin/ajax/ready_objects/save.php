@@ -46,18 +46,18 @@ if(!empty($_POST)){
         $uniq_img = uniqid();
         $img -> file_new_name_body = $uniq_img;
         $img -> jpeg_quality = 100;
-        if($img->image_src_x > 752 or $img->image_src_y > 438)
+        if($img->image_src_x > 750 or $img->image_src_y > 426)
         {
             if($img->image_src_x>$img->image_src_y){
-                $img->image_x = 752;
+                $img->image_x = 750;
                 $img->image_ratio_y = true;
             }else{
-                $img->image_y = 438;
+                $img->image_y = 426;
                 $img->image_ratio_x = true;
             }
-            $img->image_resize = true;
-        }
 
+        }
+        $img->image_resize = true;
         $img -> process($pathToSaveImg);
         $img_str =  $uniq_img.'.'.$img->image_src_type;
 
@@ -66,7 +66,6 @@ if(!empty($_POST)){
         $img -> image_ratio_x = true;
         $img -> image_y = 75;
         $img -> image_resize = true;
-        $img -> image_ratio_crop = true;
         $img -> process($pathToSaveImg);
         $thumb_str = 'm_'.$uniq_img.'.'.$img->image_src_type;
 
