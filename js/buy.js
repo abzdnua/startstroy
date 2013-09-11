@@ -10,46 +10,47 @@ $(document).ready(function(){
         },
         success:function(responseText){
             console.log(responseText)
-            $('body').html(responseText)
+//            $('body').html(responseText)
 
-//            responseText = $.parseJSON(responseText)
-//
-//
-//
-//
-//            if(!responseText['err'])
-//            {
-////                $("<div>Ваш заказ прият<br>Мы свяжемся с Вами в ближайшее время</div>").dialog({
-////                    dialogClass: "style-dialog",
-////                    modal:true,
-////                    width: 500,
-////                    title: "Спасибо",
-////                    resizable:false,
-////                    position: { my: "center", at: "center", of: window },
-////                    open:function(){$('.ui-button').blur(); $(this).css({Height:'auto',minHeight:0})},
-////                    buttons:[
-////                        { text: "OK", click: function() {
-////                            $(this).dialog( "close" );
-////                        } }]
-////                })
-//
-//            }
-//            else
-//            {
-//                $("<div>"+responseText['err']+"</div>").dialog({
-//                    dialogClass: "style-dialog",
-//                    modal:true,
-//                    width: 500,
-//                    title: "Ошибка",
-//                    resizable:false,
-//                    position: { my: "center", at: "center", of: window },
-//                    open:function(){$('.ui-button').blur(); $(this).css({Height:'auto',minHeight:0})},
-//                    buttons:[
-//                        { text: "OK", click: function() {
-//                            $(this).dialog( "close" );
-//                        } }]
-//                })
-//            }
+            responseText = $.parseJSON(responseText)
+
+
+
+
+            if(!responseText['err'])
+            {
+                $("<div>Ваш заказ прият<br>Мы свяжемся с Вами в ближайшее время</div>").dialog({
+                    dialogClass: "style-dialog",
+                    modal:true,
+                    width: 500,
+                    title: "Спасибо",
+                    resizable:false,
+                    position: { my: "center", at: "center", of: window },
+                    open:function(){$('.ui-button').blur(); $(this).css({Height:'auto',minHeight:0})},
+                    buttons:[
+                        { text: "OK", click: function() {
+                            $(this).dialog( "close" );
+                            location.href="/"
+                        } }]
+                })
+
+            }
+            else
+            {
+                $("<div>"+responseText['err']+"</div>").dialog({
+                    dialogClass: "style-dialog",
+                    modal:true,
+                    width: 500,
+                    title: "Ошибка",
+                    resizable:false,
+                    position: { my: "center", at: "center", of: window },
+                    open:function(){$('.ui-button').blur(); $(this).css({Height:'auto',minHeight:0})},
+                    buttons:[
+                        { text: "OK", click: function() {
+                            $(this).dialog( "close" );
+                        } }]
+                })
+            }
         }
     }
 

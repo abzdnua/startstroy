@@ -189,6 +189,7 @@
 		
 		/** функция возвращает результат запроса query() в виде массива */
 		public function getArray(){
+            $result = array();
 		    if ($this -> _result){
 		        while ($row = mysql_fetch_assoc($this -> _result)){
 		            $result[] = $row;

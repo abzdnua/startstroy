@@ -39,6 +39,11 @@ if(isset($_POST))
 
 
     $mess  = '<table style="width:615px; background: #fff; padding: 10px; color:#333; border-collapse:collapse" border="1">';
+    $mess  .= '<tr>
+        <td align="left" style="border-right:none"><br><a href="'.$_SERVER['SERVER_NAME'].'"><img src="'.$_SERVER['SERVER_NAME'].'/img/logo.png" alt="Logo" title="На главную"></a><br><br></td>
+        <td align="right" style="border-left:none;color: #92000a;font: bold 18px/22px arial;">+380 (95) 384-89-99<br>+380 (66) 908-66-63</td>
+    </tr>';
+
     $mess .= '<tr>';
     $mess .= '<td colspan="2" style="font-weight: bold">Заказ № '.$idGen.'</td>';
     $mess .= '</tr>';
@@ -49,7 +54,7 @@ if(isset($_POST))
 
     $mess .= '<tr>';
     $mess .= '<td style="width:200px">Наименование</td>';
-    $mess .= '<td style="width:200px"><img src="'.$path.'/img/product/'.$p->get_img().'" style="float:left" >'.$p->get_name().'</td>';
+    $mess .= '<td style="width:200px"><img src="'.$_SERVER['SERVER_NAME'].'/img/product/'.$p->get_img().'" style="float:left" >'.$p->get_name().'</td>';
     $mess .= '</tr>';
 
     $mess .= '<tr>';
@@ -84,18 +89,33 @@ if(isset($_POST))
     $subject = '=?utf-8?B?'.base64_encode("Заказ").'?=';
     $headers = "Content-type: text/html; charset=utf-8 \r\n";
     $headers .= 'From:' .'=?utf-8?B?'.base64_encode("StartStroy ").'?='. '<support@startstroy.com.ua>' . "\r\n" ;
-//    mail('abz@inbox.ru', $subject, $mess, $headers);
+    mail('abz@inbox.ru', $subject, $mess, $headers);
     if($email) mail($email, $subject, $mess, $headers);
     mail('artygeneration@gmail.com', $subject, $mess, $headers);
-
+    echo json_encode(array('err'=>''));
 //    $sms = new sms();
 //    $sms->setLogin('stockclock');
 //    $sms->setPass('+380501327370');
 //    if($sms->auth())
 //    {
-//        $sms->sendsms('stock-clock','+380501327370','Заказ с сайта на покупку часов. Проверьте почту');
-//        $sms->sendsms('stock-clock','+380954570088','Заказ с сайта на покупку часов. Проверьте почту');
-//        $sms->sendsms('stock-clock',$phone,'Спасибо за заказ! Ожидайте звонка менеджера');
+//        $sms->sendsms('StartStroy','+380501327370','Заказ с сайта на покупку часов. Проверьте почту');
+//        $sms->sendsms('StartStroy','+380954570088','Заказ с сайта на покупку часов. Проверьте почту');
+//        if(date('G') >= 10 and date('G') < 18)
+//    {
+//        $textUser = "Заказ №".$idGen."\nОжидайте звонка менеджера\nБлагодарим за покупку";
+//    }
+//else
+//    {
+//        if(date('G') >= 5 and date('G') < 10)
+//        {
+//            $textUser = "Заказ №".$idGen."\nОжидайте звонка менеджера после 10:00\nБлагодарим за покупку";//"Спасибо за Вашу заявку №$idGen\nМы свяжемся с Вами после 10:00.";
+//        }
+//        else
+//        {
+//            $textUser = "Заказ №".$idGen."\nОжидайте звонка менеджера завтра после 10:00\nБлагодарим за покупку";//"Спасибо за Вашу заявку №$idGen\nМы свяжемся с Вами завтра после 10:00.";
+//        }
+//    }
+//    $sms -> sendsms('StartStroy',$phone,$textUser);
 //    }
 //    if($a)
 //    {
