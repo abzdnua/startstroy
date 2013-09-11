@@ -757,7 +757,7 @@ h1
 }
 .page_partner ul li
 {
-    cursor: pointer;
+    /*cursor: pointer;*/
 }
 .page_partner ul li a
 {
@@ -765,7 +765,8 @@ h1
     font-size: 24px;
     color: #e21e23;
     text-align: left;
-    line-height: 43px
+    line-height: 43px;
+    cursor: pointer;
 }
 
 
