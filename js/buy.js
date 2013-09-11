@@ -1,13 +1,23 @@
 $(document).ready(function(){
-    $('[name=phone]').mask('+38 (999) 999 99 99',{completed:function(){
-        if($(this).val().indexOf('_')==-1){
-            $.post('lib/getClient.php',{phone:$(this).val()},function(data){
+    function client(){
+        if($('[name=phone]').val().indexOf('_')==-1){
+            $.post('lib/getClient.php',{phone:$('[name=phone]').val()},function(data){
                 data = $.parseJSON(data)
                 if($('[name=name]').val().length==0)$('[name=name]').val(data['name'])
                 if($('[name=email]').val().length==0)$('[name=email]').val(data['email'])
             })
         }
+    }
+    $('[name=phone]').mask('+38 (999) 999 99 99',{completed:function(){
+        client()
     }})
+    $(document).on('paste','[name=phone]',function(){
+        console.log($(this).val())
+        client()
+    })
+    $('[name=phone]').on('contextmenu',function(){
+        return false
+    })
 
 
     var order = {

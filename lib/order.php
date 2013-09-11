@@ -53,8 +53,8 @@ if(isset($_POST))
     $mess .= '</tr>';
 
     $mess .= '<tr>';
-    $mess .= '<td style="width:200px">Наименование</td>';
-    $mess .= '<td style="width:200px"><img src="http://'.$_SERVER['SERVER_NAME'].'/img/products/'.((is_file($_SERVER['DOCUMENT'].'/img/products/m_'.$p->get_img()))?'m_'.$p->get_img():'no_prod_min.png').'" style="float:left" >'.$p->get_name().'</td>';
+    $mess .= '<td style="width:200px">Товар</td>';
+    $mess .= '<td style="width:200px"><img src="http://'.$_SERVER['SERVER_NAME'].'/img/products/'.((is_file($_SERVER['DOCUMENT'].'/img/products/m_'.$p->get_img()))?'m_'.$p->get_img():'no_prod_min.png').'" style="float:left" ><div style="clear:both"></div>'.$p->get_name().'</td>';
     $mess .= '</tr>';
 
     $mess .= '<tr>';
