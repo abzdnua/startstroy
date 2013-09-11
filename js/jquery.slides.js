@@ -17,12 +17,14 @@
         effect: "slide"
       },
       play: {
-        active: false,
+        active: true,
         effect: "slide",
         interval: 5000,
-        auto: false,
+        auto: true,
+
+
         swap: true,
-        pauseOnHover: false,
+        pauseOnHover: true,
         restartDelay: 2500
       },
       effect: {
@@ -180,14 +182,14 @@
           }).appendTo(paginationItem);
           return paginationLink.click(function(e) {
             e.preventDefault();
-            _this.stop(true);
+           // _this.stop(true);
             return _this.goto(($(e.currentTarget).attr("data-slidesjs-item") * 1) + 1);
           });
         });
       }
-      $(window).bind("resize", function() {
+     /* $(window).bind("resize", function() {
         return _this.update();
-      });
+      });*/
       this._setActive();
       if (this.options.play.auto) {
         this.play();

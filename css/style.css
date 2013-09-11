@@ -1945,3 +1945,13 @@ width: inherit;
 {
     cursor: default !important;
 }
+.footer_bot2 .f_l a
+{
+    color:#333333 !important;
+    text-decoration: none;
+}
+.page_delivery .normal a
+{
+    color: #333333;
+    text-decoration: none !important;
+}
