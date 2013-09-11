@@ -265,6 +265,21 @@ class db_manager
         }
         return $out;
     }
+public function getTopProducts($from=0, $count=0, $cat=null){
+        $db = $this->_db;
+        $lim = ($count!=0)? "LIMIT ".$from.', '.$count:"";
+        $sql = "SELECT id FROM products WHERE top =1 AND `show` = 1 AND deleted = 0 {$lim}";
+        $db->query($sql);
+        $out = array();
+        $cats = $db->getArray();
+        if(count($cats)>0){
+            foreach($cats as $cat){
+                $tmp =  new product($cat['id']);
+                array_push($out,$tmp);
+            }
+        }
+        return $out;
+    }
     public function getAllBanners(){
         $db = $this->_db;
         $sql = "SELECT id FROM banners WHERE deleted = 0 AND `show`=1 ";
