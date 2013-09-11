@@ -9,6 +9,7 @@ $pathToSaveImg = $root.'/img/products/';
 $db = db::getInstance();
 
 if(!empty($_POST)){
+
     $img_str = $_POST['product_img_val'];
     if(!empty($_FILES['product_img']['name'])!=''){
         if($_FILES['product_img']['size']/1024/1024>ini_get('upload_max_filesize')){
