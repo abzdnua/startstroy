@@ -1941,3 +1941,7 @@ width: inherit;
     width: 73px;
     margin-right: 0;
 }
+.article_more .vert_al img
+{
+    cursor: default !important;
+}
