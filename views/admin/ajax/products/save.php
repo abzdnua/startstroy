@@ -57,6 +57,7 @@ if(!empty($_POST)){
         $img = new Upload($_FILES['product_img']);
         if(($img->file_src_size/1024/1024>ini_get('upload_max_filesize'))or ($img->image_src_x < 330) or ($img->image_src_y < 330)){
 
+            $db->query("DELETE FROM products WHERE id={$id}");
             echo "\nЗагружаемое изображение должно быть не менее 330px по большей стороне и не более ".ini_get('upload_max_filesize');
             exit();
         }

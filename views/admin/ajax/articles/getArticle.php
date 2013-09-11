@@ -40,7 +40,8 @@ echo '
                                 </tr>
 
                                 <tr>
-                                    <td align="right">Изображение<span class="required">*</span></td>
+                                    <td align="right">Изображение<span class="required">*</span>
+                                    <div class="silver">Изображение размером 640*360рх</div></td>
                                     <td style="width: 350px"><input type="file" style="width: 100%"name="article_img">
                                         <input type="hidden" name="article_img_val" value="'.$art['img'].'">
                                         <img id="id_img_edit_img" style="width:600px" src="/img/articles/'.$art['img'].'"/>
@@ -48,7 +49,8 @@ echo '
 
                                 </tr>
                                 <tr>
-                                    <td align="right">Превью</td>
+                                    <td align="right">Превью
+                                    <div class="silver">Изображение размером не менее 311*175рх</div></td>
                                     <td style="width: 350px"><input type="file" style="width: 100%"name="article_thumb">
                                                        <input type="hidden" name="article_thumb_val" value="'.$art['thumb'].'">
                                         <img id="id_img_edit"  src="/img/articles/'.$art['thumb'].'"/>

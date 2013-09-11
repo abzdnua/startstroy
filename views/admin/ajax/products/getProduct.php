@@ -28,7 +28,7 @@ echo '
                                 <tr>
                                     <td align="right">Название<span class="required">*</span></td>
                                     <td style="width: 635px"><input type="text" style="width: 100%"name="product_name" value="'.$art['name'].'"></td>
-                                    <td style="vertical-align:middle" rowspan="11"><button type="button" name="save">Сохранить</button> </td>
+                                    <td style="vertical-align:middle;width:85px" rowspan="11"><button type="button" name="save">Сохранить</button> </td>
                                 </tr>
                                 <tr>
                                     <td align="right">Отображать на сайте</td>
@@ -48,7 +48,8 @@ echo '
                                     <td style="width: 350px"><input type="text" style="width: 100%"name="product_priceforsale" value="'.$art['priceForSale'].'"></td>
                                 </tr>
                                 <tr>
-                                    <td align="right">Изображение<span class="required">*</span></td>
+                                    <td align="right">Изображение<span class="required">*</span>
+                                    <div class="silver">Изображение должно быть не менее 330px по большей стороне и не более '.ini_get('upload_max_filesize').'</div></td>
                                     <td style="width: 350px"><input type="file" style="width: 100%"name="product_img" >
                                         <input type="hidden" name="product_img_val" value="'.$art['img'].'"/>
                                         <img id="id_img_edit_img" src="/img/products/'.$art['img'].'"/>

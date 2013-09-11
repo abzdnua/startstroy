@@ -20,7 +20,7 @@ if($_POST){
             <tr>
                 <td align="right">Название<span class="required">*</span></td>
                 <td style="width: 630px"><input type="text" style="width: 100%"name="partner_name" value="'.$p['name'].'"></td>
-                <td style="vertical-align:middle" rowspan="5"><button type="button" name="save">Сохранить</button> </td>
+                <td style="vertical-align:middle;width:85px" rowspan="5"><button type="button" name="save">Сохранить</button> </td>
             </tr>
             <tr>
                 <td align="right">Отображать на сайте</td>
@@ -32,7 +32,8 @@ if($_POST){
                 <td style="width: 350px"><textarea rows=3 style="width: 100%"name="partner_des">'.$p['des'].'</textarea></td>
             </tr>
             <tr>
-                <td align="right">Картинка<span class="required">*</span></td>
+                <td align="right">Изображение<span class="required">*</span>
+                <div class="silver">Изображение размером 180*51рх</div></td>
                 <td style="width: 350px"><input type="file" style="width: 100%"name="partner_img">
                     <input type="hidden" name="partner_img_val" value="'.$p['img'].'">
                     <img id="id_img_edit" src="/img/partners/'.$p['img'].'"/>

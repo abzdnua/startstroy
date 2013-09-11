@@ -9,7 +9,7 @@ $ban = $db->getRow();
     $checked = ($ban['show'] == 1)?' checked':'';
 
 echo '
- <td colspan="6" style="padding: 10px;">
+ <td colspan="8" style="padding: 10px;">
                         <div style="font:10pt Verdana;">Редактирование баннера</div>
                         <div class="silver">Поля отмеченные <span class="required">*</span> обязательны к заполнению</div>
                         <form method="post">
@@ -18,7 +18,7 @@ echo '
                                 <tr>
                                     <td align="right">Строка 1<span class="required">*</span></td>
                                     <td style="width: 630px"><input type="text" style="width: 100%" name="str1" value="'.$ban['firstStr'].'"></td>
-                                    <td style="vertical-align:middle" rowspan="5"><button type="button" name="save">Сохранить</button> </td>
+                                    <td style="vertical-align:middle;width:85px" rowspan="5"><button type="button" name="save">Сохранить</button> </td>
                                 </tr>
                                 <tr>
                                     <td align="right">Строка 2</td>
@@ -36,9 +36,10 @@ echo '
 
                                 </tr>
                                 <tr>
-                                    <td align="right">Изображение<span class="required">*</span></td>
+                                    <td align="right">Изображение<span class="required">*</span>
+                                    <div class="silver">Изображение размером 1024*360рх</div></td>
                                     <td style="width: 350px"><input type="file" style="width: 100%" name="banner_img">
-                                    <img src="/img/banners/'.$ban['img'].'" style="width:600px"/>
+                                    <img src="/img/banner/'.$ban['img'].'" style="width:600px"/>
                                     <input type="hidden" name="banner_img_val" value="'.$ban['img'].'">
                                     </td>
 
