@@ -99,7 +99,7 @@ if(isset($_POST))
     if($sms->auth())
     {
 //        $sms->sendsms('StartStroy','','Заказ с сайта на покупку часов. Проверьте почту');
-        $sms->sendsms('StartStroy','+380954570088','Новый заказ на сайте. Проверьте почту');
+        $sms->sendsms('abz.dn.ua','+380954570088','Новый заказ на сайте. Проверьте почту');
         if(date('G') >= 10 and date('G') < 18)
     {
         $textUser = "Заказ №".$idGen."\nОжидайте звонка менеджера\nБлагодарим за покупку";
@@ -113,7 +113,7 @@ if(isset($_POST))
             $textUser = "Заказ №".$idGen."\nОжидайте звонка менеджера завтра после 10:00\nБлагодарим за покупку";//"Спасибо за Вашу заявку №$idGen\nМы свяжемся с Вами завтра после 10:00.";
         }
     }
-    $sms -> sendsms('StartStroy',$phone,$textUser);
+    $sms -> sendsms('abz.dn.ua',$phone,$textUser);
     }
     echo json_encode(array('err'=>''));
 }
