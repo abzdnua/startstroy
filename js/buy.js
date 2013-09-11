@@ -12,8 +12,10 @@ $(document).ready(function(){
         client()
     }})
     $(document).on('paste','[name=phone]',function(){
-        console.log($(this).val())
-        client()
+        setTimeout(function(){
+            client()
+        },100)
+
     })
     $('[name=phone]').on('contextmenu',function(){
         return false
