@@ -35,7 +35,7 @@ $(document).ready(function(){
             $.post('/views/admin/ajax/categories/getCategory.php',{id:$(this).data('id')},function(data){
 //                alert(data)
                 $('#form').replaceWith(data)
-                $('#form').show()
+                $('#form').show().focus()
             })
 
 

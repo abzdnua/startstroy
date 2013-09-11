@@ -31,7 +31,7 @@ $(document).ready(function(){
                 $(this).parents('form').ajaxSubmit(data)
             }
         }).on('click','.edit',function(){
-            $('#form').show()
+            $('#form').show().focus()
             $('[name=id]').val($(this).data('id'))
             $('[name=firm_name]').val($(this).data('name'))
             $('#editor_title').text('Редактирование производителя')

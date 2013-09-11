@@ -50,7 +50,7 @@ $(document).ready(function(){
         }).on('click','.edit',function(){
             $.post('/views/admin/ajax/banner_main/getArticle.php',{id:$(this).data('id')},function(data){
 //                alert(data)
-                $('#form').html(data).show()
+                $('#form').html(data).show().focus()
             })
 
 
