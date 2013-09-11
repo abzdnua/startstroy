@@ -72,7 +72,7 @@ if(!empty($_POST)){
                 name = '{$name}',
                 des = '{$des}',
                 price = {$price},
-                img = '{$img_str}'
+                img = '{$img_str}',
                 priceForSale = {$priceForSale},
                 category_id = {$category_id},
                 subCategory_id = {$subcategory_id},
