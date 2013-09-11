@@ -39,7 +39,7 @@ $(document).ready(function(){
 
             if(!responseText['err'])
             {
-                $("<div>Ваш заказ прият<br>Мы свяжемся с Вами в ближайшее время</div>").dialog({
+                $("<div>Ваш заказ принят<br>Мы свяжемся с Вами в ближайшее время</div>").dialog({
                     dialogClass: "style-dialog",
                     modal:true,
                     width: 500,
@@ -47,6 +47,7 @@ $(document).ready(function(){
                     resizable:false,
                     position: { my: "center", at: "center", of: window },
                     open:function(){$('.ui-button').blur(); $(this).css({Height:'auto',minHeight:0})},
+                    close:function(){location.href="/"},
                     buttons:[
                         { text: "OK", click: function() {
                             $(this).dialog( "close" );
