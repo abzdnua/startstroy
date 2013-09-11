@@ -1,5 +1,13 @@
 $(document).ready(function(){
-    $('[name=phone]').mask('+38 (999) 999 99 99')
+    $('[name=phone]').mask('+38 (999) 999 99 99',{completed:function(){
+        if($(this).val().indexOf('_')==-1){
+            $.post('lib/getClient.php',{phone:$(this).val()},function(data){
+                data = $.parseJSON(data)
+                if($('[name=name]').val().length==0)$('[name=name]').val(data['name'])
+                if($('[name=email]').val().length==0)$('[name=email]').val(data['email'])
+            })
+        }
+    }})
 
 
     var order = {
@@ -89,4 +97,6 @@ $(document).ready(function(){
         $('[name=order]').ajaxSubmit(order)
         return false;
     })
+
+
 })

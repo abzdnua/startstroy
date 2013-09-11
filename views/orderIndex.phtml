@@ -50,14 +50,14 @@ $product = new product($id);
         <form name="order" method="post" >
             <input type="hidden" name="prod_id" value="<?=$product->get_id()?>"/>
    <div class="f_l" style="margin-right: 29px">
-
+       <input type="text" name="phone"/>
+       <p>* Телефон:</p><br>
+       <div class="clr"></div>
        <input type="text" name="name"/>
          <p>* Ваше имя:</p>
 
        <div class="clr"></div>
-       <input type="text" name="phone"/>
-        <p>* Телефон:</p><br>
-       <div class="clr"></div>
+
 
        <input type="text" name="email"/>
         <p>E-mail:</p>
