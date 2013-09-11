@@ -18,7 +18,7 @@ echo '
                                 <tr>
                                     <td align="right">Название<span class="required">*</span></td>
                                     <td style="width: 630px"><input type="text" value="'.$obj['name'].'" style="width: 100%"name="objects_name"></td>
-                                    <td style="vertical-align:middle" rowspan="4"><button type="button" name="save">Сохранить</button> </td>
+                                    <td style="vertical-align:middle;width:85px" rowspan="4"><button type="button" name="save">Сохранить</button> </td>
                                 </tr>
                                 <tr>
                                     <td align="right">Отображать</td>

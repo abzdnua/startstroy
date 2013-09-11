@@ -23,7 +23,7 @@ if(!empty($_POST)){
                 name = '{$name}',
                 objectDate = '{$dateObject}',
                 userUpdate = {$user},
-                  `show` = '{$show}',
+                  `show` = {$show},
                 dateUpdate = '{$date}'
                 WHERE id = {$id}";
     //    echo "error: ".$sql;
@@ -31,9 +31,9 @@ if(!empty($_POST)){
 
     }else{
         $sql = "INSERT INTO objects
-                (name,objectDate,userCreate,`show`,dateCreate)
+                (name,objectDate,`show`,userCreate,dateCreate)
                 VALUES
-                ('{$name}','{$dateObject}','{$show}',{$user},'{$date}')";
+                ('{$name}','{$dateObject}',{$show},{$user},'{$date}')";
 //       echo "error: ".$sql;
         $db->query($sql);
         $id = $db->last();
