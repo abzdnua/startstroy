@@ -26,7 +26,7 @@ $product = new product($id);
 
 
 
-            <div class="img"><div><img src="../img/products/<?=(is_file($_SERVER['DOCUMENT_ROOT'].'/img/products/m_'.$prod->get_img()))?'m_'.$prod->get_img():'no_prod_min.png';?>"/></div></div>
+            <div class="img"><div><img src="../img/products/<?=(is_file($_SERVER['DOCUMENT_ROOT'].'/img/products/m_'.$product->get_img()))?'m_'.$product->get_img():'no_prod_min.png';?>"/></div></div>
             <div class="text"><?=$product->get_name()?></div>
 
               <div class="price_block">

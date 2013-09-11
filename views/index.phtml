@@ -111,7 +111,7 @@ if (count($products) > 0)
     foreach($products as $item) {?>
     <li <? echo ($i%4==1)?'class="no_mar_left"':''?>>
         <a href="catalog/product/<? echo $DLL->linkInBD($item->get_name(),$item->get_id())?>">
-            <div class="max_height">   <div class="img"><div><img src="../img/products/<?=(is_file($_SERVER['DOCUMENT_ROOT'].'/img/products/m_'.$prod->get_img()))?'m_'.$prod->get_img():'no_prod_min.png';?>"/></div></div></div>
+            <div class="max_height">   <div class="img"><div><img src="../img/products/<?=(is_file($_SERVER['DOCUMENT_ROOT'].'/img/products/m_'.$item->get_img()))?'m_'.$item->get_img():'no_prod_min.png';?>"/></div></div></div>
             <div class="text"><? echo $item->get_name()?></div>
 
             <div class="price_block">
