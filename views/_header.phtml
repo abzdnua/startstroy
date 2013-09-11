@@ -29,6 +29,7 @@ $db = db::getInstance();
                                         WHERE c.id = p.category_id
                                         AND c.deleted =0
                                         AND p.deleted =0
+                                        AND p.`show` = 1
                                         GROUP BY c.id
                                         ORDER BY c.col ASC, c.row ASC");
                          $menu = $db->getArray();
@@ -56,6 +57,7 @@ $db = db::getInstance();
                                         AND c.parent_id = {$item['cname']}
                                         AND c.deleted =0
                                         AND p.deleted =0
+                                        AND p.`show` = 1
                                         GROUP BY c.id");
                                 $subMenu = $db->getArray();
                                 foreach($subMenu as $subItem){?>
