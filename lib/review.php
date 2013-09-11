@@ -18,13 +18,13 @@ if($_POST)
         $uniq_img = uniqid();
         $img -> file_new_name_body = 'm_'.$uniq_img;
         $img -> jpeg_quality = 100;
-        echo json_encode(array('err'=>$img->image_src_x));
-        echo json_encode(array('err2'=>$img->image_src_y));
+//        echo json_encode(array('err'=>$img->image_src_x));
+//        echo json_encode(array('err2'=>$img->image_src_y));
         if($img->image_src_x > 80 or $img->image_src_y > 80){
             if($img->image_src_x <= $img->image_src_y){
                 if($img -> image_src_y*(80/$img -> image_src_x) > 80){
                     $crop = $img -> image_src_y*(80/$img -> image_src_x) - 80;
-                    echo json_encode(array('errz'=>$crop));
+//                    echo json_encode(array('errz'=>$crop));
                     $img->image_crop = ($crop/2).' 0 '.(($crop/2)+1).' 0';
 
                 }
@@ -33,7 +33,7 @@ if($_POST)
             }else{
                 if($img -> image_src_x*(80/$img -> image_src_y) > 80){
                     $crop = $img -> image_src_x*(80/$img -> image_src_y) - 80;
-                    echo json_encode(array('errq'=>$crop));
+//                    echo json_encode(array('errq'=>$crop));
                     $img->image_crop = '0 '.($crop/2).' 0 '.(($crop/2)+1);
 
                 }

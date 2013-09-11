@@ -40,8 +40,8 @@ if(isset($_POST))
 
     $mess  = '<table style="width:615px; background: #fff; padding: 10px; color:#333; border-collapse:collapse" border="1">';
     $mess  .= '<tr>
-        <td align="left" style="border-right:none"><br><a href="'.$_SERVER['SERVER_NAME'].'"><img src="'.$_SERVER['SERVER_NAME'].'/img/logo.png" alt="Logo" title="На главную"></a><br><br></td>
-        <td align="right" style="border-left:none;color: #92000a;font: bold 18px/22px arial;">+380 (95) 384-89-99<br>+380 (66) 908-66-63</td>
+        <td align="left" style="border-right:none"><br><a href="http://'.$_SERVER['SERVER_NAME'].'"><img src="http://'.$_SERVER['SERVER_NAME'].'/img/logo.png" alt="Logo" title="На главную"></a><br><br></td>
+        <td align="right" style="border-left:none;font: bold 18px/22px arial;">+380 (95) 384-89-99<br>+380 (66) 908-66-63</td>
     </tr>';
 
     $mess .= '<tr>';
@@ -54,7 +54,7 @@ if(isset($_POST))
 
     $mess .= '<tr>';
     $mess .= '<td style="width:200px">Наименование</td>';
-    $mess .= '<td style="width:200px"><img src="'.$_SERVER['SERVER_NAME'].'/img/product/'.$p->get_img().'" style="float:left" >'.$p->get_name().'</td>';
+    $mess .= '<td style="width:200px"><img src="http://'.$_SERVER['SERVER_NAME'].'/img/product/'.$p->get_img().'" style="float:left" >'.$p->get_name().'</td>';
     $mess .= '</tr>';
 
     $mess .= '<tr>';
