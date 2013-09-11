@@ -9,6 +9,7 @@ $pathToSaveImg = $root.'/img/products/';
 $db = db::getInstance();
 
 if(!empty($_POST)){
+    set_time_limit(0);
     $img_str = $_POST['product_img_val'];
     if(!empty($_FILES['product_img']['name'])!=''){
         if($_FILES['product_img']['size']/1024/1024>ini_get('upload_max_filesize')){
@@ -16,7 +17,7 @@ if(!empty($_POST)){
             echo "\nЗагружаемое изображение должно быть не менее 330px по большей стороне и не более ".ini_get('upload_max_filesize');
             exit();
         }
-        set_time_limit(0);
+
         $img = new Upload($_FILES['product_img']);
         if(($img->file_src_size/1024/1024>ini_get('upload_max_filesize'))or ($img->image_src_x>$img->image_src_y and $img->image_src_x < 330) or ($img->image_src_x<$img->image_src_y and $img->image_src_y < 330)){
 
