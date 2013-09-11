@@ -15,6 +15,9 @@ if($_POST)
     $review = $_POST['review'];
     if(!empty($_FILES['upload']['name'])!=''){
         $img = new Upload($_FILES['upload']);
+        if($img->image_src_x < 80 or $img->image_src_y < 80){
+            echo json_encode(array('err'=>'Изображение должно быть не менее 80*80рх'));
+        }
         $uniq_img = uniqid();
         $img -> file_new_name_body = 'm_'.$uniq_img;
         $img -> jpeg_quality = 100;

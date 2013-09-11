@@ -55,6 +55,12 @@ $(document).ready(function(){
     }
 
     $('#make_order').on('click',function(){
+        var th = $(this)
+        if(th.hasClass('disabled')){
+            return false;
+        }
+        th.addClass('disabled')
+//        console.log('sd')
         var error = ""
         if($('[name=name]').val()=='')
             error +='Поле "Ваше имя" не может быть пустым<br>'
@@ -76,8 +82,10 @@ $(document).ready(function(){
                         } }]
                 }
             )
+            th.removeClass('disabled')
             return false;
         }
+
         $('[name=order]').ajaxSubmit(order)
         return false;
     })

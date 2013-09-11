@@ -43,10 +43,16 @@ $(function(){
                         } }]
                 })
             }
+            $('#add_rw').removeClass('disabled')
         }
     }
 
-    $('#add_rw_full , #add_rw').live('click', function(){
+    $('#add_rw').live('click', function(){
+        var th = $(this)
+        if(th.hasClass('disabled')){
+            return false;
+        }
+        th.addClass('disabled')
         var error = ""
         if($('[name=name]').val()=='')
             error +='Поле "Ваше имя" не может быть пустым<br>'
@@ -68,6 +74,7 @@ $(function(){
                     } }]
             }
         )
+            th.removeClass('disabled')
             return false;
         }
         $('[name=review_full]').ajaxSubmit(review)
