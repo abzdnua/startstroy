@@ -26,7 +26,8 @@ $(document).ready(function(){
             url:"views/admin/ajax/reviews/getReview.php",
             data:{id:id},
             success:function(data){
-                    $('#form').html(data).show().focus()
+                    $('#form').html(data).show()
+                $(window).scrollTop(0)
 
 
             }

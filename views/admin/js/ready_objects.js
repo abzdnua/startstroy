@@ -64,7 +64,8 @@ $(document).ready(function(){
 //                alert(data)
 
                 $('#form').replaceWith(data)
-                $('#form').show().focus()
+                $('#form').show()
+                $(window).scrollTop(0)
                 $('[name=objects_date]').mask('9999-99-99').datepicker();
             })
 

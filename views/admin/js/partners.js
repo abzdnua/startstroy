@@ -45,7 +45,8 @@ $(document).ready(function(){
             }
         }).on('click','.edit',function(){
             $.post('/views/admin/ajax/partners/getPartner.php',{id:$(this).data('id')},function(data){
-                $('#form').html(data).show().focus()
+                $('#form').html(data).show()
+                $(window).scrollTop(0)
             })
 
 
