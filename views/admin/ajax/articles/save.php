@@ -42,10 +42,13 @@ if(!empty($_POST)){
 
     if(!empty($_FILES['article_img']['name'])!=''){
         $img = new Upload($_FILES['article_img']);
-
-        if($img->image_src_x != 640 AND $img->image_src_y != 360)
+//echo $img->image_src_x.'  '.$img->image_src_y;
+        if($img->image_src_x != 640 or $img->image_src_y != 360)
         {
-            echo "error: Размер баннера должен быть 640*360";
+
+
+            $db->query("DELETE FROM articles WHERE id = {$id}");
+            echo "Размер изображения должен быть 640px*360px";
             exit();
         }
         $uniq_img = uniqid();
@@ -74,13 +77,16 @@ if(!empty($_POST)){
     if(!empty($_FILES['article_thumb']['name'])!=''){
         $thumb = new Upload($_FILES['article_thumb']);
 
-        if($thumb->image_src_x != 311 AND $thumb->image_src_y != 175)
+        if($thumb->image_src_x < 311 or $thumb->image_src_y < 175)
         {
-            echo "error: Размер баннера должен быть 311*175";
+            echo "Размер превью должен быть не менее 311*175";
             exit();
         }
         $uniq = uniqid();
-
+        $thumb -> image_x = 311;
+        $thumb -> image_y = 175;
+        $thumb -> image_resize = true;
+        $thumb -> image_ratio_crop = true;
         $thumb -> file_new_name_body = $uniq;
         $thumb -> jpeg_quality = 100;
         $thumb -> process($pathToSaveImg);

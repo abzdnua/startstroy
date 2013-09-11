@@ -51,7 +51,7 @@ $char = $db->getArray();
 <br>
             <p class="proce_old"  <?echo ($product->get_price()==0)?"style='display:none'":""?>   ><? echo $product->get_price()?> грн.</p>
             <p class="proce_new  <?echo ($product->get_price()==0)?"":"red"?>"><? echo $product->get_priceForSale()?> грн.</p>
-            <a href="/buy/p/<?=$DLL->linkInBD($product->get_name(),$product->get_id())?>" class="buy">ЗАКАЗАТЬ</a>
+            <a href="/order/p/<?=$DLL->linkInBD($product->get_name(),$product->get_id())?>" class="buy">ЗАКАЗАТЬ</a>
         </div>
     </div>
 

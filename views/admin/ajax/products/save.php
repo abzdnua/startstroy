@@ -44,7 +44,7 @@ if(!empty($_POST)){
                 (name,des,price,priceForSale,category_id,subCategory_id,material_id,firm_id,`show`,userCreate,dateCreate)
                 VALUES
                 ('{$name}','{$des}',{$price},{$priceForSale},{$category_id},{$subcategory_id},{$material_id},{$firm_id},{$show},{$user},'{$date}')";
-       echo "error: ".$sql;
+//       echo $sql;
         $db->query($sql);
         $id = $db->last();
 
@@ -55,23 +55,37 @@ if(!empty($_POST)){
 
     if(!empty($_FILES['product_img']['name'])!=''){
         $img = new Upload($_FILES['product_img']);
+        if(($img->file_src_size/1024/1024>ini_get('upload_max_filesize'))or ($img->image_src_x < 330) or ($img->image_src_y < 330)){
 
-        if($img->image_src_x > 330 AND $img->image_src_y > 330)
-        {
-            echo "error: Размер картинки должен быть 330*330";
+            echo "\nЗагружаемое изображение должно быть не менее 330px по большей стороне и не более ".ini_get('upload_max_filesize');
             exit();
         }
         $uniq_img = uniqid();
 
         $img -> file_new_name_body = $uniq_img;
         $img -> jpeg_quality = 100;
+//        echo $img->image_src_x.' '.$img->image_src_y;
+            if($img->image_src_x>=$img->image_src_y){
+                $img->image_x = 330;
+                $img->image_ratio_y = true;
+            }else{
+                $img->image_y = 330;
+                $img->image_ratio_x = true;
+            }
+//        echo $img->image_x.'  '.$img->image_y;
+        $img->image_resize = true;
         $img -> process($pathToSaveImg);
         $img_str =  $uniq_img.'.'.$img->image_src_type;
 
         $img -> file_new_name_body = 'm_'.$uniq_img;
         $img -> jpeg_quality = 100;
-        $img -> image_x = 180;
-        $img -> image_ratio_y = true;
+        if($img->image_src_x>$img->image_src_y){
+            $img->image_x = 180;
+            $img->image_ratio_y = true;
+        }else{
+            $img->image_y = 180;
+            $img->image_ratio_x = true;
+        }
         $img ->image_resize = true;
         $img -> process($pathToSaveImg);
         $thumb_str = 'm_'.$uniq_img.'.'.$img->image_src_type;
@@ -107,5 +121,5 @@ if(!empty($_POST)){
 }
 else
 {
-    echo 'error: Пустые параметры';
+    echo 'Пустые параметры';
 }

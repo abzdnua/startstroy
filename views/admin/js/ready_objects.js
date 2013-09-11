@@ -8,9 +8,9 @@ $(document).ready(function(){
         $('#form input').val('')
         $('[name=objects_date]').mask('9999-99-99').datepicker();
     }).on('click','[name=save]',function(){
-
+            var th=$(this)
             if($('[name=objects_name]').val()=='')  {
-                $('[name=objects_name]').css('border','1px solid red')
+                $('[name=objects_name]').css('border','1px solid red').focus()
                 return false
             }
 
@@ -19,7 +19,7 @@ $(document).ready(function(){
                 $('[name=objects_name]').css('border','none')
             }
             if($('[name=objects_date]').val()=='')  {
-                $('[name=objects_date]').css('border','1px solid red')
+                $('[name=objects_date]').css('border','1px solid red').focus()
                 return false
             }
 
@@ -28,7 +28,7 @@ $(document).ready(function(){
                 $('[name=objects_date]').css('border','none')
             }
             if($('[name=objects_img_val]').val()=='')  {
-                $('[name=objects_img]').css('color','red')
+                $('[name=objects_img]').css('color','red').focus()
                 return false
             }
             else
@@ -44,17 +44,18 @@ $(document).ready(function(){
                     },
                     success: function(responseText){
                         console.log(responseText)
-                        if(responseText.indexOf('error') == -1)
+                        if(responseText=='')
                         {
                             location.reload();
                         }
                         else{
                             alert(responseText)
+                            th.removeAttr('disabled')
                         }
-                        $(this).removeAttr('disabled')
+
                     }
                 }
-
+                th.attr('disabled',true)
                 $(this).parents('form').ajaxSubmit(data)
                 return false;
             }

@@ -12,6 +12,10 @@ if(!empty($_POST)){
     $user = $_SESSION['userID'];
     $show = ($_POST['show'] == 'on')?1:0;
     $date = date('Y-m-d H:i:s');
+    if(!preg_match("/[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])/",$dateObject)){
+        echo 'Неверная дата';
+        exit();
+    }
 
     if($_POST['id']!=''){
         $id = $_POST['id'];
@@ -42,7 +46,7 @@ if(!empty($_POST)){
 
         if($img->image_src_x > 752 AND $img->image_src_y > 438)
         {
-            echo "error: Размер картинки должен быть  не более 752*438";
+            echo "Размер картинки должен быть  не более 752*438";
             exit();
         }
         $uniq_img = uniqid();
@@ -71,5 +75,5 @@ if(!empty($_POST)){
 }
 else
 {
-    echo 'error: Пустые параметры';
+    echo 'Пустые параметры';
 }
