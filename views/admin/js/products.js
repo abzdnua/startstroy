@@ -112,8 +112,8 @@ $(document).ready(function(){
                 $('#form').replaceWith(data)
                 $('#form').show()
                 $(window).scrollTop(0)
-                $('[name=product_price]').mask('9?99999')
-                $('[name=product_priceforsale]').mask('9?99999')
+//                $('[name=product_price]').mask('9?99999')
+//                $('[name=product_priceforsale]').mask('9?99999')
             })
 
 

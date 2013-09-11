@@ -24,17 +24,17 @@ if($curCat['parent_id'] != 0){
 ?>
 <script>
     $(document).ready(function(){
+        var from = 0
+        var count = 16
         $(document).on('click','.bt_more',function(){
             var th = $(this)
-            var from = th.data('from')
-            var count = th.data('count')
-            var cat = th.data('cat')
             var max = th.data('max')
+            var cat = th.data('cat')
             $.post('/lib/getMoreProducts.php',{from:from, count:count, cat:cat},function(data){
                 console.log(data)
                 $('.product_ul').append(data)
                 if(max>(from+count)){
-                    th.data('from',(from+count))
+                    from +=count
                 }else{
                     th.hide()
                 }
