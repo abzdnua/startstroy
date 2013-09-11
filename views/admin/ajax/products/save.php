@@ -21,6 +21,7 @@ if(!empty($_POST)){
     $material_id = $_POST['material'];
     $firm_id = $_POST['firm'];
     $show = ($_POST['show']=='on')?1:0;
+    $product_img_val = $_POST['product_img_val'];
     if($_POST['id']!=''){
         $id = $_POST['id'];
         $sql = "UPDATE products SET
@@ -41,9 +42,9 @@ if(!empty($_POST)){
 
     }else{
         $sql = "INSERT INTO products
-                (name,des,price,priceForSale,category_id,subCategory_id,material_id,firm_id,`show`,userCreate,dateCreate)
+                (name,des,price,img,priceForSale,category_id,subCategory_id,material_id,firm_id,`show`,userCreate,dateCreate)
                 VALUES
-                ('{$name}','{$des}',{$price},{$priceForSale},{$category_id},{$subcategory_id},{$material_id},{$firm_id},{$show},{$user},'{$date}')";
+                ('{$name}','{$des}',{$price},'{$product_img_val}',{$priceForSale},{$category_id},{$subcategory_id},{$material_id},{$firm_id},{$show},{$user},'{$date}')";
 //       echo $sql;
         $db->query($sql);
         $id = $db->last();
