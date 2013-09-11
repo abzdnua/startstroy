@@ -38,7 +38,7 @@ $char = $db->getArray();
     </div>
 
    <div class="img_tovar">
-      <div><img src="../img/products/<?echo $product->get_img();?>"/></div>
+      <div><img src="../img/products/<?echo (is_file($_SERVER['DOCUMENT_ROOT'].'/img/products/'.$product->get_img()))?$product->get_img():'no_prod.png';?>"/></div>
    </div>
     <div class="tovar_text">
         <p class="title">Тип материала: <? echo $dm->getMaterialName($product->get_material_id())?></p>
