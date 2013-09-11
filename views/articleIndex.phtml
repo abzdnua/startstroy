@@ -75,11 +75,17 @@ if (count($articles) > 0)
     $( document ).ready(function() {
 
         $('.page_article ul li a').hover(
+
             function() {
 
 
                 var height = $(this).find('.more_padding').height()
-
+               if (height <127 )
+               {
+                   $(this).find('.text').stop().animate({opacity:'1'},200)
+                   $(this).find('img').stop().animate({width:'342',height:'191',left:'-19',top:'-10'},300)
+                   return false;
+               }
                $(this).find('.more_padding').stop().animate({top:300-height},500)
                 $(this).find('.text').stop().animate({opacity:'1'},500)
 
