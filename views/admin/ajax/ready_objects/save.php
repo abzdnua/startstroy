@@ -63,7 +63,7 @@ if(!empty($_POST)){
 
         $img -> file_new_name_body = 'm_'.$uniq_img;
         $img -> jpeg_quality = 100;
-        $img -> image_x = 110;
+        $img -> image_ratio_x = true;
         $img -> image_y = 75;
         $img -> image_resize = true;
         $img -> image_ratio_crop = true;

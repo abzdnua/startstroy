@@ -1,5 +1,5 @@
 <?php
-$root = $_SERVER[DOCUMENT_ROOT];
+$root = $_SERVER['DOCUMENT_ROOT'];
 require_once $root.'/lib/class.invis.db.php';
 
 
