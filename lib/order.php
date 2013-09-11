@@ -54,7 +54,7 @@ if(isset($_POST))
 
     $mess .= '<tr>';
     $mess .= '<td style="width:200px">Наименование</td>';
-    $mess .= '<td style="width:200px"><img src="http://'.$_SERVER['SERVER_NAME'].'/img/product/'.$p->get_img().'" style="float:left" >'.$p->get_name().'</td>';
+    $mess .= '<td style="width:200px"><img src="http://'.$_SERVER['SERVER_NAME'].'/img/products/'.((is_file($_SERVER['DOCUMENT'].'/img/products/m_'.$p->get_img()))?'m_'.$p->get_img():'no_prod_min.png').'" style="float:left" >'.$p->get_name().'</td>';
     $mess .= '</tr>';
 
     $mess .= '<tr>';
@@ -99,7 +99,7 @@ if(isset($_POST))
     if($sms->auth())
     {
 //        $sms->sendsms('StartStroy','','Заказ с сайта на покупку часов. Проверьте почту');
-        $sms->sendsms('abz.dn.ua','+380954570088','Новый заказ на сайте. Проверьте почту');
+//        $sms->sendsms('abz.dn.ua','+380954570088','Новый заказ на сайте. Проверьте почту');
         if(date('G') >= 10 and date('G') < 18)
     {
         $textUser = "Заказ №".$idGen."\nОжидайте звонка менеджера\nБлагодарим за покупку";
