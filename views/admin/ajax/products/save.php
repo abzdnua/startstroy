@@ -54,6 +54,7 @@ if(!empty($_POST)){
     }
 
     if(!empty($_FILES['product_img']['name'])!=''){
+        set_time_limit(0);
         $img = new Upload($_FILES['product_img']);
         if(($img->file_src_size/1024/1024>ini_get('upload_max_filesize'))or ($img->image_src_x < 330) or ($img->image_src_y < 330)){
 

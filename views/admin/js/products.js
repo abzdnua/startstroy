@@ -107,7 +107,18 @@ $(document).ready(function(){
                 return false;
             }
         }).on('click','.edit',function(){
-            $.post('/views/admin/ajax/products/getProduct.php',{id:$(this).data('id')},function(data){
+            $.post('/views/admin/ajax/products/getProduct.php',{id:$(this).data('id'), type:'edit'},function(data){
+//                alert(data)
+                $('#form').replaceWith(data)
+                $('#form').show()
+                $('[name=product_price]').mask('9?99999')
+                $('[name=product_priceforsale]').mask('9?99999')
+            })
+
+
+
+        }).on('click','.copy',function(){
+            $.post('/views/admin/ajax/products/getProduct.php',{id:$(this).data('id'),type:'copy'},function(data){
 //                alert(data)
                 $('#form').replaceWith(data)
                 $('#form').show()
