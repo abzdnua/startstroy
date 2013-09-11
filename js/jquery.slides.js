@@ -182,7 +182,7 @@
           }).appendTo(paginationItem);
           return paginationLink.click(function(e) {
             e.preventDefault();
-            _this.stop(true);
+           // _this.stop(true);
             return _this.goto(($(e.currentTarget).attr("data-slidesjs-item") * 1) + 1);
           });
         });
