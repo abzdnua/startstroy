@@ -21,6 +21,7 @@ if(!empty($_POST)){
     $material_id = $_POST['material'];
     $firm_id = $_POST['firm'];
     $show = ($_POST['show']=='on')?1:0;
+    $product_img_val = $_POST['product_img_val'];
     if($_POST['id']!=''){
         $id = $_POST['id'];
         $sql = "UPDATE products SET
@@ -41,9 +42,9 @@ if(!empty($_POST)){
 
     }else{
         $sql = "INSERT INTO products
-                (name,des,price,priceForSale,category_id,subCategory_id,material_id,firm_id,`show`,userCreate,dateCreate)
+                (name,des,price,img,priceForSale,category_id,subCategory_id,material_id,firm_id,`show`,userCreate,dateCreate)
                 VALUES
-                ('{$name}','{$des}',{$price},{$priceForSale},{$category_id},{$subcategory_id},{$material_id},{$firm_id},{$show},{$user},'{$date}')";
+                ('{$name}','{$des}',{$price},'{$product_img_val}',{$priceForSale},{$category_id},{$subcategory_id},{$material_id},{$firm_id},{$show},{$user},'{$date}')";
 //       echo $sql;
         $db->query($sql);
         $id = $db->last();
@@ -54,6 +55,12 @@ if(!empty($_POST)){
     }
 
     if(!empty($_FILES['product_img']['name'])!=''){
+        if($_FILES['product_img']['size']/1024/1024>ini_get('upload_max_filesize')){
+            $db->query("DELETE FROM products WHERE id={$id}");
+            echo "\nЗагружаемое изображение должно быть не менее 330px по большей стороне и не более ".ini_get('upload_max_filesize');
+            exit();
+        }
+        set_time_limit(0);
         $img = new Upload($_FILES['product_img']);
         if(($img->file_src_size/1024/1024>ini_get('upload_max_filesize'))or ($img->image_src_x < 330) or ($img->image_src_y < 330)){
 

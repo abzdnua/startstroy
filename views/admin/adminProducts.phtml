@@ -112,6 +112,7 @@ $product = $db->getArray();
                         <td style="width:20px; height: 25px; vertical-align:middle; font-weight: bold;"></td>
                         <td style="width:20px; height: 25px; vertical-align:middle; font-weight: bold;"></td>
                         <td style="width:20px; height: 25px; vertical-align:middle; font-weight: bold;"></td>
+                        <td style="width:20px; height: 25px; vertical-align:middle; font-weight: bold;"></td>
                     </tr>
                     <?foreach($product as $cat){?>
                     <tr>
@@ -126,7 +127,9 @@ $product = $db->getArray();
                         <td align="center"><img style="width:90px" src="/img/products/m_<?echo $cat['img'];?>"/></td>
                         <td><img src="img/admin/<?=($cat['show'])?"item_show.png":"item_hide.png"?>" title="<?=($cat['show'])?"Отображается":"Скрыт"?>"></td>
                         <td><img src="img/admin/b_edit.png" data-id ="<?=$cat['id']?>" title="Редактировать" style="cursor: pointer" class="edit"></td>
+                        <td><img src="img/admin/copy.png" data-id ="<?=$cat['id']?>" title="Копировать" style="cursor: pointer" class="copy"></td>
                         <td><img src="img/admin/b_drop.png" data-id ="<?=$cat['id']?>" title="Удалить" style="cursor: pointer" class="del"></td>
+
                     </tr>
                 <?}?>
 

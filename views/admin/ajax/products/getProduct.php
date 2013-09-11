@@ -23,7 +23,7 @@ echo '
                         <div id="editor_title" style="margin-bottom:10px;font:10pt Verdana;">Редактирование товара</div>
                         <div class="silver">Поля отмеченные <span class="required">*</span> обязательны к заполнению</div>
                         <form method="post">
-                            <input type="hidden" name="id" value="'.$id.'">
+                            <input type="hidden" name="id" value="'.(($_POST['type']=='edit')?$id:'').'">
                             <table align="center" border="none">
                                 <tr>
                                     <td align="right">Название<span class="required">*</span></td>
