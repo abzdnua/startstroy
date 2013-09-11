@@ -92,36 +92,28 @@ if(isset($_POST))
     mail('abz@inbox.ru', $subject, $mess, $headers);
     if($email) mail($email, $subject, $mess, $headers);
     mail('artygeneration@gmail.com', $subject, $mess, $headers);
+
+    $sms = new sms();
+    $sms->setLogin('abz');
+    $sms->setPass('zayaccool');
+    if($sms->auth())
+    {
+//        $sms->sendsms('StartStroy','','Заказ с сайта на покупку часов. Проверьте почту');
+        $sms->sendsms('StartStroy','+380954570088','Новый заказ на сайте. Проверьте почту');
+        if(date('G') >= 10 and date('G') < 18)
+    {
+        $textUser = "Заказ №".$idGen."\nОжидайте звонка менеджера\nБлагодарим за покупку";
+    }else{
+        if(date('G') >= 5 and date('G') < 10)
+        {
+            $textUser = "Заказ №".$idGen."\nОжидайте звонка менеджера после 10:00\nБлагодарим за покупку";//"Спасибо за Вашу заявку №$idGen\nМы свяжемся с Вами после 10:00.";
+        }
+        else
+        {
+            $textUser = "Заказ №".$idGen."\nОжидайте звонка менеджера завтра после 10:00\nБлагодарим за покупку";//"Спасибо за Вашу заявку №$idGen\nМы свяжемся с Вами завтра после 10:00.";
+        }
+    }
+    $sms -> sendsms('StartStroy',$phone,$textUser);
+    }
     echo json_encode(array('err'=>''));
-//    $sms = new sms();
-//    $sms->setLogin('stockclock');
-//    $sms->setPass('+380501327370');
-//    if($sms->auth())
-//    {
-//        $sms->sendsms('StartStroy','+380501327370','Заказ с сайта на покупку часов. Проверьте почту');
-//        $sms->sendsms('StartStroy','+380954570088','Заказ с сайта на покупку часов. Проверьте почту');
-//        if(date('G') >= 10 and date('G') < 18)
-//    {
-//        $textUser = "Заказ №".$idGen."\nОжидайте звонка менеджера\nБлагодарим за покупку";
-//    }
-//else
-//    {
-//        if(date('G') >= 5 and date('G') < 10)
-//        {
-//            $textUser = "Заказ №".$idGen."\nОжидайте звонка менеджера после 10:00\nБлагодарим за покупку";//"Спасибо за Вашу заявку №$idGen\nМы свяжемся с Вами после 10:00.";
-//        }
-//        else
-//        {
-//            $textUser = "Заказ №".$idGen."\nОжидайте звонка менеджера завтра после 10:00\nБлагодарим за покупку";//"Спасибо за Вашу заявку №$idGen\nМы свяжемся с Вами завтра после 10:00.";
-//        }
-//    }
-//    $sms -> sendsms('StartStroy',$phone,$textUser);
-//    }
-//    if($a)
-//    {
-//        echo json_encode(array('mess' => 'ok'));
-//    }
-
-
-
 }
