@@ -45,6 +45,7 @@ if(!empty($_POST)){
 
         if($img->image_src_x != 1024 AND $img->image_src_y != 360)
         {
+            $db->query("DELETE FROM banners WHERE id = {$id}");
             echo "error: Размер баннера должен быть 1024*360";
             exit();
         }

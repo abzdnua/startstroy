@@ -35,7 +35,7 @@ echo '
                                     <td align="right">Изображение<span class="required">*</span></td>
                                     <td style="width: 350px"><input type="file" style="width: 100%"name="objects_img">
                                         <input type="hidden" name="objects_img_val" value="'.$obj['img'].'">
-                                         <img src="/img/objects/'.$obj['img'].'" width="600"/>
+                                         <img src="/img/objects/'.$obj['img'].'" style="max-width:600px"/>
                                     </td>
 
                                 </tr>

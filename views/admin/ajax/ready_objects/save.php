@@ -43,16 +43,21 @@ if(!empty($_POST)){
 
     if(!empty($_FILES['objects_img']['name'])!=''){
         $img = new Upload($_FILES['objects_img']);
-
-        if($img->image_src_x > 752 AND $img->image_src_y > 438)
-        {
-            echo "Размер картинки должен быть  не более 752*438";
-            exit();
-        }
         $uniq_img = uniqid();
-
         $img -> file_new_name_body = $uniq_img;
         $img -> jpeg_quality = 100;
+        if($img->image_src_x > 752 or $img->image_src_y > 438)
+        {
+            if($img->image_src_x>$img->image_src_y){
+                $img->image_x = 752;
+                $img->image_ratio_y = true;
+            }else{
+                $img->image_y = 438;
+                $img->image_ratio_x = true;
+            }
+            $img->image_resize = true;
+        }
+
         $img -> process($pathToSaveImg);
         $img_str =  $uniq_img.'.'.$img->image_src_type;
 
@@ -60,7 +65,8 @@ if(!empty($_POST)){
         $img -> jpeg_quality = 100;
         $img -> image_x = 110;
         $img -> image_y = 75;
-        $img ->image_resize = true;
+        $img -> image_resize = true;
+        $img -> image_ratio_crop = true;
         $img -> process($pathToSaveImg);
         $thumb_str = 'm_'.$uniq_img.'.'.$img->image_src_type;
 

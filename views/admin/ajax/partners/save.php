@@ -45,6 +45,7 @@ if(!empty($_POST)){
 
         if($img->image_src_x != 180 AND $img->image_src_y != 51)
         {
+            $db->query("DELETE FROM partners WHERE id={$id}");
             echo "error: Размер баннера должен быть 180*51";
             exit();
         }

@@ -34,7 +34,7 @@ $article = $db->getArray();
                                 <tr>
                                     <td align="right">Название<span class="required">*</span></td>
                                     <td style="width: 630px"><input type="text" style="width: 100%"name="article_name"></td>
-                                    <td style="vertical-align:middle" rowspan="6"><button type="button" name="save">Сохранить</button> </td>
+                                    <td style="vertical-align:middle;width:85px" rowspan="6"><button type="button" name="save">Сохранить</button> </td>
                                 </tr>
                                 <tr>
                                     <td align="right">Отображать на сайте</td>
@@ -57,7 +57,8 @@ $article = $db->getArray();
                                 </tr>
 
                                 <tr>
-                                    <td align="right">Изображение<span class="required">*</span></td>
+                                    <td align="right">Изображение<span class="required">*</span>
+                                        <div class="silver">Изображение размером 640*360рх</div></td>
                                     <td style="width: 350px"><input type="file" style="width: 100%"name="article_img">
                                         <input type="hidden" name="article_img_val">
                                         <img id="id_img_edit_img" style="display:none"/>
@@ -65,7 +66,8 @@ $article = $db->getArray();
 
                                 </tr>
                                 <tr>
-                                    <td align="right">Превью</td>
+                                    <td align="right">Превью
+                                        <div class="silver">Изображение размером не менее 311*175рх</div></td>
                                     <td style="width: 350px"><input type="file" style="width: 100%"name="article_thumb">
                                                        <input type="hidden" name="article_thumb_val">
                                         <img id="id_img_edit" style="display:none"/>
