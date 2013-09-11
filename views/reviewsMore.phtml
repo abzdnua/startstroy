@@ -11,7 +11,7 @@ require_once 'class.review.php';
 $db = db::getInstance();
 $dm = new db_manager();
 $rew = new review($id);
-$db->query("SELECT id FROM reviews WHERE `show`=1 AND deleted=0");
+$db->query("SELECT id FROM reviews WHERE `show`=1 AND deleted=0 ORDER BY dateCreate DESC");
 $allReviews = $db->getArray();
 ?>
 

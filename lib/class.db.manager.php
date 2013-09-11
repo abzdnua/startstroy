@@ -310,7 +310,7 @@ public function getTopProducts($from=0, $count=0, $cat=null){
     }
     public function getAllReviewsShow($from,$count){
         $db = $this->_db;
-        $sql = "SELECT id FROM reviews WHERE `show` = 1 AND deleted=0 LIMIT {$from}, {$count}";
+        $sql = "SELECT id FROM reviews WHERE `show` = 1 AND deleted=0  ORDER BY dateCreate DESC LIMIT {$from}, {$count}";
         $db->query($sql);
         $out = array();
         $cats = $db->getArray();
