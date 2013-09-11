@@ -1153,6 +1153,8 @@ background: url(../img/arrow_catalog.png) no-repeat;
     font-weight: 300;
     margin: 27px 0 20px 149px;
 }
+
+
 .title_char span
 {
    color:#e21e23;
@@ -1167,6 +1169,7 @@ background: url(../img/arrow_catalog.png) no-repeat;
     padding-left: 20px;
     padding-bottom: 20px;
     padding-right: 17px;
+    margin-bottom: 23px;
 }
 .buy_block p
 {
