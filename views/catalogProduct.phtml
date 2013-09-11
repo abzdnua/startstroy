@@ -29,8 +29,8 @@ $char = $db->getArray();
     <a href="/catalog/p/<?echo $dm->getCategory_link($product->get_category_id());?>"><?echo $dm->getCategoryName($product->get_category_id());?></a>
         <span></span>
         <a href="/catalog/p/<?echo $dm->getCategory_link($product->get_category_id());?>/<?echo $dm->getCategory_link($product->get_subCategory_id());?>"> <? echo $dm->getSubCategory_name($product->get_subCategory_id())?> </a>
-    <span></span>
-    <p><?echo $product->get_name();?></p>
+   <!--span></span>
+    <p><?echo $product->get_name();?></p-->
 </div>
     <div class="h_50">
         <div class="title_page f_l"><span><?echo $product->get_name();?></span></div>
