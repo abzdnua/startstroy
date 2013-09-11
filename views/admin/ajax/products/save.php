@@ -1,6 +1,6 @@
 <?php
 session_start();
-$root = $_SERVER[DOCUMENT_ROOT];
+$root = $_SERVER['DOCUMENT_ROOT'];
 require_once $root.'/lib/class.dll.php';
 require_once $root.'/lib/class.invis.db.php';
 
@@ -13,7 +13,6 @@ if(!empty($_POST)){
     $img_str = $_POST['product_img_val'];
     if(!empty($_FILES['product_img']['name'])!=''){
         if($_FILES['product_img']['size']/1024/1024>ini_get('upload_max_filesize')){
-            $db->query("DELETE FROM products WHERE id={$id}");
             echo "\nЗагружаемое изображение должно быть не менее 330px по большей стороне и не более ".ini_get('upload_max_filesize');
             exit();
         }
@@ -65,7 +64,7 @@ if(!empty($_POST)){
     $subcategory_id = $_POST['subCategory_id'];
     $material_id = $_POST['material'];
     $firm_id = $_POST['firm'];
-    $show = ($_POST['show']=='on')?1:0;
+    $show = (isset($_POST['show'])=='on')?1:0;
 
     if($_POST['id']!=''){
         $id = $_POST['id'];
