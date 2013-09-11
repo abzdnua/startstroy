@@ -746,7 +746,8 @@ h1
     width: 208px;
     float: left;
     margin-left: 42px;
-    height: 320px;
+   /* height: 320px;*/
+    height: auto;
     margin-bottom: 20px;
     overflow: hidden;
 }
