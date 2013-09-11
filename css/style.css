@@ -1950,3 +1950,8 @@ width: inherit;
     color:#333333 !important;
     text-decoration: none;
 }
+.page_delivery .normal a
+{
+    color: #333333;
+    text-decoration: none !important;
+}
