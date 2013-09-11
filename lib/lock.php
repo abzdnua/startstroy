@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
 if ($_COOKIE['login']) $_SESSION['user_login'] = $_COOKIE['login'];
 if ($_COOKIE['password']) $_SESSION['user_pass'] = $_COOKIE['password'];
 if ($_COOKIE['UID']) $_SESSION['userID']  = $_COOKIE['UID'];
