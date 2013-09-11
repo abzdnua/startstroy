@@ -35,6 +35,10 @@ echo '
                                     <td style="width: 350px"><input type="checkbox" name="show" '.(($art['show'])?"checked=checked":"").'/></td>
                                 </tr>
                                 <tr>
+                                    <td align="right">Отображать на главной</td>
+                                    <td style="width: 350px"><input type="checkbox" name="top" '.(($art['top'])?"checked=checked":"").'/></td>
+                                </tr>
+                                <tr>
                                     <td align="right">Описание</td>
                                     <td style="width: 350px"><textarea rows=3  type="text" style="width: 100%"name="product_des">'.$art['des'].'</textarea></td>
                                 </tr>

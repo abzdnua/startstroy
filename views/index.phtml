@@ -8,7 +8,7 @@ require_once $root."/lib/class.dll.php";
 
 $db = db::getInstance();
 $dm = new db_manager();
-$products = $dm->getAllProducts(0,8);
+$products = $dm->getTopProducts(0,8);
 $banners = $dm->getAllBanners();
 if (count($products) > 0)
 {

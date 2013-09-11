@@ -64,7 +64,8 @@ if(!empty($_POST)){
     $subcategory_id = $_POST['subCategory_id'];
     $material_id = $_POST['material'];
     $firm_id = $_POST['firm'];
-    $show = (isset($_POST['show'])=='on')?1:0;
+    $show = (isset($_POST['show']))?1:0;
+    $top = (isset($_POST['top']))?1:0;
 
     if($_POST['id']!=''){
         $id = $_POST['id'];
@@ -79,6 +80,7 @@ if(!empty($_POST)){
                 material_id = {$material_id},
                 firm_id = {$firm_id},
                 `show` = {$show},
+                `top` = {$top},
                 userUpdate = {$user},
                 dateUpdate = '{$date}'
                 WHERE id = {$id}";
@@ -87,9 +89,9 @@ if(!empty($_POST)){
 
     }else{
         $sql = "INSERT INTO products
-                (name,des,price,img,priceForSale,category_id,subCategory_id,material_id,firm_id,`show`,userCreate,dateCreate)
+                (name,des,price,img,priceForSale,category_id,subCategory_id,material_id,firm_id,`show`,top,userCreate,dateCreate)
                 VALUES
-                ('{$name}','{$des}',{$price},'{$img_str}',{$priceForSale},{$category_id},{$subcategory_id},{$material_id},{$firm_id},{$show},{$user},'{$date}')";
+                ('{$name}','{$des}',{$price},'{$img_str}',{$priceForSale},{$category_id},{$subcategory_id},{$material_id},{$firm_id},{$show},{$top},{$user},'{$date}')";
 //       echo $sql;
         $db->query($sql);
         $id = $db->last();
