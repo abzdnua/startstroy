@@ -27,7 +27,7 @@ if (count($articles) > 0)
 
                 <a href="article/more/<? echo $item->get_id()?>">
                     <div class="block_img">
-                        <img src="../img/articles/<? echo $item->get_thumb()?>"/>
+                        <img src="../img/articles/<?echo (is_file($_SERVER['DOCUMENT_ROOT'].'/img/articles/'.$item->get_thumb()))?$item->get_thumb():'no_prod_min.png';?>"/>
                     </div>
                 <div class="more_padding">
                     <p class="name"><? echo $item->get_name()?></p>

@@ -18,7 +18,7 @@ $allArts = $db->getArray();
     <div class="date_text"><? echo $DLL->getRusDate($date)?></div>
     <div class="img_more">
         <div class="vert_al">
-
+            <img src="../img/articles/<?echo (is_file($_SERVER['DOCUMENT_ROOT'].'/img/articles/'.$art->get_img()))?$art->get_img():'no_prod.png';?>"/>
             <img src="../img/articles/<? echo $art->get_img()?>"/>
         </div>
     </div>
