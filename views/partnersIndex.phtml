@@ -26,7 +26,7 @@ if (count($partners) > 0)
                    <a target="_blank" <? echo ($item->get_link())?'href="'.$item->get_link().'"':''?>  ><img src="../img/partners/<? echo $item->get_img()?>"/></a>
                     </div>
                 </div>
-                <a target="_blank" <? echo ($item->get_link())?'target="_blank" href="'.$item->get_link().'"':''?>  ><? echo $item->get_name()?></a>
+                <? echo ($item->get_link())?'<a target="_blank"  href="'.$item->get_link().'">'.$item->get_name().'</a>':'<span>'.$item->get_name().'</span>'?>
                     <div class="text"><? echo $item->get_des()?></div>
 
             </li>
